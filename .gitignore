@@ -1,0 +1,228 @@
+# Qt/C++ .gitignore
+
+# Qt-specific files
+*.pro.user
+*.pro.user.*
+*.qws
+ui_*.h
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+
+# Qt Creator files
+*.autosave
+*.pro.user
+*.pro.user.*
+CMakeLists.txt.user*
+*.creator
+*.creator.user
+*.includes
+*.files
+*.config
+*.cflags
+*.cxxflags
+
+# Qt MOC/UIC/RCC generated files
+*_moc.cpp
+moc_*.cpp
+moc_*.h
+ui_*.h
+qrc_*.cpp
+*.qm
+
+# Qt translation files (compiled)
+*.qm
+
+# Build directories
+build/
+build-*/
+debug/
+release/
+Debug/
+Release/
+x64/
+Win32/
+bin/
+lib/
+libs/
+out/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# QMake
+Makefile
+Makefile.*
+*.mk
+
+# C++ compiled files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.pdb
+*.idb
+*.ilk
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Core dumps
+core
+core.*
+
+# Visual Studio files
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+*.sdf
+*.opensdf
+*.db
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+.vs/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Qt Creator
+*.user
+*.autosave
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+build/
+DerivedData/
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# Dev-C++
+*.dev
+*.layout
+*.win
+
+# Temporary files
+*~
+*.swp
+*.swo
+*.tmp
+*.temp
+*.log
+*.tlog
+
+# OS-specific files
+# Windows
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Documentation builds
+docs/build/
+docs/_build/
+*.chm
+
+# Deployment
+*.cab
+*.msi
+*.msm
+*.msp
+*.dmg
+*.app
+*.deb
+*.rpm
+
+# Custom build outputs (adjust as needed)
+# Uncomment and modify these lines based on your specific build setup
+# *.pri
+# version.h
+# config.h
+
+# IDE workspace files
+*.workspace
+*.session
+
+# Profiling data
+*.prof
+gmon.out
+
+# Static analysis
+cppcheck-result.xml
+*.sarif
+
+# Test outputs
+test-reports/
+coverage/
+*.gcov
+*.gcda
+*.gcno
+
+# Qt Designer backup files
+*.ui.bak
+
+# Qt Linguist files
+*.ts.bak
+
+# Local configuration files
+local.pri
+config.local
+
+# Environment files
+.env
+.env.local

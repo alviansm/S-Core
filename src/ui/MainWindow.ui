@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>637</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ship Energy Optimization Platform</string>
+  </property>
+  <property name="styleSheet">
+   <string>QMainWindow {
+    background-color: #1E1E1E;
+}
+
+QMenuBar {
+    background-color: #2B2B2B;
+    color: #FFFFFF;
+    border-bottom: 1px solid #404040;
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 6px 12px;
+}
+
+QMenuBar::item:selected {
+    background-color: #404040;
+}
+
+QStatusBar {
+    background-color: #2B2B2B;
+    color: #B0B0B0;
+    border-top: 1px solid #404040;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,50">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+    background-color: #2d2d30;
+    border: none;
+    color: #cccccc;
+}
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Plain</enum>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_7">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_8">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>328</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_9">
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>36</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">/* QPushButton - Default state */
+QPushButton {
+    background-color: #2d2d30;
+    border: 1px solid transparent;
+    color: #cccccc;
+    padding: 6px 6px;
+    min-height: 22px;
+}
+
+/* QPushButton - Hover state */
+QPushButton:hover {
+    background-color: #3e3e42;
+    border: 1px solid #464647;
+}
+
+/* QPushButton - Pressed/Active state */
+QPushButton:pressed,
+QPushButton:checked {
+    background-color: #094771;
+    border: 1px solid #0e639c;
+    color: #ffffff;
+}
+
+/* QPushButton - Focus state */
+QPushButton:focus {
+    border: 1px solid #0e639c;
+    outline: none;
+}
+
+/* QPushButton - Disabled state */
+QPushButton:disabled {
+    background-color: #2d2d30;
+    color: #656565;
+    border: 1px solid transparent;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="dockContainer" native="true"/>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame {
+    background-color: #2d2d30;
+    border: none;
+    color: #cccccc;
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
