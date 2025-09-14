@@ -30,11 +30,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButton_4_clicked();
+
 private:
     void setupDockManager();
     void createContents();
 
     ads::CDockWidget* createWelcomePage();
+    ads::CDockWidget* createMapboxPage();
 
 private:
     Ui_MainWindow *ui;

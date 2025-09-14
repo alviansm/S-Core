@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mapbox GL Globe with Sea Route</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<script>
+    // GANTI DENGAN ACCESS TOKEN ANDA
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmVuZHJhdHJ5IiwiYSI6ImNtZmZtZjF4MDBqc3gyanB6cmlqeGZnMHMifQ.NBjx3jRGSPqxkSqhrFvRnA';
+
+    const surabayaCoord = [112.73, -7.20];
+    const singaporeCoord = [103.82, 1.26];
+
+    // Rangkaian koordinat baru yang hanya melewati laut
+    const seaRouteCoordinates = [
+        surabayaCoord,              // 1. Surabaya
+        [112.0, -5.5],              // 2. Laut Jawa
+        [108.5, -3.0],              // 3. Selat Karimata
+        [105.5, 0.0],               // 4. Utara Pulau Bangka
+        singaporeCoord              // 5. Singapura
+    ];
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v11',
+        projection: 'globe',
+        zoom: 4.5, // Sedikit lebih dekat untuk melihat detail rute
+        center: [109, -3] // Center disesuaikan dengan rute baru
+    });
+
+    map.on('style.load', () => {
+        // Efek atmosfer
+        map.setFog({});
+
+        // 1. Menambahkan sumber data untuk rute laut
+        map.addSource('sea-route', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    // Gunakan rangkaian koordinat yang baru
+                    'coordinates': seaRouteCoordinates
+                }
+            }
+        });
+
+        // 2. Layer untuk menggambar garis rute
+        map.addLayer({
+            'id': 'sea-route-layer',
+            'type': 'line',
+            'source': 'sea-route',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#00BFFF', // Warna biru terang agar terlihat seperti jalur laut
+                'line-width': 3,
+                'line-opacity': 0.8
+            }
+        });
+
+        // 3. Penanda untuk kedua pelabuhan
+        new mapboxgl.Marker({ color: '#FF4500' }) // Oranye-merah
+            .setLngLat(surabayaCoord)
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Pelabuhan Surabaya</h4>"))
+            .addTo(map);
+
+        new mapboxgl.Marker({ color: '#32CD32' }) // Hijau limau
+            .setLngLat(singaporeCoord)
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Pelabuhan Singapura</h4>"))
+            .addTo(map);
+    });
+</script>
+
+</body>
+</html>

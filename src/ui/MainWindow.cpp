@@ -3,6 +3,7 @@
 #include "DockWidget.h"
 
 #include "WelcomePage.h"
+#include "MapboxWidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -254,8 +255,8 @@ void MainWindow::createContents()
 
     m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget);
 
-    auto DockWidget2 = createWelcomePage();
-    m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget2);
+    // auto DockWidget2 = createWelcomePage();
+    // m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget2);
 }
 
 ads::CDockWidget *MainWindow::createWelcomePage()
@@ -268,3 +269,21 @@ ads::CDockWidget *MainWindow::createWelcomePage()
     DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
     return DockWidget;
 }
+
+ads::CDockWidget *MainWindow::createMapboxPage()
+{
+    auto m = new MapboxWidget();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Maps");
+    DockWidget->setWidget(m, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    auto DockWidget3 = createMapboxPage();
+    m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget3);
+}
+
