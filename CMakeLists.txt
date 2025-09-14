@@ -28,32 +28,35 @@ set(SOURCES
     src/main.cpp
     src/ui/MainWindow.cpp
 
-    src/ui/PageWidgets.cpp
+
 )
 
 # Header files  
 set(HEADERS
     src/ui/MainWindow.h
 
-    src/ui/PageWidgets.h
+
 )
 
 # UI files
 set(UI_FILES
     src/ui/MainWindow.ui
 
-    src/ui/DashboardPage.ui
-    src/ui/TechnicalPage.ui
-    src/ui/SavingsPage.ui
-    src/ui/VoyagePlanningPage.ui
-    src/ui/HistoryPage.ui
-    src/ui/SettingsPage.ui
+
+
+
+
+
+
 )
 
 add_executable(SCore WIN32 
     ${SOURCES}
     ${HEADERS}
     ${UI_FILES}
+    res/resources.qrc
+    src/ui/WelcomePage.h src/ui/WelcomePage.cpp src/ui/WelcomePage.ui
+
 )
 
 target_include_directories(SCore PRIVATE 

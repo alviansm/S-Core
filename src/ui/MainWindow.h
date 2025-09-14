@@ -3,12 +3,24 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QPointer>
+#include <QObject>
+#include <QWidget>
+#include <QVBoxLayout>
+
 #include "DockManager.h"
-#include "PageWidgets.h"
 
 QT_BEGIN_NAMESPACE
 class Ui_MainWindow;
 QT_END_NAMESPACE
+
+// ──────────────────────────────────────────────
+// NOTE: Some styling, such as QMenu in QMenuBar,
+//       is configured directly in the .ui file
+//       (not in this header).
+//
+// NOTE: Standard window size in .ui -> 1024 x 637
+// ──────────────────────────────────────────────
 
 class MainWindow : public QMainWindow
 {
@@ -18,23 +30,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-
 private:
     void setupDockManager();
-    
+    void createContents();
+
+    ads::CDockWidget* createWelcomePage();
+
 private:
     Ui_MainWindow *ui;
-    ads::CDockManager* m_dockManager;
-    QStackedWidget* m_centralPages;
-    
-    // Page widgets
-    DashboardPage* m_dashboardPage;
-    TechnicalPage* m_technicalPage;
-    SavingsPage* m_savingsPage;
-    VoyagePlanningPage* m_voyagePlanningPage;
-    HistoryPage* m_historyPage;
-    SettingsPage* m_settingsPage;
+    ads::CDockManager* m_DockManager;
 };
 
 #endif // MAINWINDOW_H

@@ -149,7 +149,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-globe-100.png</normaloff>:/icons/sidebar/ic-globe-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -217,7 +218,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-flowchart-100.png</normaloff>:/icons/sidebar/ic-flowchart-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -285,7 +287,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-analysis-100.png</normaloff>:/icons/sidebar/ic-analysis-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -353,7 +356,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-planning-100.png</normaloff>:/icons/sidebar/ic-planning-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -376,6 +380,12 @@ QPushButton:disabled {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="tabletTracking">
+          <bool>true</bool>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::FocusPolicy::TabFocus</enum>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -421,7 +431,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-history-100.png</normaloff>:/icons/sidebar/ic-history-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -502,7 +513,8 @@ QPushButton:disabled {
           <string/>
          </property>
          <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+          <iconset resource="../../res/resources.qrc">
+           <normaloff>:/icons/sidebar/ic-settings-100.png</normaloff>:/icons/sidebar/ic-settings-100.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -516,12 +528,31 @@ QPushButton:disabled {
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
       <property name="spacing">
        <number>0</number>
       </property>
       <item>
-       <widget class="QWidget" name="dockContainer" native="true"/>
+       <widget class="QWidget" name="dockContainer" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QFrame" name="frame_2">
@@ -566,7 +597,43 @@ QPushButton:disabled {
      <height>28</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QMenu" name="menuFile">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+            background-color: #2b2b2b;
+            color: #dddddd;
+            border: 1px solid #444444;
+        }
+
+        QMenu::item {
+            background-color: transparent;
+            padding: 4px 20px;
+        }
+
+        QMenu::item:selected {
+            background-color: #444444;
+        }
+
+        QMenu::separator {
+            height: 1px;
+            background: #555555;
+            margin: 4px 10px;
+        }
+
+        QMenu::indicator {
+            background: transparent;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checked/unchecked submenu icons */
+        QMenu::indicator:checked {
+            image: url(:/icons/checked_icon.png);
+        }</string>
+    </property>
     <property name="title">
      <string>File</string>
     </property>
@@ -577,11 +644,77 @@ QPushButton:disabled {
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuView">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+            background-color: #2b2b2b;
+            color: #dddddd;
+            border: 1px solid #444444;
+        }
+
+        QMenu::item {
+            background-color: transparent;
+            padding: 4px 20px;
+        }
+
+        QMenu::item:selected {
+            background-color: #444444;
+        }
+
+        QMenu::separator {
+            height: 1px;
+            background: #555555;
+            margin: 4px 10px;
+        }
+
+        QMenu::indicator {
+            background: transparent;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checked/unchecked submenu icons */
+        QMenu::indicator:checked {
+            image: url(:/icons/checked_icon.png);
+        }</string>
+    </property>
     <property name="title">
      <string>View</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+            background-color: #2b2b2b;
+            color: #dddddd;
+            border: 1px solid #444444;
+        }
+
+        QMenu::item {
+            background-color: transparent;
+            padding: 4px 20px;
+        }
+
+        QMenu::item:selected {
+            background-color: #444444;
+        }
+
+        QMenu::separator {
+            height: 1px;
+            background: #555555;
+            margin: 4px 10px;
+        }
+
+        QMenu::indicator {
+            background: transparent;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checked/unchecked submenu icons */
+        QMenu::indicator:checked {
+            image: url(:/icons/checked_icon.png);
+        }</string>
+    </property>
     <property name="title">
      <string>Help</string>
     </property>
@@ -629,6 +762,8 @@ QPushButton:disabled {
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../res/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

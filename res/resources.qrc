@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/sidebar/ic-analysis-100.png</file>
+        <file>icons/sidebar/ic-flowchart-100.png</file>
+        <file>icons/sidebar/ic-globe-100.png</file>
+        <file>icons/sidebar/ic-history-100.png</file>
+        <file>icons/sidebar/ic-planning-100.png</file>
+        <file>icons/sidebar/ic-settings-100.png</file>
+        <file>images/vessel_isometric_illustration.png</file>
+    </qresource>
+</RCC>
