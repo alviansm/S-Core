@@ -10,5 +10,6 @@
         <file>html/map.html</file>
         <file>icons/s-core_app_icon.png</file>
         <file>icons/s-core_app_icon.ico</file>
+        <file>icons/ribbon/icon-sensor.png</file>
     </qresource>
 </RCC>

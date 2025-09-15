@@ -92,7 +92,7 @@ QStatusBar {
         <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="pushButton_DashboardPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -104,6 +104,15 @@ QStatusBar {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="tabletTracking">
+          <bool>true</bool>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::FocusPolicy::StrongFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>Dashboard</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -143,7 +152,8 @@ QPushButton:disabled {
     background-color: #2d2d30;
     color: #656565;
     border: 1px solid transparent;
-}</string>
+}
+</string>
          </property>
          <property name="text">
           <string/>
@@ -158,10 +168,13 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_7">
+        <widget class="QPushButton" name="pushButton_TechnicalPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -173,6 +186,9 @@ QPushButton:disabled {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>Technical</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -227,10 +243,13 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="pushButton_DecisionSupportPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -242,6 +261,9 @@ QPushButton:disabled {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>Savings</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -296,10 +318,13 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="pushButton_RoutePlanningPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -311,6 +336,9 @@ QPushButton:disabled {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>Routing</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -365,10 +393,13 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_8">
+        <widget class="QPushButton" name="pushButton_HistoryPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -386,6 +417,9 @@ QPushButton:disabled {
          </property>
          <property name="focusPolicy">
           <enum>Qt::FocusPolicy::TabFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>History</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -440,6 +474,9 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -456,7 +493,7 @@ QPushButton:disabled {
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_9">
+        <widget class="QPushButton" name="pushButton_SettingPage">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -468,6 +505,9 @@ QPushButton:disabled {
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>Settings</string>
          </property>
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -522,6 +562,9 @@ QPushButton:disabled {
            <height>24</height>
           </size>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -555,7 +598,7 @@ QPushButton:disabled {
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="customStatusBar">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -637,9 +680,10 @@ QPushButton:disabled {
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
+    <addaction name="actionOpen_Configuration"/>
+    <addaction name="actionSave_Configuration"/>
+    <addaction name="actionExport_Data"/>
+    <addaction name="actionPrint"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -680,6 +724,10 @@ QPushButton:disabled {
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionSave_Layout"/>
+    <addaction name="separator"/>
+    <addaction name="actionSwitch_Vessel"/>
+    <addaction name="actionSwitch_Fleet"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="styleSheet">
@@ -718,36 +766,108 @@ QPushButton:disabled {
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionUser_Manual"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+            background-color: #2b2b2b;
+            color: #dddddd;
+            border: 1px solid #444444;
+        }
+
+        QMenu::item {
+            background-color: transparent;
+            padding: 4px 20px;
+        }
+
+        QMenu::item:selected {
+            background-color: #444444;
+        }
+
+        QMenu::separator {
+            height: 1px;
+            background: #555555;
+            margin: 4px 10px;
+        }
+
+        QMenu::indicator {
+            background: transparent;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checked/unchecked submenu icons */
+        QMenu::indicator:checked {
+            image: url(:/icons/checked_icon.png);
+        }</string>
+    </property>
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionPreferences"/>
+    <addaction name="actionUser_Management"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+            background-color: #2b2b2b;
+            color: #dddddd;
+            border: 1px solid #444444;
+        }
+
+        QMenu::item {
+            background-color: transparent;
+            padding: 4px 20px;
+        }
+
+        QMenu::item:selected {
+            background-color: #444444;
+        }
+
+        QMenu::separator {
+            height: 1px;
+            background: #555555;
+            margin: 4px 10px;
+        }
+
+        QMenu::indicator {
+            background: transparent;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checked/unchecked submenu icons */
+        QMenu::indicator:checked {
+            image: url(:/icons/checked_icon.png);
+        }</string>
+    </property>
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionIO_Device"/>
+    <addaction name="actionCalibrate_Sensor"/>
+    <addaction name="actionSystem_Health_Check"/>
+    <addaction name="actionSecurity_Settings"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuView"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
-  <action name="actionNew">
-   <property name="text">
-    <string>New</string>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
-   </property>
-  </action>
-  <action name="actionOpen">
-   <property name="text">
-    <string>Open</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="text">
-    <string>Save</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
@@ -759,6 +879,76 @@ QPushButton:disabled {
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+  </action>
+  <action name="actionUser_Management">
+   <property name="text">
+    <string>User Management</string>
+   </property>
+  </action>
+  <action name="actionOpen_Configuration">
+   <property name="text">
+    <string>Open Configuration</string>
+   </property>
+  </action>
+  <action name="actionSave_Configuration">
+   <property name="text">
+    <string>Save Configuration</string>
+   </property>
+  </action>
+  <action name="actionExport_Data">
+   <property name="text">
+    <string>Export Data</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
+   </property>
+  </action>
+  <action name="actionSave_Layout">
+   <property name="text">
+    <string>Save Layout</string>
+   </property>
+  </action>
+  <action name="actionSwitch_Vessel">
+   <property name="text">
+    <string>Switch Vessel</string>
+   </property>
+  </action>
+  <action name="actionSwitch_Fleet">
+   <property name="text">
+    <string>Switch Fleet</string>
+   </property>
+  </action>
+  <action name="actionIO_Device">
+   <property name="text">
+    <string>IO Device</string>
+   </property>
+  </action>
+  <action name="actionCalibrate_Sensor">
+   <property name="text">
+    <string>Calibrate Sensor</string>
+   </property>
+  </action>
+  <action name="actionSystem_Health_Check">
+   <property name="text">
+    <string>System Health Check</string>
+   </property>
+  </action>
+  <action name="actionSecurity_Settings">
+   <property name="text">
+    <string>Security Settings</string>
+   </property>
+  </action>
+  <action name="actionUser_Manual">
+   <property name="text">
+    <string>User Manual</string>
    </property>
   </action>
  </widget>

@@ -50,6 +50,11 @@ add_executable(SCore WIN32
     res/resources.qrc
     src/ui/WelcomePage.h src/ui/WelcomePage.cpp src/ui/WelcomePage.ui
     src/ui/MapboxWidget.h src/ui/MapboxWidget.cpp
+    src/ui/Pages/TechnicalPage.h src/ui/Pages/TechnicalPage.cpp src/ui/Pages/TechnicalPage.ui
+    src/ui/Pages/DecisionSupportPage.h src/ui/Pages/DecisionSupportPage.cpp src/ui/Pages/DecisionSupportPage.ui
+    src/ui/Pages/VoyagePlanningPage.h src/ui/Pages/VoyagePlanningPage.cpp src/ui/Pages/VoyagePlanningPage.ui
+    src/ui/Pages/HistoryPage.h src/ui/Pages/HistoryPage.cpp src/ui/Pages/HistoryPage.ui
+    src/ui/Pages/SettingPage.h src/ui/Pages/SettingPage.cpp src/ui/Pages/SettingPage.ui
 
 )
 

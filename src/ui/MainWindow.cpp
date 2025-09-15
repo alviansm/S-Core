@@ -3,12 +3,19 @@
 #include "DockWidget.h"
 
 #include "WelcomePage.h"
+#include "Pages/TechnicalPage.h"
+#include "Pages/DecisionSupportPage.h"
+#include "Pages/VoyagePlanningPage.h"
+#include "Pages/HistoryPage.h"
+#include "Pages/SettingPage.h"
+
 #include "MapboxWidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui_MainWindow)
     , m_DockManager(nullptr)
+    , m_availableDockArea(nullptr)
 {
     ui->setupUi(this);
 
@@ -16,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupDockManager();
     createContents();
+    createActions();
 }
 
 MainWindow::~MainWindow()
@@ -252,11 +260,7 @@ void MainWindow::setupDockManager()
 void MainWindow::createContents()
 {
     auto DockWidget = createWelcomePage();
-
-    m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget);
-
-    // auto DockWidget2 = createWelcomePage();
-    // m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget2);
+    m_availableDockArea = m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget);
 }
 
 ads::CDockWidget *MainWindow::createWelcomePage()
@@ -274,16 +278,208 @@ ads::CDockWidget *MainWindow::createMapboxPage()
 {
     auto m = new MapboxWidget();
 
-    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Maps");
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Dashboard");
     DockWidget->setWidget(m, ads::CDockWidget::ForceNoScrollArea);
     DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
     DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
     return DockWidget;
 }
 
-void MainWindow::on_pushButton_4_clicked()
+ads::CDockWidget *MainWindow::createTechnicalPage()
 {
-    auto DockWidget3 = createMapboxPage();
-    m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget3);
+    auto w = new TechnicalPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Technical Monitoring & Control");
+    DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+ads::CDockWidget *MainWindow::createDecisionSupportPage()
+{
+    auto w = new DecisionSupportPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Decision Support");
+    DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+ads::CDockWidget *MainWindow::createVoyagePlanningPage()
+{
+    auto w = new VoyagePlanningPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Voyage Planning");
+    DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+ads::CDockWidget *MainWindow::createHistoryPage()
+{
+    auto w = new HistoryPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("History");
+    DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+ads::CDockWidget *MainWindow::createSettingPage()
+{
+    auto w = new SettingPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Setting");
+    DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
+void MainWindow::createActions()
+{
+    ui->toolBar->setIconSize(QSize(24, 24));
+
+    QAction* dummyAction = new QAction();
+    dummyAction->setIcon(QIcon(":/icons/ribbon/icon-sensor.png"));
+    dummyAction->setText("IO Device");
+    ui->toolBar->addAction(dummyAction);
+}
+
+void MainWindow::on_pushButton_DashboardPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_DashboardPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::Dashboard);
+}
+
+
+void MainWindow::on_pushButton_TechnicalPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_TechnicalPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::Technical);
+}
+
+void MainWindow::on_pushButton_DecisionSupportPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_DecisionSupportPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::DecisionSupport);
+}
+
+
+void MainWindow::on_pushButton_RoutePlanningPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_RoutePlanningPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::VoyagePlanning);
+}
+
+
+void MainWindow::on_pushButton_HistoryPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_HistoryPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::History);
+}
+
+
+void MainWindow::on_pushButton_SettingPage_clicked(bool checked)
+{
+    addDockWidgetWithDockManager(ui->pushButton_SettingPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::Setting);
+}
+
+void MainWindow::addDockWidgetWithDockManager(QPushButton *pushButtonSource, bool checked, ads::DockWidgetArea area, MainWindow::Page page)
+{
+    if (pushButtonSource == nullptr) return;
+
+    if (checked)
+    {
+        ads::CDockWidget* DockWidget = nullptr;
+        switch (page) {
+            case MainWindow::Page::Dashboard:
+                DockWidget = createMapboxPage();
+                DockWidget->setObjectName("DashboardPage");
+                break;
+            case MainWindow::Page::Technical:
+                DockWidget = createTechnicalPage();
+                DockWidget->setObjectName("TechnicalPage");
+                break;
+            case MainWindow::Page::DecisionSupport:
+                DockWidget = createDecisionSupportPage();
+                DockWidget->setObjectName("DecisionSupportPage");
+                break;
+            case MainWindow::Page::VoyagePlanning:
+                DockWidget = createVoyagePlanningPage();
+                DockWidget->setObjectName("VoyagePlanningPage");
+                break;
+            case MainWindow::Page::History:
+                DockWidget = createHistoryPage();
+                DockWidget->setObjectName("HistoryPage");
+                break;
+            case MainWindow::Page::Setting:
+                DockWidget = createSettingPage();
+                DockWidget->setObjectName("SettingPage");
+                break;
+            default:
+                break;
+        }
+
+        if (!DockWidget)
+            return;
+
+        if (m_availableDockArea == nullptr)
+        {
+            auto DockAreaWidget = m_DockManager->addDockWidget(area, DockWidget);
+            m_availableDockArea = DockAreaWidget;
+        }
+        else
+        {
+            m_DockManager->addDockWidget(ads::CenterDockWidgetArea, DockWidget, m_availableDockArea);
+        }
+
+        // Connect signal-slots when closed
+        connect(DockWidget, &ads::CDockWidget::closed, this, [pushButtonSource]() {
+            pushButtonSource->setChecked(false);
+        });
+    }
+    else
+    {
+        QString dockToRemoveObjectName = "";
+        ads::CDockWidget* dockToRemove = nullptr;
+        switch (page) {
+            case MainWindow::Page::Dashboard:
+                dockToRemoveObjectName = "DashboardPage";
+                break;
+            case MainWindow::Page::Technical:
+                dockToRemoveObjectName = "TechnicalPage";
+                break;
+            case MainWindow::Page::DecisionSupport:
+                dockToRemoveObjectName = "DecisionSupportPage";
+                break;
+            case MainWindow::Page::VoyagePlanning:
+                dockToRemoveObjectName = "VoyagePlanningPage";
+                break;
+            case MainWindow::Page::History:
+                dockToRemoveObjectName = "HistoryPage";
+                break;
+            case MainWindow::Page::Setting:
+                dockToRemoveObjectName = "SettingPage";
+                break;
+            default:
+                break;
+        }
+
+        QMap<QString, ads::CDockWidget*> map = m_DockManager->dockWidgetsMap();
+        for (auto it = map.constBegin(); it != map.constEnd(); ++it)
+        {
+            if (it.key() == dockToRemoveObjectName)
+            {
+                dockToRemove = it.value();
+                break;
+            }
+        }
+
+        if (dockToRemove != nullptr)
+            m_DockManager->removeDockWidget(dockToRemove);
+
+        if (map.size()<1)
+            m_availableDockArea = nullptr;
+    }
 }
 
