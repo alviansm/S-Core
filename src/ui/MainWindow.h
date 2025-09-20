@@ -60,6 +60,7 @@ private:
 
     ads::CDockWidget* createWelcomePage();
     ads::CDockWidget* createMapboxPage();
+    ads::CDockWidget* createDashboardPage();
     ads::CDockWidget* createTechnicalPage();
     ads::CDockWidget* createDecisionSupportPage();
     ads::CDockWidget* createVoyagePlanningPage();

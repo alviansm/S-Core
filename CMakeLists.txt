@@ -55,6 +55,9 @@ add_executable(SCore WIN32
     src/ui/Pages/VoyagePlanningPage.h src/ui/Pages/VoyagePlanningPage.cpp src/ui/Pages/VoyagePlanningPage.ui
     src/ui/Pages/HistoryPage.h src/ui/Pages/HistoryPage.cpp src/ui/Pages/HistoryPage.ui
     src/ui/Pages/SettingPage.h src/ui/Pages/SettingPage.cpp src/ui/Pages/SettingPage.ui
+    src/ui/Pages/DashboardPage.h src/ui/Pages/DashboardPage.cpp src/ui/Pages/DashboardPage.ui
+    src/ui/CircleProgressBar.h src/ui/CircleProgressBar.cpp
+
 
 )
 

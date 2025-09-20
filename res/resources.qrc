@@ -11,5 +11,8 @@
         <file>icons/s-core_app_icon.png</file>
         <file>icons/s-core_app_icon.ico</file>
         <file>icons/ribbon/icon-sensor.png</file>
+        <file>icons/ribbon/alert.png</file>
+        <file>icons/ribbon/kpi.png</file>
+        <file>icons/ribbon/location.png</file>
     </qresource>
 </RCC>

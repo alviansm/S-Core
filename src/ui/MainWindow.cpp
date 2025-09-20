@@ -8,8 +8,10 @@
 #include "Pages/VoyagePlanningPage.h"
 #include "Pages/HistoryPage.h"
 #include "Pages/SettingPage.h"
+#include "Pages/DashboardPage.h"
 
 #include "MapboxWidget.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -285,6 +287,17 @@ ads::CDockWidget *MainWindow::createMapboxPage()
     return DockWidget;
 }
 
+ads::CDockWidget *MainWindow::createDashboardPage()
+{
+    auto m = new DashboardPage();
+
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Dashboard");
+    DockWidget->setWidget(m, ads::CDockWidget::ForceNoScrollArea);
+    DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
+    DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+    return DockWidget;
+}
+
 ads::CDockWidget *MainWindow::createTechnicalPage()
 {
     auto w = new TechnicalPage();
@@ -393,7 +406,7 @@ void MainWindow::addDockWidgetWithDockManager(QPushButton *pushButtonSource, boo
         ads::CDockWidget* DockWidget = nullptr;
         switch (page) {
             case MainWindow::Page::Dashboard:
-                DockWidget = createMapboxPage();
+                DockWidget = createDashboardPage();
                 DockWidget->setObjectName("DashboardPage");
                 break;
             case MainWindow::Page::Technical:
