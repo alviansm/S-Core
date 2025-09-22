@@ -57,6 +57,12 @@ add_executable(SCore WIN32
     src/ui/Pages/SettingPage.h src/ui/Pages/SettingPage.cpp src/ui/Pages/SettingPage.ui
     src/ui/Pages/DashboardPage.h src/ui/Pages/DashboardPage.cpp src/ui/Pages/DashboardPage.ui
     src/ui/CircleProgressBar.h src/ui/CircleProgressBar.cpp
+    src/ui/MapboxWidgetSimple.h src/ui/MapboxWidgetSimple.cpp
+    src/ui/Pages/Components/VoyageItemWidget.h src/ui/Pages/Components/VoyageItemWidget.cpp
+    src/ui/Pages/Components/DialogAddPortRotation.h src/ui/Pages/Components/DialogAddPortRotation.cpp src/ui/Pages/Components/DialogAddPortRotation.ui
+    src/ui/Pages/Components/DialogAddCargo.h src/ui/Pages/Components/DialogAddCargo.cpp src/ui/Pages/Components/DialogAddCargo.ui
+    src/ui/Pages/Components/DialogAddFuelPlan.h src/ui/Pages/Components/DialogAddFuelPlan.cpp src/ui/Pages/Components/DialogAddFuelPlan.ui
+    src/ui/Pages/Components/DialogAddNewVoyage.h src/ui/Pages/Components/DialogAddNewVoyage.cpp src/ui/Pages/Components/DialogAddNewVoyage.ui
 
 
 )

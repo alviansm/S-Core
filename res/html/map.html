@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Mapbox GL Globe with Sea Route</title>
+    <title>Mapbox GL Globe - Dynamic Route</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
@@ -14,75 +14,230 @@
 <body>
 
 <div id="map"></div>
+
 <script>
-    // GANTI DENGAN ACCESS TOKEN ANDA
+    // Mapbox Access Token
     mapboxgl.accessToken = 'pk.eyJ1IjoicmVuZHJhdHJ5IiwiYSI6ImNtZmZtZjF4MDBqc3gyanB6cmlqeGZnMHMifQ.NBjx3jRGSPqxkSqhrFvRnA';
-
-    const surabayaCoord = [112.73, -7.20];
-    const singaporeCoord = [103.82, 1.26];
-
-    // Rangkaian koordinat baru yang hanya melewati laut
-    const seaRouteCoordinates = [
-        surabayaCoord,              // 1. Surabaya
-        [112.0, -5.5],              // 2. Laut Jawa
-        [108.5, -3.0],              // 3. Selat Karimata
-        [105.5, 0.0],               // 4. Utara Pulau Bangka
-        singaporeCoord              // 5. Singapura
-    ];
 
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v11',
         projection: 'globe',
-        zoom: 4.5, // Sedikit lebih dekat untuk melihat detail rute
-        center: [109, -3] // Center disesuaikan dengan rute baru
+        zoom: 4,
+        center: [109, -3]
     });
 
-    map.on('style.load', () => {
-        // Efek atmosfer
+    // Global variables
+    let currentMarkers = [];
+    let shipIconLoaded = false;
+    let pendingImages = [];
+    let pendingRouteData = null;
+
+    // Main load event
+    map.on('load', () => {
         map.setFog({});
 
-        // 1. Menambahkan sumber data untuk rute laut
-        map.addSource('sea-route', {
+        // Create route source and layer
+        map.addSource('sea-route-source', {
             'type': 'geojson',
             'data': {
                 'type': 'Feature',
-                'properties': {},
                 'geometry': {
                     'type': 'LineString',
-                    // Gunakan rangkaian koordinat yang baru
-                    'coordinates': seaRouteCoordinates
+                    'coordinates': []
                 }
             }
         });
 
-        // 2. Layer untuk menggambar garis rute
         map.addLayer({
             'id': 'sea-route-layer',
             'type': 'line',
-            'source': 'sea-route',
+            'source': 'sea-route-source',
             'layout': {
                 'line-join': 'round',
-                'line-cap': 'round'
+                'line-cap': 'round',
+                'visibility': 'visible'
             },
             'paint': {
-                'line-color': '#00BFFF', // Warna biru terang agar terlihat seperti jalur laut
-                'line-width': 3,
-                'line-opacity': 0.8
+                'line-color': '#00BFFF',
+                'line-width': 6,
+                'line-opacity': 1.0
             }
         });
 
-        // 3. Penanda untuk kedua pelabuhan
-        new mapboxgl.Marker({ color: '#FF4500' }) // Oranye-merah
-            .setLngLat(surabayaCoord)
-            .setPopup(new mapboxgl.Popup().setHTML("<h4>Pelabuhan Surabaya</h4>"))
-            .addTo(map);
+        // Process pending data
+        if (pendingRouteData) {
+            internalUpdateRoute(pendingRouteData.route, pendingRouteData.markers);
+            pendingRouteData = null;
+        }
 
-        new mapboxgl.Marker({ color: '#32CD32' }) // Hijau limau
-            .setLngLat(singaporeCoord)
-            .setPopup(new mapboxgl.Popup().setHTML("<h4>Pelabuhan Singapura</h4>"))
-            .addTo(map);
+        pendingImages.forEach(img => {
+            internalLoadImage(img.name, img.url);
+        });
+        pendingImages = [];
     });
+
+    // Helper functions
+    function internalUpdateRoute(routeCoordinates, markerPoints) {
+        const routeSource = map.getSource('sea-route-source');
+        if (routeSource) {
+            const routeData = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': routeCoordinates
+                }
+            };
+
+            routeSource.setData(routeData);
+
+            // Force repaint
+            setTimeout(() => {
+                map.triggerRepaint();
+            }, 100);
+        }
+
+        // Clear existing markers
+        currentMarkers.forEach(marker => marker.remove());
+        currentMarkers = [];
+
+        // Add new markers
+        markerPoints.forEach((point) => {
+            const marker = new mapboxgl.Marker({
+                color: point.color || '#FF4500'
+            })
+            .setLngLat(point.coords)
+            .setPopup(new mapboxgl.Popup().setHTML(`<h4>${point.title}</h4>`))
+            .addTo(map);
+            currentMarkers.push(marker);
+        });
+
+        // Fit bounds to route
+        if (routeCoordinates && routeCoordinates.length > 0) {
+            const bounds = new mapboxgl.LngLatBounds();
+
+            routeCoordinates.forEach((coord) => {
+                if (Array.isArray(coord) && coord.length === 2) {
+                    bounds.extend([parseFloat(coord[0]), parseFloat(coord[1])]);
+                }
+            });
+
+            if (!bounds.isEmpty()) {
+                map.fitBounds(bounds, {
+                    padding: 100,
+                    duration: 2000
+                });
+            }
+        }
+    }
+
+    function internalLoadImage(iconName, dataUrl) {
+        if (map.hasImage(iconName)) return;
+
+        map.loadImage(dataUrl, (error, image) => {
+            if (error) {
+                createFallbackShipLayer();
+                return;
+            }
+
+            map.addImage(iconName, image);
+            shipIconLoaded = true;
+
+            // Add ship source and layer
+            if (!map.getSource('ship-source')) {
+                map.addSource('ship-source', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [0, 0]
+                        }
+                    }
+                });
+            }
+
+            if (!map.getLayer('ship-layer')) {
+                map.addLayer({
+                    'id': 'ship-layer',
+                    'type': 'symbol',
+                    'source': 'ship-source',
+                    'layout': {
+                        'icon-image': iconName,
+                        'icon-size': 0.1,
+                        'icon-allow-overlap': true,
+                        'icon-ignore-placement': true,
+                        'icon-rotate': ['get', 'bearing'],
+                        'icon-rotation-alignment': 'map'
+                    }
+                });
+            }
+        });
+    }
+
+    function createFallbackShipLayer() {
+        if (!map.getSource('ship-source')) {
+            map.addSource('ship-source', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [0, 0]
+                    }
+                }
+            });
+        }
+
+        if (!map.getLayer('ship-layer')) {
+            map.addLayer({
+                'id': 'ship-layer',
+                'type': 'circle',
+                'source': 'ship-source',
+                'paint': {
+                    'circle-radius': 8,
+                    'circle-color': '#FF0000',
+                    'circle-stroke-width': 2,
+                    'circle-stroke-color': '#FFFFFF'
+                }
+            });
+        }
+        shipIconLoaded = true;
+    }
+
+    // Functions called from C++
+    function updateRoute(routeCoordinates, markerPoints) {
+        if (map.isStyleLoaded() && map.getSource('sea-route-source')) {
+            internalUpdateRoute(routeCoordinates, markerPoints);
+        } else {
+            pendingRouteData = { route: routeCoordinates, markers: markerPoints };
+        }
+    }
+
+    function loadCustomImageFromData(iconName, dataUrl) {
+        if (map.isStyleLoaded()) {
+            internalLoadImage(iconName, dataUrl);
+        } else {
+            pendingImages.push({ name: iconName, url: dataUrl });
+        }
+    }
+
+    function updateShipPosition(coordinates, bearing = 0) {
+        if (!Array.isArray(coordinates) || coordinates.length !== 2) return;
+        if (!map || !map.isStyleLoaded() || !shipIconLoaded) return;
+
+        const shipSource = map.getSource('ship-source');
+        if (shipSource) {
+            shipSource.setData({
+                'type': 'Feature',
+                'properties': { 'bearing': bearing },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': coordinates
+                }
+            });
+        }
+    }
 </script>
 
 </body>

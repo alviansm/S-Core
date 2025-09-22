@@ -14,5 +14,14 @@
         <file>icons/ribbon/alert.png</file>
         <file>icons/ribbon/kpi.png</file>
         <file>icons/ribbon/location.png</file>
+        <file>icons/ship-icon.png</file>
+        <file>html/map-simple.html</file>
+        <file>icons/ribbon/barometer.png</file>
+        <file>icons/ribbon/co2.png</file>
+        <file>icons/ribbon/engine.png</file>
+        <file>icons/ribbon/gas-station.png</file>
+        <file>icons/ribbon/humidity.png</file>
+        <file>icons/ribbon/thermometer.png</file>
+        <file>icons/ribbon/wind.png</file>
     </qresource>
 </RCC>

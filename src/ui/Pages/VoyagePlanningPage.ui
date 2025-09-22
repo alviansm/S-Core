@@ -6,13 +6,453 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>924</width>
+    <height>757</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QVBoxLayout" name="verticalLayout_8">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_6" stretch="5,10">
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QWidget" name="widgetMap" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>VOYAGE LIST</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="listWidget"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+    background-color: #1abc9c; /* Warna hijau utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 6px; /* Sudut yang sedikit membulat */
+    padding: 8px 10px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 14px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #16a085; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #117a65; /* Warna saat tombol ditekan */
+}</string>
+            </property>
+            <property name="text">
+             <string>+ New Voyage</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_7" stretch="2,1,1,1">
+       <item>
+        <widget class="QGraphicsView" name="graphicsView"/>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_3">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Port Rotation</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonPortRotation">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #1abc9c; /* Warna hijau utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #16a085; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #117a65; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>+ New</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #e74c3c; /* Warna merah utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #c0392b; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #a93226; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tableWidgetPortRotation"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Distance :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>465 Km</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: transparent; /* Latar belakang dibuat transparan */
+    color: #2ecc71; /* Warna teks hijau */
+    border: 2px solid #2ecc71; /* Garis tepi hijau setebal 2px */
+    border-radius: 6px; /* Sudut yang membulat */
+    padding: 5px 10px; /* Jarak teks dari tepi tombol */
+    font-size: 10px; /* Ukuran font (sesuaikan jika perlu) */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #2ecc71; /* Latar belakang menjadi hijau saat disentuh mouse */
+    color: white; /* Teks menjadi putih agar kontras */
+}
+
+QPushButton:pressed {
+    background-color: #27ae60; /* Latar belakang menjadi hijau lebih gelap saat ditekan */
+    color: white;
+}</string>
+              </property>
+              <property name="text">
+               <string>Calc.</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_4">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Cargo</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonCargo">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #1abc9c; /* Warna hijau utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #16a085; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #117a65; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>+ New</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_4">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #e74c3c; /* Warna merah utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #c0392b; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #a93226; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tableWidgetCargo"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_5">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Fuel</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonFuel">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #1abc9c; /* Warna hijau utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #16a085; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #117a65; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>+ New</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+    background-color: #e74c3c; /* Warna merah utama */
+    color: white; /* Warna teks */
+    border: none; /* Menghilangkan border default */
+    border-radius: 4px; /* Sudut yang sedikit membulat */
+    padding: 6px 12px; /* Jarak teks dari tepi tombol (vertikal, horizontal) */
+    font-size: 9px; /* Ukuran font */
+    font-weight: bold; /* Teks tebal */
+}
+
+QPushButton:hover {
+    background-color: #c0392b; /* Warna saat mouse di atas tombol */
+}
+
+QPushButton:pressed {
+    background-color: #a93226; /* Warna saat tombol ditekan */
+}</string>
+              </property>
+              <property name="text">
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="tableWidgetFuelPlan"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

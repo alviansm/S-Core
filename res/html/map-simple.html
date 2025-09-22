@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mapbox Simple 2D Route</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: Arial, sans-serif;
+        }
+        #map { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            width: 100%; 
+        }
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            min-width: 200px;
+        }
+        .info-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .route-info {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+    // Mapbox Access Token
+    mapboxgl.accessToken = 'pk.eyJ1IjoicmVuZHJhdHJ5IiwiYSI6ImNtZmZtZjF4MDBqc3gyanB6cmlqeGZnMHMifQ.NBjx3jRGSPqxkSqhrFvRnA';
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v11', // Simple light 2D style
+        zoom: 5,
+        center: [108, -3], // Center between Surabaya and Singapore
+        pitch: 0, // Keep it flat 2D
+        bearing: 0
+    });
+
+    // Global variables
+    let currentMarkers = [];
+    let routeLoaded = false;
+
+    // Update status function
+    function updateStatus(message) {
+        document.getElementById('status').textContent = message;
+    }
+
+    // Main load event
+    map.on('load', () => {
+        updateStatus('Map loaded');
+
+        // Create route source and layer
+        map.addSource('sea-route-source', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': []
+                }
+            }
+        });
+
+        // Add route layer with simple styling
+        map.addLayer({
+            'id': 'sea-route-layer',
+            'type': 'line',
+            'source': 'sea-route-source',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#007cbf',
+                'line-width': 4,
+                'line-opacity': 0.8
+            }
+        });
+
+        // Add route glow effect
+        map.addLayer({
+            'id': 'sea-route-glow',
+            'type': 'line',
+            'source': 'sea-route-source',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#007cbf',
+                'line-width': 8,
+                'line-opacity': 0.3,
+                'line-blur': 2
+            }
+        }, 'sea-route-layer'); // Add below the main route layer
+
+        updateStatus('Ready');
+    });
+
+    // Helper function to update route
+    function internalUpdateRoute(routeCoordinates, markerPoints) {
+        const routeSource = map.getSource('sea-route-source');
+        if (routeSource && Array.isArray(routeCoordinates)) {
+            // Update route data
+            const routeData = {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': routeCoordinates
+                }
+            };
+            
+            routeSource.setData(routeData);
+            routeLoaded = true;
+            updateStatus('Route displayed');
+
+            // Clear existing markers
+            currentMarkers.forEach(marker => marker.remove());
+            currentMarkers = [];
+
+            // Add port markers
+            if (Array.isArray(markerPoints)) {
+                markerPoints.forEach((point) => {
+                    if (point.coords && Array.isArray(point.coords)) {
+                        const markerElement = document.createElement('div');
+                        markerElement.style.backgroundColor = point.color || '#FF4500';
+                        markerElement.style.width = '12px';
+                        markerElement.style.height = '12px';
+                        markerElement.style.borderRadius = '50%';
+                        markerElement.style.border = '2px solid white';
+                        markerElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+
+                        const marker = new mapboxgl.Marker(markerElement)
+                            .setLngLat(point.coords)
+                            .setPopup(new mapboxgl.Popup({ 
+                                offset: 15,
+                                closeButton: false 
+                            }).setHTML(`
+                                <div style="font-weight: bold; margin-bottom: 5px;">${point.title}</div>
+                                <div style="font-size: 12px; color: #666;">
+                                    ${point.coords[1].toFixed(4)}°N, ${point.coords[0].toFixed(4)}°E
+                                </div>
+                            `))
+                            .addTo(map);
+                        currentMarkers.push(marker);
+                    }
+                });
+            }
+
+            // Fit map to show entire route
+            if (routeCoordinates.length > 0) {
+                const bounds = new mapboxgl.LngLatBounds();
+                routeCoordinates.forEach((coord) => {
+                    if (Array.isArray(coord) && coord.length === 2) {
+                        bounds.extend([parseFloat(coord[0]), parseFloat(coord[1])]);
+                    }
+                });
+                
+                if (!bounds.isEmpty()) {
+                    map.fitBounds(bounds, { 
+                        padding: 60,
+                        duration: 1500,
+                        essential: true
+                    });
+                }
+            }
+        }
+    }
+
+    // Functions called from C++
+    function updateRoute(routeCoordinates, markerPoints) {
+        if (map.isStyleLoaded()) {
+            internalUpdateRoute(routeCoordinates, markerPoints);
+        } else {
+            // Wait for map to be ready
+            map.once('styledata', () => {
+                internalUpdateRoute(routeCoordinates, markerPoints);
+            });
+        }
+    }
+
+    // Simplified functions - not needed for simple version
+    function loadCustomImageFromData(iconName, dataUrl) {
+        // Not used in simple version
+    }
+
+    function updateShipPosition(coordinates, bearing) {
+        // Not used in simple version
+    }
+
+    // Add click handler for route interaction
+    map.on('click', 'sea-route-layer', (e) => {
+        const coordinates = e.lngLat;
+        new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(`
+                <div style="font-weight: bold; margin-bottom: 5px;">Sea Route</div>
+                <div style="font-size: 12px; color: #666;">
+                    ${coordinates.lat.toFixed(4)}°N, ${coordinates.lng.toFixed(4)}°E
+                </div>
+            `)
+            .addTo(map);
+    });
+
+    // Change cursor on route hover
+    map.on('mouseenter', 'sea-route-layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'sea-route-layer', () => {
+        map.getCanvas().style.cursor = '';
+    });
+</script>
+
+</body>
+</html>
