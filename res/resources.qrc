@@ -23,5 +23,8 @@
         <file>icons/ribbon/humidity.png</file>
         <file>icons/ribbon/thermometer.png</file>
         <file>icons/ribbon/wind.png</file>
+        <file>icons/ribbon/folders.png</file>
+        <file>icons/ribbon/home.png</file>
+        <file>icons/ribbon/tags.png</file>
     </qresource>
 </RCC>
