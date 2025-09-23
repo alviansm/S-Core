@@ -31,5 +31,6 @@
         <file>icons/toolbar_technical/ic-device_load.png</file>
         <file>icons/toolbar_technical/ic-device_save.png</file>
         <file>icons/ic-placeholder.png</file>
+        <file>images/GA.png</file>
     </qresource>
 </RCC>

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <MapboxWidgetSimple.h>
+#include <QGraphicsScene>
 
 struct Voyage {
     QString name;
@@ -57,6 +58,9 @@ public slots:
     void setDestinationPort(int portId);
     void clearRoute();
 
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
     Ui::VoyagePlanningPage *ui;
 
@@ -69,6 +73,9 @@ private:
     int m_destPortId = -1;
 
     QVector<Voyage> m_voyages;
+
+    QGraphicsScene *m_scene;
+    QGraphicsPixmapItem *m_pixmapItem;
 };
 
 #endif // VOYAGEPLANNINGPAGE_H

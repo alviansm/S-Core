@@ -9,6 +9,9 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDebug>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 VoyagePlanningPage::VoyagePlanningPage(QWidget *parent)
     : QWidget(parent)
@@ -18,13 +21,50 @@ VoyagePlanningPage::VoyagePlanningPage(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->splitter->setStretchFactor(0, 3);  // widget kiri = bobot 3
-    ui->splitter->setStretchFactor(1, 7);  // widget kanan = bobot 7
+    ui->splitter->setStretchFactor(0, 3);
+    ui->splitter->setStretchFactor(1, 7);
+
+    QTimer::singleShot(0, this, [this]() {
+        QList<int> sizes;
+        sizes << this->width() * 0.3 << this->width() * 0.7;
+        ui->splitter->setSizes(sizes);
+    });
+
 
     QVBoxLayout *mapLayout = new QVBoxLayout(ui->widgetMap);
 
     m_mapboxWidget = new MapboxWidgetSimple(ui->widgetMap);
     mapLayout->addWidget(m_mapboxWidget);
+
+    // === Setup Graphic View dengan PNG ===
+    m_scene = new QGraphicsScene(this);
+    ui->graphicsView->setScene(m_scene);
+
+    QPixmap pixmap(":/images/GA.png");
+    if (!pixmap.isNull()) {
+        m_pixmapItem = new QGraphicsPixmapItem(pixmap);
+        m_scene->addItem(m_pixmapItem);
+
+        // Set scene rect sesuai ukuran gambar
+        m_scene->setSceneRect(pixmap.rect());
+
+        // Atur anchor agar scaling lebih natural
+        ui->graphicsView->setResizeAnchor(QGraphicsView::AnchorViewCenter);
+        ui->graphicsView->setTransformationAnchor(QGraphicsView::AnchorViewCenter);
+
+        // Fit gambar saat awal ditampilkan
+        QTimer::singleShot(0, this, [=]() {
+            ui->graphicsView->fitInView(m_scene->itemsBoundingRect(), Qt::KeepAspectRatio);
+        });
+
+    } else {
+        qDebug() << "Error: Could not load image from :/images/GA.png";
+    }
+
+    // Hilangkan scroll bar agar tampilan lebih bersih
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 
     initializeVoyageList();
     initializePortRotationList();
@@ -47,6 +87,16 @@ VoyagePlanningPage::VoyagePlanningPage(QWidget *parent)
         }
     });
 }
+
+void VoyagePlanningPage::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+
+    if (ui->graphicsView->scene() && !ui->graphicsView->scene()->items().isEmpty()) {
+        ui->graphicsView->fitInView(ui->graphicsView->scene()->itemsBoundingRect(), Qt::KeepAspectRatio);
+    }
+}
+
 
 VoyagePlanningPage::~VoyagePlanningPage()
 {
