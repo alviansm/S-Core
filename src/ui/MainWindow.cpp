@@ -12,6 +12,7 @@
 
 #include "MapboxWidget.h"
 
+#include <QComboBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -71,7 +72,6 @@ void MainWindow::setupDockManager()
             image: none;
         }
 
-
         /*===========================================================================
          * QtAdvancedDockingSystem - DockArea
          *===========================================================================*/
@@ -80,7 +80,6 @@ void MainWindow::setupDockManager()
             border-top: none;
             background: rgb(51, 51, 51);
         }
-
 
         /*===========================================================================
          * QtAdvancedDockingSystem - DockArea Titlebar
@@ -92,7 +91,6 @@ void MainWindow::setupDockManager()
             min-height: 23px;
         }
 
-
         ads--CDockAreaTitleBar:disabled
         {
             border-bottom: 1px solid rgb(140, 140, 140);
@@ -102,6 +100,7 @@ void MainWindow::setupDockManager()
         {
             background: rgb(81, 81, 81);
             padding: 3 2px;
+            color: white;  /* Added for white text/icons */
         }
 
         ads--CDockAreaTitleBar > QToolButton:hover
@@ -115,18 +114,15 @@ void MainWindow::setupDockManager()
             background: rgba(255, 196, 125, 127);
         }
 
-
         ads--CDockAreaTabBar
         {
 
         }
 
-
         ads--CDockAreaTabBar #tabsContainerWidget
         {
             background: rgb(81, 81, 81);
         }
-
 
         /*===========================================================================
          * QtAdvancedDockingSystem - Dock Widget Tab
@@ -142,7 +138,6 @@ void MainWindow::setupDockManager()
             border-right: 1px solid rgb(51, 51, 51);
         }
 
-
         ads--CDockWidgetTab[activeTab="true"]
         {
             background: palette(highlight);
@@ -150,9 +145,8 @@ void MainWindow::setupDockManager()
 
         ads--CDockWidgetTab > QLabel
         {
-
+            color: white;  /* Added for white text */
         }
-
 
         ads--CDockWidgetTab[activeTab="true"]:disabled
         {
@@ -161,7 +155,12 @@ void MainWindow::setupDockManager()
 
         ads--CDockWidgetTab[activeTab="true"] #dockWidgetTabLabel
         {
-            color: rgb(51, 51, 51);
+            color: white;  /* Changed from rgb(51, 51, 51) to white */
+        }
+
+        ads--CDockWidgetTab[activeTab="false"] #dockWidgetTabLabel
+        {
+            color: white;  /* Added for inactive tab white text */
         }
 
         #tabCloseButton
@@ -171,6 +170,7 @@ void MainWindow::setupDockManager()
             border: none;
             padding: 2px 0px;
             qproperty-iconSize: 11px;
+            color: white;  /* Added for white close button */
         }
 
         #tabCloseButton:hover
@@ -190,6 +190,12 @@ void MainWindow::setupDockManager()
         ads--CDockWidget > QToolBar
         {
             border-bottom: 1px solid palette(light);
+            color: white;  /* Added for white toolbar text */
+        }
+
+        ads--CDockWidget > QToolBar > QToolButton
+        {
+            color: white;  /* Added for white toolbar button text */
         }
 
         ads--CDockWidget
@@ -210,13 +216,11 @@ void MainWindow::setupDockManager()
             border-bottom: none;
         }
 
-
         ads--CDockWidget[ItemViewContainer="true"] QtLabb--CHeaderWidget
         {
             border-left: 1px solid rgb(81, 81, 81);
             border-right: 1px solid rgb(81, 81, 81);
         }
-
 
         ads--CDockWidget[ItemViewContainer="true"] QTableView
         {
@@ -225,7 +229,6 @@ void MainWindow::setupDockManager()
             padding-right: -1px;
             background-color: rgb(46, 46, 46);
         }
-
 
         ads--CDockWidget[ItemViewContainer="true"]  QHeaderView::section:horizontal:first
         {
@@ -237,12 +240,10 @@ void MainWindow::setupDockManager()
              border-right: 1px solid rgb(81, 81, 81);
         }
 
-
         QWidget[dockWidgetContent="true"]
         {
             border: none;
         }
-
 
         /*===========================================================================
          * QtAdvancedDockingSystem - Overlay
@@ -302,10 +303,221 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
 {
     auto w = new TechnicalPage();
 
-    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Technical Monitoring & Control");
+    ads::CDockWidget* DockWidget = m_DockManager->createDockWidget("Technical");
     DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
     DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
     DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+
+    // --- Set Toolbar ---
+    QToolBar *toolbar = new QToolBar();
+    toolbar->setMovable(false);
+    toolbar->setIconSize(QSize(24, 24));
+
+    // Dark theme stylesheet for toolbar
+    toolbar->setStyleSheet(R"(
+        QToolBar {
+            background-color: #2b2b2b;
+            border: 1px solid #3c3c3c;
+            spacing: 6px;
+            padding: 4px;
+        }
+
+        QToolBar::separator {
+            background-color: #555555;
+            width: 1px;
+            margin: 2px;
+        }
+
+        QLabel {
+            color: #ffffff;
+            font-size: 12px;
+            padding: 4px 8px;
+            background: transparent;
+        }
+    )");
+
+    QComboBox *pageSelector = new QComboBox(toolbar);
+    pageSelector->addItem("Propulsion System");
+    pageSelector->addItem("Electrical System");
+    pageSelector->addItem("Fuel Management System");
+    pageSelector->addItem("Ballast System");
+    pageSelector->addItem("Hotel Load");
+
+    // Dark theme stylesheet for combobox
+    pageSelector->setStyleSheet(R"(
+        QComboBox {
+            background-color: #404040;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #ffffff;
+            font-size: 12px;
+            min-width: 80px;
+        }
+
+        QComboBox:hover {
+            background-color: #4a4a4a;
+            border-color: #777777;
+        }
+
+        QComboBox:pressed {
+            background-color: #363636;
+        }
+
+        QComboBox::drop-down {
+            border: none;
+            width: 20px;
+        }
+
+        QComboBox::down-arrow {
+            image: url(:/icons/general/ic-down_arrow.png); /* Replace with your arrow icon */
+            width: 10px;
+            height: 10px;
+        }
+
+        QComboBox QAbstractItemView {
+            background-color: #404040;
+            border: 1px solid #555555;
+            selection-background-color: #5a5a5a;
+            color: #ffffff;
+        }
+
+        QComboBox QAbstractItemView::item {
+            padding: 6px 12px;
+            border: none;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            background-color: #5a5a5a;
+        }
+
+        QComboBox QAbstractItemView::item:hover {
+            background-color: #4a4a4a;
+        }
+    )");
+
+    QLabel *label = new QLabel("Select Page:");
+    toolbar->addWidget(label);
+    toolbar->addWidget(pageSelector);
+
+    // --- Toolbar Actions ---
+    toolbar->addSeparator();
+
+    // -- IO Device Manager --
+
+    // IO Device
+    QAction* IODeviceAction = createToolbarAction(
+        toolbar,
+        ":/icons/toolbar_technical/ic-io_devices.png",
+        "IO Device"
+    );
+
+    // Load Device Configuration
+    QAction* LoadDeviceConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/toolbar_technical/ic-device_load.png",
+        "Load Device Configuration"
+    );
+
+    // Export Device Configuration
+    QAction* ExportDeviceConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/toolbar_technical/ic-device_save.png",
+        "Export Device Configuration"
+    );
+
+    // -- Load System Configuration --
+    toolbar->addSeparator();
+
+    // Load Propulsion System Configuration
+    QAction* LoadPropulsionSysConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Propulsion System Configuration"
+    );
+
+    // Load Electrical System Configuration
+    QAction* LoadElectricalSysConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Electrical System Configuration"
+    );
+
+    // Load Fuel Management System Configuration
+    QAction* LoadFuelManagementSysConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Fuel Management System Configuration"
+    );
+
+    // Load Ballast System Configuration
+    QAction* LoadBallastSysConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Ballast System Configuration"
+    );
+
+    // Load Hotel Load Configuration
+    QAction* LoadHotelLoadConfigAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Hotel Load Configuration"
+    );
+
+    // -- Technical Page Layouting --
+    toolbar->addSeparator();
+
+    // Toggle Hide/Show Top Sidebar
+    QAction* ToggleTopSidebarAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Hotel Load Configuration"
+    );
+    ToggleTopSidebarAction->setCheckable(true);
+
+    // Toggle Hide/Show Main Sidebar
+    QAction* ToggleMainSidebarAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Hotel Load Configuration"
+    );
+    ToggleMainSidebarAction->setCheckable(true);
+
+    // Toggle Hide/Show Top Content
+    QAction* ToggleTopContentAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Hotel Load Configuration"
+    );
+    ToggleTopContentAction->setCheckable(true);
+
+    // Toggle Hide/Show Main Content
+    QAction* ToggleMainContentAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Load Hotel Load Configuration"
+    );
+    ToggleMainContentAction->setCheckable(true);
+
+    // --- Toolbars: Signal-Slot Connections ---
+    connect(pageSelector, &QComboBox::currentIndexChanged, w, &TechnicalPage::setCurrentPage);
+
+    connect(IODeviceAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadDeviceConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ExportDeviceConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadPropulsionSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadElectricalSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadFuelManagementSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadBallastSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(LoadHotelLoadConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ToggleTopSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ToggleMainSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ToggleTopContentAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ToggleMainContentAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+
+    toolbar->setIconSize(QSize(24, 24)); // NOTE: Seems to not working
+    DockWidget->setToolBar(toolbar);
+
     return DockWidget;
 }
 
@@ -353,14 +565,35 @@ ads::CDockWidget *MainWindow::createSettingPage()
     return DockWidget;
 }
 
+QAction *MainWindow::createToolbarAction(QToolBar *toolbar, const QString &iconPath, const QString &text, QObject *parent)
+{
+    QAction* action = new QAction(parent);
+    action->setIcon(QIcon(iconPath));
+    action->setText(text);
+    toolbar->addAction(action);
+    return action;
+}
+
 void MainWindow::createActions()
 {
     ui->toolBar->setIconSize(QSize(24, 24));
 
-    QAction* dummyAction = new QAction();
-    dummyAction->setIcon(QIcon(":/icons/ribbon/icon-sensor.png"));
-    dummyAction->setText("IO Device");
-    ui->toolBar->addAction(dummyAction);
+    QAction* toggleWelcomePage = new QAction();
+    toggleWelcomePage->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    toggleWelcomePage->setText("Welcome Page");
+    ui->toolBar->addAction(toggleWelcomePage);
+
+    ui->toolBar->addSeparator();
+
+    QAction* savePerspective = new QAction();
+    savePerspective->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    savePerspective->setText("Save Perspective");
+    ui->toolBar->addAction(savePerspective);
+
+    QAction* loadPerspective = new QAction();
+    loadPerspective->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    loadPerspective->setText("Load Perspective");
+    ui->toolBar->addAction(loadPerspective);
 }
 
 void MainWindow::on_pushButton_DashboardPage_clicked(bool checked)
