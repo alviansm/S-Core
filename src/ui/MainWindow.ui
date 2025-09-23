@@ -40,7 +40,7 @@ QStatusBar {
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,50">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,100">
     <property name="spacing">
      <number>0</number>
     </property>

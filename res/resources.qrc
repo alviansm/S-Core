@@ -26,5 +26,10 @@
         <file>icons/ribbon/folders.png</file>
         <file>icons/ribbon/home.png</file>
         <file>icons/ribbon/tags.png</file>
+        <file>icons/toolbar_technical/ic-io_devices.png</file>
+        <file>icons/general/ic-down_arrow.png</file>
+        <file>icons/toolbar_technical/ic-device_load.png</file>
+        <file>icons/toolbar_technical/ic-device_save.png</file>
+        <file>icons/ic-placeholder.png</file>
     </qresource>
 </RCC>

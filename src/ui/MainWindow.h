@@ -72,6 +72,12 @@ private:
     ads::CDockManager* m_DockManager;
 
     ads::CDockAreaWidget* m_availableDockArea;
+
+// Utilities
+private:
+    QAction* createToolbarAction(QToolBar* toolbar, const QString& iconPath, const QString& text, QObject* parent = nullptr);
+
+
 };
 
 #endif // MAINWINDOW_H
