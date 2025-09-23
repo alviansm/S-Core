@@ -4,6 +4,8 @@
 #include <QSizePolicy>
 #include <QLabel>
 
+#include "CircleProgressBar.h"
+
 TechnicalPage::TechnicalPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::TechnicalPage)
@@ -163,10 +165,99 @@ void TechnicalPage::createPropulsionSystemPageContent_topSidebar()
     QWidget* page = new QWidget();
     QVBoxLayout* layout = new QVBoxLayout(page);
     layout->setContentsMargins(6, 6, 0, 0);
+
+    // Top row with Summary label and Fuel consumption
+    QWidget* topRowWidget = new QWidget();
+    QHBoxLayout* topRowLayout = new QHBoxLayout(topRowWidget);
+    topRowLayout->setContentsMargins(0, 0, 0, 0);
+
+    // Keep the existing Summary label
     QLabel* label = new QLabel("Summary");
     label->setStyleSheet("color: white; font-weight: bold;");
     label->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    layout->addWidget(label);
+    topRowLayout->addWidget(label);
+
+    topRowLayout->addStretch();
+
+    // Fuel consumption on the right with tooltip
+    QWidget* fuelWidget = new QWidget();
+    fuelWidget->setContentsMargins(0, 6, 6, 0);
+    QVBoxLayout* fuelLayout = new QVBoxLayout(fuelWidget);
+    fuelLayout->setContentsMargins(0, 0, 0, 0);
+    fuelLayout->setSpacing(2);
+
+    QLabel* fuelRateValue = new QLabel("8.7 T/H");
+    fuelRateValue->setStyleSheet("color: #3498DB; font-size: 12px; font-weight: bold;");
+    fuelRateValue->setAlignment(Qt::AlignCenter);
+    fuelLayout->addWidget(fuelRateValue);
+
+    fuelWidget->setToolTip("Fuel Consumption Rate");
+    topRowLayout->addWidget(fuelWidget);
+
+    layout->addWidget(topRowWidget);
+
+    // Add some spacing
+    layout->addSpacing(10);
+
+    // Circle widget with flanking power values
+    QWidget* circleWidget = new QWidget();
+    QHBoxLayout* circleLayout = new QHBoxLayout(circleWidget);
+    circleLayout->setContentsMargins(0, 0, 0, 0);
+
+    // Current power value on the left
+    QWidget* currentPowerWidget = new QWidget();
+    QVBoxLayout* currentPowerLayout = new QVBoxLayout(currentPowerWidget);
+    currentPowerLayout->setContentsMargins(0, 0, 0, 0);
+    currentPowerLayout->setSpacing(2);
+
+    QLabel* currentPowerValue = new QLabel("32.5\nMW");
+    currentPowerValue->setStyleSheet("color: #00BF63; font-size: 12px; font-weight: bold;");
+    currentPowerValue->setAlignment(Qt::AlignCenter);
+    currentPowerLayout->addWidget(currentPowerValue);
+
+    currentPowerWidget->setToolTip("Current Power Usage");
+    circleLayout->addWidget(currentPowerWidget);
+
+    // Create the circular progress bar for power usage
+    CircleProgressBar* powerProgressBar = new CircleProgressBar();
+    powerProgressBar->setMaximum(100); // MCR percentage
+    powerProgressBar->setValue(65); // Current power usage (example: 65% of MCR)
+    powerProgressBar->setText("MCR %");
+
+    // Set colors based on power usage level
+    int currentPowerPercent = 65; // This should be dynamic based on your data
+    if (currentPowerPercent <= 75) {
+        // Green - Optimal efficiency range
+        powerProgressBar->setStartColor(QColor(46, 204, 113));
+        powerProgressBar->setEndColor(QColor(39, 174, 96));
+    } else if (currentPowerPercent <= 90) {
+        // Amber - High load/low efficiency
+        powerProgressBar->setStartColor(QColor(241, 196, 15));
+        powerProgressBar->setEndColor(QColor(230, 126, 34));
+    } else {
+        // Red - Overload/Critical deviation
+        powerProgressBar->setStartColor(QColor(231, 76, 60));
+        powerProgressBar->setEndColor(QColor(192, 57, 43));
+    }
+
+    circleLayout->addWidget(powerProgressBar);
+
+    // Maximum power value on the right
+    QWidget* maxPowerWidget = new QWidget();
+    QVBoxLayout* maxPowerLayout = new QVBoxLayout(maxPowerWidget);
+    maxPowerLayout->setContentsMargins(0, 0, 0, 0);
+    maxPowerLayout->setSpacing(2);
+
+    QLabel* maxPowerValue = new QLabel("50.0\nMW");
+    maxPowerValue->setStyleSheet("color: #BDC3C7; font-size: 12px; font-weight: bold;");
+    maxPowerValue->setAlignment(Qt::AlignCenter);
+    maxPowerLayout->addWidget(maxPowerValue);
+
+    maxPowerWidget->setToolTip("Maximum Continuous Rating");
+    circleLayout->addWidget(maxPowerWidget);
+
+    layout->addWidget(circleWidget);
+
     layout->addStretch();
     m_topSidebar->addWidget(page);
 }

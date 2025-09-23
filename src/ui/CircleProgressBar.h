@@ -17,6 +17,10 @@ public:
     void setMaximum(int max);
     void setText(const QString &text);
 
+    void setStartColor(const QColor &color);
+    void setEndColor(const QColor &color);
+    void setColors(const QColor &startColor, const QColor &endColor);
+
 signals:
     void valueChanged(int newValue);
 

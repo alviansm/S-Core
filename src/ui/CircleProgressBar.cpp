@@ -34,6 +34,38 @@ void CircleProgressBar::setText(const QString &text)
     update();
 }
 
+void CircleProgressBar::setStartColor(const QColor &color)
+{
+    if (m_startColor != color) {
+        m_startColor = color;
+        update();
+    }
+}
+
+void CircleProgressBar::setEndColor(const QColor &color)
+{
+    if (m_endColor != color) {
+        m_endColor = color;
+        update();
+    }
+}
+
+void CircleProgressBar::setColors(const QColor &startColor, const QColor &endColor)
+{
+    bool changed = false;
+    if (m_startColor != startColor) {
+        m_startColor = startColor;
+        changed = true;
+    }
+    if (m_endColor != endColor) {
+        m_endColor = endColor;
+        changed = true;
+    }
+    if (changed) {
+        update();
+    }
+}
+
 void CircleProgressBar::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
