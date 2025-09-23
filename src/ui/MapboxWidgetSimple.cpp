@@ -10,6 +10,8 @@ MapboxWidgetSimple::MapboxWidgetSimple(QWidget *parent)
     , m_isPageLoaded(false)
     , m_isMapReady(false)
     , m_hasPendingData(false)
+    , m_pendingOriginPortId(-1)
+    , m_pendingDestPortId(-1)
 {
     // Create web view
     m_view = new QWebEngineView(this);
@@ -28,6 +30,19 @@ MapboxWidgetSimple::MapboxWidgetSimple(QWidget *parent)
     m_mapReadyTimer = new QTimer(this);
     m_mapReadyTimer->setSingleShot(true);
     connect(m_mapReadyTimer, &QTimer::timeout, this, &MapboxWidgetSimple::checkMapReady);
+
+    // Setup JavaScript callback for route displayed event
+    connect(m_view->page(), &QWebEnginePage::loadFinished, this, [this](bool ok) {
+        if (ok) {
+            QString script = R"(
+                window.routeDisplayed = function() {
+                    // This will be called from JavaScript when route is successfully displayed
+                    console.log('Route displayed callback triggered');
+                };
+            )";
+            m_view->page()->runJavaScript(script);
+        }
+    });
 
     qDebug() << "MapboxWidgetSimple created";
 }
@@ -100,28 +115,67 @@ void MapboxWidgetSimple::checkMapReady()
 
 void MapboxWidgetSimple::processPendingData()
 {
-    if (m_hasPendingData) {
-        qDebug() << "Processing pending simple map data";
-        setSeaRoute(m_pendingRouteData, m_pendingMarkerData);
+    if (m_hasPendingData && m_pendingOriginPortId > 0 && m_pendingDestPortId > 0) {
+        qDebug() << "Processing pending simple map data - Origin:" << m_pendingOriginPortId << "Dest:" << m_pendingDestPortId;
+        setSeaRouteByPorts(m_pendingOriginPortId, m_pendingDestPortId);
         m_hasPendingData = false;
     }
 }
 
-void MapboxWidgetSimple::setSeaRoute(const QVariantList &routeCoordinates, const QVariantList &markerData)
+void MapboxWidgetSimple::setSeaRouteByPorts(int originPortId, int destPortId)
 {
-    qDebug() << "setSeaRoute called - Simple map ready:" << m_isMapReady;
+    qDebug() << "setSeaRouteByPorts called - Origin:" << originPortId << "Dest:" << destPortId << "Map ready:" << m_isMapReady;
+
+    if (originPortId <= 0 || destPortId <= 0) {
+        qWarning() << "Invalid port IDs provided - Origin:" << originPortId << "Dest:" << destPortId;
+        return;
+    }
 
     if (!m_isPageLoaded || !m_isMapReady) {
         // Store data for later processing
-        qDebug() << "Storing simple route data for later processing";
-        m_pendingRouteData = routeCoordinates;
-        m_pendingMarkerData = markerData;
+        qDebug() << "Storing port IDs for later processing";
+        m_pendingOriginPortId = originPortId;
+        m_pendingDestPortId = destPortId;
         m_hasPendingData = true;
         return;
     }
 
     // Clear pending data flag since we're processing now
     m_hasPendingData = false;
+
+    // Create JavaScript command to call the API-based function
+    QString script = QString("updateRouteByPorts(%1, %2);").arg(originPortId).arg(destPortId);
+    qDebug() << "Executing route script with port IDs:" << script;
+
+    // Execute JavaScript with callback
+    m_view->page()->runJavaScript(script, [this, originPortId, destPortId](const QVariant &result) {
+        qDebug() << "Route update result for ports" << originPortId << "to" << destPortId << ":" << result;
+
+        // Check if there was an error
+        QString resultStr = result.toString();
+        if (!resultStr.isEmpty() && resultStr.contains("error", Qt::CaseInsensitive)) {
+            qWarning() << "JavaScript execution error:" << resultStr;
+            emit routeError(resultStr);
+        } else {
+            emit routeDisplayed();
+        }
+    });
+}
+
+// Backward compatibility method - now deprecated
+void MapboxWidgetSimple::setSeaRoute(const QVariantList &routeCoordinates, const QVariantList &markerData)
+{
+    qWarning() << "setSeaRoute with coordinates is deprecated. Use setSeaRouteByPorts instead.";
+
+    // For backward compatibility, we can still support this but log a warning
+    if (!m_isPageLoaded || !m_isMapReady) {
+        // Store data for later processing
+        qDebug() << "Storing simple route data for later processing (deprecated method)";
+        m_pendingRouteData = routeCoordinates;
+        m_pendingMarkerData = markerData;
+        m_hasPendingData = true;
+        return;
+    }
 
     // Convert to JSON
     QJsonArray routeJson = QJsonArray::fromVariantList(routeCoordinates);
@@ -132,11 +186,11 @@ void MapboxWidgetSimple::setSeaRoute(const QVariantList &routeCoordinates, const
 
     // Create JavaScript command
     QString script = QString("updateRoute(%1, %2);").arg(routeString).arg(markersString);
-    qDebug() << "Executing simple route script";
+    qDebug() << "Executing simple route script (deprecated method)";
 
     // Execute JavaScript with callback
     m_view->page()->runJavaScript(script, [this](const QVariant &result) {
-        qDebug() << "Simple route update result:" << result;
+        qDebug() << "Simple route update result (deprecated method):" << result;
         emit routeDisplayed();
     });
 }

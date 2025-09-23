@@ -7,16 +7,16 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet" />
     <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
+        body {
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
         }
-        #map { 
-            position: absolute; 
-            top: 0; 
-            bottom: 0; 
-            width: 100%; 
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
         }
         .info-panel {
             position: absolute;
@@ -27,7 +27,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            min-width: 200px;
+            min-width: 80px;
         }
         .info-title {
             font-weight: bold;
@@ -35,14 +35,27 @@
             color: #333;
         }
         .route-info {
-            font-size: 14px;
+            font-size: 9px;
             color: #666;
+        }
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 2000;
+            display: none;
         }
     </style>
 </head>
 <body>
 
 <div id="map"></div>
+<div id="loading" class="loading-indicator">Loading route...</div>
 
 <script>
     // Mapbox Access Token
@@ -50,7 +63,7 @@
 
     const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v11', // Simple light 2D style
+        style: 'mapbox://styles/mapbox/dark-v11',
         zoom: 5,
         center: [108, -3], // Center between Surabaya and Singapore
         pitch: 0, // Keep it flat 2D
@@ -61,14 +74,21 @@
     let currentMarkers = [];
     let routeLoaded = false;
 
-    // Update status function
-    function updateStatus(message) {
-        document.getElementById('status').textContent = message;
+    // API configuration
+    const API_BASE_URL = 'https://seaway-api.heyrend.cloud/api/v1/public';
+
+    // Show/hide loading indicator
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+    }
+
+    function hideLoading() {
+        document.getElementById('loading').style.display = 'none';
     }
 
     // Main load event
     map.on('load', () => {
-        updateStatus('Map loaded');
+        console.log('Map loaded');
 
         // Create route source and layer
         map.addSource('sea-route-source', {
@@ -115,89 +135,201 @@
             }
         }, 'sea-route-layer'); // Add below the main route layer
 
-        updateStatus('Ready');
+        console.log('Map ready');
     });
 
-    // Helper function to update route
-    function internalUpdateRoute(routeCoordinates, markerPoints) {
-        const routeSource = map.getSource('sea-route-source');
-        if (routeSource && Array.isArray(routeCoordinates)) {
-            // Update route data
-            const routeData = {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'LineString',
-                    'coordinates': routeCoordinates
-                }
-            };
-            
-            routeSource.setData(routeData);
-            routeLoaded = true;
-            updateStatus('Route displayed');
+    // Fetch route data from API
+    async function fetchRouteData(originPortId, destPortId) {
+        try {
+            showLoading();
 
-            // Clear existing markers
-            currentMarkers.forEach(marker => marker.remove());
-            currentMarkers = [];
+            const response = await fetch(`${API_BASE_URL}/waypoints`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    origin_port_id: originPortId,
+                    dest_port_id: destPortId
+                })
+            });
 
-            // Add port markers
-            if (Array.isArray(markerPoints)) {
-                markerPoints.forEach((point) => {
-                    if (point.coords && Array.isArray(point.coords)) {
-                        const markerElement = document.createElement('div');
-                        markerElement.style.backgroundColor = point.color || '#FF4500';
-                        markerElement.style.width = '12px';
-                        markerElement.style.height = '12px';
-                        markerElement.style.borderRadius = '50%';
-                        markerElement.style.border = '2px solid white';
-                        markerElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-
-                        const marker = new mapboxgl.Marker(markerElement)
-                            .setLngLat(point.coords)
-                            .setPopup(new mapboxgl.Popup({ 
-                                offset: 15,
-                                closeButton: false 
-                            }).setHTML(`
-                                <div style="font-weight: bold; margin-bottom: 5px;">${point.title}</div>
-                                <div style="font-size: 12px; color: #666;">
-                                    ${point.coords[1].toFixed(4)}°N, ${point.coords[0].toFixed(4)}°E
-                                </div>
-                            `))
-                            .addTo(map);
-                        currentMarkers.push(marker);
-                    }
-                });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            // Fit map to show entire route
-            if (routeCoordinates.length > 0) {
-                const bounds = new mapboxgl.LngLatBounds();
-                routeCoordinates.forEach((coord) => {
-                    if (Array.isArray(coord) && coord.length === 2) {
-                        bounds.extend([parseFloat(coord[0]), parseFloat(coord[1])]);
-                    }
-                });
-                
-                if (!bounds.isEmpty()) {
-                    map.fitBounds(bounds, { 
-                        padding: 60,
-                        duration: 1500,
-                        essential: true
-                    });
-                }
+            const data = await response.json();
+
+            if (data.code === 200 && data.data && data.data.features && data.data.features.length > 0) {
+                return data.data.features[0]; // Return the first feature
+            } else {
+                throw new Error('Invalid API response format');
             }
+        } catch (error) {
+            console.error('Error fetching route data:', error);
+            throw error;
+        } finally {
+            hideLoading();
         }
     }
 
-    // Functions called from C++
-    function updateRoute(routeCoordinates, markerPoints) {
-        if (map.isStyleLoaded()) {
-            internalUpdateRoute(routeCoordinates, markerPoints);
-        } else {
+    // Helper function to update route with API data
+    function internalUpdateRoute(feature) {
+        const routeSource = map.getSource('sea-route-source');
+        if (!routeSource || !feature || !feature.geometry || !feature.geometry.coordinates) {
+            console.error('Invalid route data');
+            return;
+        }
+
+        // Update route data
+        routeSource.setData(feature);
+        routeLoaded = true;
+        console.log('Route displayed');
+
+        // Clear existing markers
+        currentMarkers.forEach(marker => marker.remove());
+        currentMarkers = [];
+
+        // Extract origin and destination coordinates from properties
+        const properties = feature.properties || {};
+        const originCoords = properties.o_coords;
+        const destCoords = properties.d_coords;
+        const routeName = properties.route_name || 'Sea Route';
+
+        // Add origin marker
+        if (originCoords && Array.isArray(originCoords)) {
+            const originMarker = createPortMarker(
+                originCoords,
+                'Origin Port',
+                '#00FF00', // Green for origin
+                routeName.split(' -> ')[0] || 'Origin'
+            );
+            currentMarkers.push(originMarker);
+        }
+
+        // Add destination marker
+        if (destCoords && Array.isArray(destCoords)) {
+            const destMarker = createPortMarker(
+                destCoords,
+                'Destination Port',
+                '#FF0000', // Red for destination
+                routeName.split(' -> ')[1] || 'Destination'
+            );
+            currentMarkers.push(destMarker);
+        }
+
+        // Fit map to show entire route
+        const coordinates = feature.geometry.coordinates;
+        if (coordinates && coordinates.length > 0) {
+            const bounds = new mapboxgl.LngLatBounds();
+
+            // Add route coordinates to bounds
+            coordinates.forEach((coord) => {
+                if (Array.isArray(coord) && coord.length === 2) {
+                    bounds.extend([parseFloat(coord[0]), parseFloat(coord[1])]);
+                }
+            });
+
+            // Add origin and destination to bounds
+            if (originCoords) bounds.extend(originCoords);
+            if (destCoords) bounds.extend(destCoords);
+
+            if (!bounds.isEmpty()) {
+                map.fitBounds(bounds, {
+                    padding: 60,
+                    duration: 1500,
+                    essential: true
+                });
+            }
+        }
+
+        // Display route information
+        displayRouteInfo(properties);
+    }
+
+    // Create port marker
+    function createPortMarker(coordinates, title, color, portName) {
+        const markerElement = document.createElement('div');
+        markerElement.style.backgroundColor = color;
+        markerElement.style.width = '14px';
+        markerElement.style.height = '14px';
+        markerElement.style.borderRadius = '50%';
+        markerElement.style.border = '2px solid white';
+        markerElement.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+
+        const marker = new mapboxgl.Marker(markerElement)
+            .setLngLat(coordinates)
+            .setPopup(new mapboxgl.Popup({
+                offset: 15,
+                closeButton: false
+            }).setHTML(`
+                <div style="font-weight: bold; margin-bottom: 5px;">${portName}</div>
+                <div style="font-size: 10px; color: #888; margin-bottom: 3px;">${title}</div>
+                <div style="font-size: 12px; color: #666;">
+                    ${coordinates[1].toFixed(4)}°N, ${coordinates[0].toFixed(4)}°E
+                </div>
+            `))
+            .addTo(map);
+
+        return marker;
+    }
+
+    // Display route information
+    function displayRouteInfo(properties) {
+        // Remove existing info panel
+        const existingPanel = document.querySelector('.info-panel');
+        if (existingPanel) {
+            existingPanel.remove();
+        }
+
+        // Create new info panel
+        const infoPanel = document.createElement('div');
+        infoPanel.className = 'info-panel';
+
+        const totalDist = properties.total_dist || 0;
+        const routeName = properties.route_name || 'Sea Route';
+
+        infoPanel.innerHTML = `
+            <div class="info-title">${routeName}</div>
+            <div class="route-info">
+                <div style="margin-bottom: 5px;">Total Distance: ${totalDist.toFixed(1)} nm</div>
+                <div style="margin-bottom: 5px;">Waypoint Distance: ${(properties.wp_dist || 0).toFixed(1)} nm</div>
+                <div>Origin to WP: ${(properties.o_to_wp_dist || 0).toFixed(1)} nm</div>
+                <div>WP to Destination: ${(properties.wp_to_d_dist || 0).toFixed(1)} nm</div>
+            </div>
+        `;
+
+<!--        document.body.appendChild(infoPanel);-->
+    }
+
+    // Main function called from C++ with port IDs
+    async function updateRouteByPorts(originPortId, destPortId) {
+        if (!map.isStyleLoaded()) {
             // Wait for map to be ready
             map.once('styledata', () => {
-                internalUpdateRoute(routeCoordinates, markerPoints);
+                updateRouteByPorts(originPortId, destPortId);
             });
+            return;
         }
+
+        try {
+            const feature = await fetchRouteData(originPortId, destPortId);
+            internalUpdateRoute(feature);
+
+            // Notify C++ that route is displayed
+            if (typeof window.routeDisplayed === 'function') {
+                window.routeDisplayed();
+            }
+        } catch (error) {
+            console.error('Failed to update route:', error);
+            alert(`Failed to load route: ${error.message}`);
+        }
+    }
+
+    // Backward compatibility - keep the old function but make it call the API
+    function updateRoute(routeCoordinates, markerPoints) {
+        // This is kept for backward compatibility but not used with the new API approach
+        console.warn('updateRoute with coordinates is deprecated. Use updateRouteByPorts instead.');
     }
 
     // Simplified functions - not needed for simple version

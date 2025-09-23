@@ -19,6 +19,10 @@ public:
     explicit MapboxWidgetSimple(QWidget *parent = nullptr);
     ~MapboxWidgetSimple();
 
+    // New method using port IDs (recommended)
+    void setSeaRouteByPorts(int originPortId, int destPortId);
+
+    // Backward compatibility method (deprecated)
     void setSeaRoute(const QVariantList &routeCoordinates, const QVariantList &markerData);
 
 protected:
@@ -31,6 +35,7 @@ private slots:
 signals:
     void mapReady();
     void routeDisplayed();
+    void routeError(const QString &error);
 
 private:
     QWebEngineView *m_view;
@@ -38,10 +43,14 @@ private:
     bool m_isMapReady = false;
     QTimer *m_mapReadyTimer = nullptr;
 
-    // Pending data storage
+    // Pending data storage for new port-based method
+    int m_pendingOriginPortId = -1;
+    int m_pendingDestPortId = -1;
+    bool m_hasPendingData = false;
+
+    // Backward compatibility storage (deprecated)
     QVariantList m_pendingRouteData;
     QVariantList m_pendingMarkerData;
-    bool m_hasPendingData = false;
 
     void processPendingData();
 };
