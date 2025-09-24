@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QtMath>
 #include "MapboxWidget.h"
+#include "../../service/MockApiService.h"
 
 namespace Ui {
 class DashboardPage;
@@ -31,6 +32,8 @@ private slots:
     void updateShipPosition();
 
     void setupIcon();
+
+    void onDataUpdated(const VoyageLogs& data);
 
 private:
     void setupInitialMapRoute();

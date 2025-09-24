@@ -63,6 +63,7 @@ add_executable(SCore WIN32
     src/ui/Pages/Components/DialogAddCargo.h src/ui/Pages/Components/DialogAddCargo.cpp src/ui/Pages/Components/DialogAddCargo.ui
     src/ui/Pages/Components/DialogAddFuelPlan.h src/ui/Pages/Components/DialogAddFuelPlan.cpp src/ui/Pages/Components/DialogAddFuelPlan.ui
     src/ui/Pages/Components/DialogAddNewVoyage.h src/ui/Pages/Components/DialogAddNewVoyage.cpp src/ui/Pages/Components/DialogAddNewVoyage.ui
+    src/service/MockApiService.h src/service/MockApiService.cpp
 
 
 )
