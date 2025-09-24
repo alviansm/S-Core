@@ -32,5 +32,7 @@
         <file>icons/toolbar_technical/ic-device_save.png</file>
         <file>icons/ic-placeholder.png</file>
         <file>images/GA.png</file>
+        <file>images/create_configuration_illustration.jpg</file>
+        <file>images/import_configuration_illustration.jpg</file>
     </qresource>
 </RCC>

@@ -43,7 +43,11 @@ set(UI_FILES
     src/ui/MainWindow.ui
 )
 
-add_executable(SCore WIN32 
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+
+add_executable(SCore WIN32
     ${SOURCES}
     ${HEADERS}
     ${UI_FILES}
@@ -63,6 +67,9 @@ add_executable(SCore WIN32
     src/ui/Pages/Components/DialogAddCargo.h src/ui/Pages/Components/DialogAddCargo.cpp src/ui/Pages/Components/DialogAddCargo.ui
     src/ui/Pages/Components/DialogAddFuelPlan.h src/ui/Pages/Components/DialogAddFuelPlan.cpp src/ui/Pages/Components/DialogAddFuelPlan.ui
     src/ui/Pages/Components/DialogAddNewVoyage.h src/ui/Pages/Components/DialogAddNewVoyage.cpp src/ui/Pages/Components/DialogAddNewVoyage.ui
+    src/ui/SpeedometerWidget.h src/ui/SpeedometerWidget.cpp
+    src/ui/EngineStatusWidget.h src/ui/EngineStatusWidget.cpp
+    src/ui/PropulsionPIDWidget.h src/ui/PropulsionPIDWidget.cpp
 
 
 )
@@ -81,6 +88,9 @@ target_link_libraries(SCore PRIVATE qtadvanceddocking-qt${QT_VERSION_MAJOR} Qt${
 target_link_libraries(SCore PUBLIC Qt${QT_VERSION_MAJOR}::Core 
                                    Qt${QT_VERSION_MAJOR}::Gui 
                                    Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets Qt6::Charts)
+target_link_libraries(SCore PRIVATE Qt6::Widgets)
+target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets)
 
 set_target_properties(SCore PROPERTIES 
     AUTOMOC ON

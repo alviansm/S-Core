@@ -311,7 +311,6 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     // --- Set Toolbar ---
     QToolBar *toolbar = new QToolBar();
     toolbar->setMovable(false);
-    toolbar->setIconSize(QSize(24, 24));
 
     // Dark theme stylesheet for toolbar
     toolbar->setStyleSheet(R"(
@@ -471,7 +470,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     QAction* ToggleTopSidebarAction = createToolbarAction(
         toolbar,
         ":/icons/ic-placeholder.png",
-        "Load Hotel Load Configuration"
+        "Toggle Show/Hide Top Sidebar"
     );
     ToggleTopSidebarAction->setCheckable(true);
 
@@ -479,7 +478,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     QAction* ToggleMainSidebarAction = createToolbarAction(
         toolbar,
         ":/icons/ic-placeholder.png",
-        "Load Hotel Load Configuration"
+        "Toggle Show/Hide Main Sidebar"
     );
     ToggleMainSidebarAction->setCheckable(true);
 
@@ -487,17 +486,9 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     QAction* ToggleTopContentAction = createToolbarAction(
         toolbar,
         ":/icons/ic-placeholder.png",
-        "Load Hotel Load Configuration"
+        "Toggle Show/Hide Top Content"
     );
     ToggleTopContentAction->setCheckable(true);
-
-    // Toggle Hide/Show Main Content
-    QAction* ToggleMainContentAction = createToolbarAction(
-        toolbar,
-        ":/icons/ic-placeholder.png",
-        "Load Hotel Load Configuration"
-    );
-    ToggleMainContentAction->setCheckable(true);
 
     // --- Toolbars: Signal-Slot Connections ---
     connect(pageSelector, &QComboBox::currentIndexChanged, w, &TechnicalPage::setCurrentPage);
@@ -513,9 +504,8 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     connect(ToggleTopSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
     connect(ToggleMainSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
     connect(ToggleTopContentAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
-    connect(ToggleMainContentAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
 
-    toolbar->setIconSize(QSize(24, 24)); // NOTE: Seems to not working
+    toolbar->setIconSize(QSize(16, 16)); // NOTE: Seems to not working
     DockWidget->setToolBar(toolbar);
 
     return DockWidget;
