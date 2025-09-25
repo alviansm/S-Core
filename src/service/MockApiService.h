@@ -65,6 +65,10 @@ struct VoyageLogs {
     double lighting_power;
     double total_hotel_load;
 
+    QString air_temperature;
+    QString humidity;
+    QString barometric_pressure;
+
     QList<PropulsionLog> propulsion_logs;
     QList<ElectricalLog> electrical_logs;
     QList<FuelTankLog> fuel_tank_logs;
