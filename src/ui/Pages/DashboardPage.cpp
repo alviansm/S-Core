@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include "CircleProgressBar.h"
+#include "../../service/MockApiService.h"
 
 DashboardPage::DashboardPage(QWidget *parent)
     : QWidget(parent)
@@ -60,6 +61,13 @@ DashboardPage::DashboardPage(QWidget *parent)
         // Setup ship movement simulation
         QTimer::singleShot(1000, this, &DashboardPage::setupShipMovementSimulation);
     });
+
+
+    connect(MockApiService::instance(), &MockApiService::dataUpdated,
+            this, &DashboardPage::onDataUpdated);
+
+    MockApiService::instance()->startPolling(1, 5000);
+
 
     // KPI Animation Timer
     QTimer *kpiTimer = new QTimer(this);
@@ -300,6 +308,14 @@ void DashboardPage::setupIcon()
     scenePressure->addPixmap(QPixmap(iconPressure).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->graphicsViewPressure->setScene(scenePressure);
     ui->graphicsViewPressure->setStyleSheet("background: transparent; border: none;");
+}
+
+void DashboardPage::onDataUpdated(const VoyageLogs &data)
+{
+    // Print received data for debugging
+    qDebug() << "Voyage Log ID:" << data.log_id;
+    qDebug() << "Voyage ID:" << data.voyage_id;
+    qDebug() << "Timestamp:" << data.timestamp;
 }
 
 double DashboardPage::calculateBearing(const QPointF &from, const QPointF &to)

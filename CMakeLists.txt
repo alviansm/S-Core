@@ -70,6 +70,7 @@ add_executable(SCore WIN32
     src/ui/SpeedometerWidget.h src/ui/SpeedometerWidget.cpp
     src/ui/EngineStatusWidget.h src/ui/EngineStatusWidget.cpp
     src/ui/PropulsionPIDWidget.h src/ui/PropulsionPIDWidget.cpp
+    src/service/MockApiService.h src/service/MockApiService.cpp
 
 
 )
