@@ -22,6 +22,8 @@ public:
     explicit DashboardPage(QWidget *parent = nullptr);
     ~DashboardPage();
 
+    void addAlertRecomendation();
+
 public slots:
     // Ship simulation control functions
     void startShipSimulation();
