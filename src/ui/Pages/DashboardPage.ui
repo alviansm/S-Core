@@ -19,7 +19,7 @@
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_29" stretch="7,3">
        <item>
         <widget class="QFrame" name="frame_9">
@@ -76,7 +76,7 @@
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout">
                        <item>
-                        <widget class="QLabel" name="label_2">
+                        <widget class="QLabel" name="fuelConsumption">
                          <property name="font">
                           <font>
                            <pointsize>26</pointsize>
@@ -202,7 +202,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                        <item>
                         <layout class="QHBoxLayout" name="horizontalLayout_11">
                          <item>
-                          <widget class="QLabel" name="label_23">
+                          <widget class="QLabel" name="cii">
                            <property name="font">
                             <font>
                              <pointsize>26</pointsize>
@@ -307,7 +307,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_19">
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="7,3">
+                    <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="7,0">
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_20">
                        <item>
@@ -342,7 +342,17 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                       </layout>
                      </item>
                      <item>
-                      <widget class="QGraphicsView" name="graphicsViewCIIProjection"/>
+                      <widget class="QLabel" name="ciiProjection">
+                       <property name="font">
+                        <font>
+                         <pointsize>36</pointsize>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>B</string>
+                       </property>
+                      </widget>
                      </item>
                     </layout>
                    </item>
@@ -406,6 +416,19 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                 </layout>
                </widget>
               </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </item>
             <item>
@@ -441,7 +464,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                        <item>
                         <layout class="QHBoxLayout" name="horizontalLayout_9">
                          <item>
-                          <widget class="QLabel" name="label_20">
+                          <widget class="QLabel" name="engineEfficiencyPercentage">
                            <property name="font">
                             <font>
                              <pointsize>26</pointsize>
@@ -577,7 +600,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
          <property name="frameShadow">
           <enum>QFrame::Shadow::Raised</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,12">
+         <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,10">
           <item>
            <widget class="QLabel" name="label_16">
             <property name="font">
@@ -592,14 +615,14 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_3" native="true"/>
+           <widget class="QListWidget" name="listWidget"/>
           </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_30" stretch="7,3">
        <item>
         <widget class="QFrame" name="frame_13">
@@ -671,7 +694,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_3">
                        <item>
-                        <widget class="QLabel" name="label_5">
+                        <widget class="QLabel" name="windSpeed">
                          <property name="font">
                           <font>
                            <pointsize>26</pointsize>
@@ -736,7 +759,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_4">
                        <item>
-                        <widget class="QLabel" name="label_9">
+                        <widget class="QLabel" name="temperature">
                          <property name="font">
                           <font>
                            <pointsize>26</pointsize>
@@ -805,7 +828,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_17">
                        <item>
-                        <widget class="QLabel" name="label_15">
+                        <widget class="QLabel" name="humidity">
                          <property name="font">
                           <font>
                            <pointsize>26</pointsize>
@@ -870,7 +893,7 @@ QSlider:horizontal[value=&quot;0&quot;]::add-page {
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_15">
                        <item>
-                        <widget class="QLabel" name="label_12">
+                        <widget class="QLabel" name="pressure">
                          <property name="font">
                           <font>
                            <pointsize>26</pointsize>

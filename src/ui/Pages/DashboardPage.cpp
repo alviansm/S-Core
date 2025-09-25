@@ -21,7 +21,36 @@ DashboardPage::DashboardPage(QWidget *parent)
 
     setupIcon();
 
-    qDebug() << "DashboardPage constructor started";
+
+    // Style for alert list
+    QString styleSheet = R"(
+        QListWidget {
+            background-color: #333333;
+            border: none;
+            outline: 0;
+        }
+        QListWidget::item {
+            background-color: #4F4F4F;
+            color: white;
+            padding: 10px;
+            margin: 6px 10px;
+            border-radius: 8px;
+            font-size: 12pt;
+        }
+        QListWidget::item:hover {
+            background-color: #616161;
+        }
+        QListWidget::item:selected {
+            background-color: #4F4F4F;
+            color: white;
+            border: 2px solid #34A853;
+        }
+    )";
+
+    ui->listWidget->setStyleSheet(styleSheet);
+    ui->listWidget->setSelectionMode(QAbstractItemView::NoSelection);
+
+    addAlertRecomendation();
 
     // Setup layouts
     QVBoxLayout *mapLayout = new QVBoxLayout(ui->widgetMap);
@@ -313,9 +342,13 @@ void DashboardPage::setupIcon()
 void DashboardPage::onDataUpdated(const VoyageLogs &data)
 {
     // Print received data for debugging
-    qDebug() << "Voyage Log ID:" << data.log_id;
-    qDebug() << "Voyage ID:" << data.voyage_id;
-    qDebug() << "Timestamp:" << data.timestamp;
+    // qDebug() << "Voyage Log ID:" << data.log_id;
+    // qDebug() << "Voyage ID:" << data.voyage_id;
+    // qDebug() << "Timestamp:" << data.timestamp;
+
+    ui->fuelConsumption->setText(QString::number(data.propulsion_logs[0].fuel_consumption_rate));
+    ui->engineEfficiencyPercentage->setText(QString::number(data.propulsion_logs[0].engine_load));
+    ui->windSpeed->setText(QString::number(data.wind_speed));
 }
 
 double DashboardPage::calculateBearing(const QPointF &from, const QPointF &to)
@@ -378,4 +411,9 @@ DashboardPage::~DashboardPage()
         m_shipUpdateTimer->stop();
     }
     delete ui;
+}
+
+void DashboardPage::addAlertRecomendation()
+{
+    ui->listWidget->addItem(new QListWidgetItem(QIcon(":/icons/ribbon/alert.png"), "Alert: Main Engine Power Low"));
 }
