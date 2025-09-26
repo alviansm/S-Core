@@ -25,6 +25,11 @@ public:
     void addAlertRecomendation();
 
 public slots:
+    void setCurrentMapStyle(int index);
+
+    void WeatherToggleAction_toggled();
+
+public slots:
     // Ship simulation control functions
     void startShipSimulation();
     void stopShipSimulation();

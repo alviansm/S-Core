@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AlertAndRecomendationFrame</class>
+ <widget class="QFrame" name="AlertAndRecomendationFrame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>336</width>
+    <height>134</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_16">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Alert and Recomendation</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

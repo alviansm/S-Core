@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WeatherFrame</class>
+ <widget class="QFrame" name="WeatherFrame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>388</width>
+    <height>245</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Frame</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_17">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Wheater</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_28">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_18">
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_21">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="7,3">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Wind</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="windSpeed">
+                  <property name="font">
+                   <font>
+                    <pointsize>26</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>20</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Knot</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGraphicsView" name="graphicsViewWind"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_4">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_22">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="7,3">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_23">
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Temperature</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QLabel" name="temperature">
+                  <property name="font">
+                   <font>
+                    <pointsize>26</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>20</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Knot</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGraphicsView" name="graphicsViewTemperature"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_19">
+       <item>
+        <widget class="QFrame" name="frame_7">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_26">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="7,3">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_27">
+              <item>
+               <widget class="QLabel" name="label_14">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Humidity</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <item>
+                 <widget class="QLabel" name="humidity">
+                  <property name="font">
+                   <font>
+                    <pointsize>26</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>20</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_26">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Knot</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGraphicsView" name="graphicsViewHumidity"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_5">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_24">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="7,3">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_25">
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="font">
+                 <font>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Pressure</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_15">
+                <item>
+                 <widget class="QLabel" name="pressure">
+                  <property name="font">
+                   <font>
+                    <pointsize>26</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>20</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="font">
+                   <font>
+                    <pointsize>12</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Knot</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGraphicsView" name="graphicsViewPressure"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

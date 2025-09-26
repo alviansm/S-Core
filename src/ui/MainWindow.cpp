@@ -296,6 +296,220 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     DockWidget->setWidget(m, ads::CDockWidget::ForceNoScrollArea);
     DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
     DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+
+    // --- Set Toolbar ---
+    QToolBar *toolbar = new QToolBar();
+    toolbar->setMovable(false);
+
+    // Dark theme stylesheet for toolbar
+    toolbar->setStyleSheet(R"(
+        QToolBar {
+            background-color: #2b2b2b;
+            border: 1px solid #3c3c3c;
+            spacing: 6px;
+            padding: 4px;
+        }
+
+        QToolBar::separator {
+            background-color: #555555;
+            width: 1px;
+            margin: 2px;
+        }
+
+        QLabel {
+            color: #ffffff;
+            font-size: 12px;
+            padding: 4px 8px;
+            background: transparent;
+        }
+    )");
+
+    QComboBox *styleSelector = new QComboBox(toolbar);
+    styleSelector->addItem("Dark");
+    styleSelector->addItem("Light");
+    styleSelector->addItem("Balanced");
+
+    // Dark theme stylesheet for combobox
+    styleSelector->setStyleSheet(R"(
+        QComboBox {
+            background-color: #404040;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #ffffff;
+            font-size: 12px;
+            min-width: 80px;
+        }
+
+        QComboBox:hover {
+            background-color: #4a4a4a;
+            border-color: #777777;
+        }
+
+        QComboBox:pressed {
+            background-color: #363636;
+        }
+
+        QComboBox::drop-down {
+            border: none;
+            width: 20px;
+        }
+
+        QComboBox::down-arrow {
+            image: url(:/icons/general/ic-down_arrow.png);
+            width: 10px;
+            height: 10px;
+        }
+
+        QComboBox QAbstractItemView {
+            background-color: #404040;
+            border: 1px solid #555555;
+            selection-background-color: #5a5a5a;
+            color: #ffffff;
+        }
+
+        QComboBox QAbstractItemView::item {
+            padding: 6px 12px;
+            border: none;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            background-color: #5a5a5a;
+        }
+
+        QComboBox QAbstractItemView::item:hover {
+            background-color: #4a4a4a;
+        }
+    )");
+
+    QLabel *label = new QLabel("Map Theme:");
+    toolbar->addWidget(label);
+    toolbar->addWidget(styleSelector);
+
+    // --- Toolbar Actions: Map Feature ---
+    toolbar->addSeparator();
+
+    // --- Map Feature Toggle ---
+
+    // -- Weather --
+    QAction* WeatherToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Weather on Map"
+    );
+
+    // -- Bathymeter --
+    QAction* BathymeterToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Bathymeter on Map"
+    );
+
+    // -- Ports --
+    QAction* PortsToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Ports on Map"
+    );
+
+    // -- Ocean Route --
+    QAction* OceanRouteToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Ocean Route on Map"
+    );
+
+    // -- Emission Control Area Zone --
+    QAction* ECAToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Emission Control Area (ECA) on Map"
+    );
+
+    // -- Piracy Area --
+    QAction* PiracyZoneToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Piracy Zone on Map"
+    );
+
+    // -- Planned Route --
+    QAction* PlannedRouteToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Planned Route on Map"
+    );
+
+    // -- Actual Route --
+    QAction* ActualRouteToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Toggle Show/Hide Actual Route on Map"
+    );
+
+    // --- Toolbar Actions: Frame + Summary Dashboards ---
+    toolbar->addSeparator();
+
+    QAction* FrameAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Frames"
+    );
+
+    // --- Toolbar Actions: Map View ---
+    toolbar->addSeparator();
+
+    // -- Refresh Map --
+    QAction* RefreshMapToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Refresh Map"
+    );
+
+    // -- Return to Original View --
+    QAction* ReturnToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Return to Original Position on Map"
+    );
+
+    // --- Toolbar Action: Map 2D/3D selection ---
+    toolbar->addSeparator();
+
+    // -- 3D Map --
+    QAction* ThreeDimensionMapToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Change to 3D View Map"
+    );
+
+    // -- 2D Map --
+    QAction* TwoDimensionMapToggleAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Change to 2D View Map"
+    );
+
+    // --- Toolbars: Signal-Slot Connections ---
+    connect(styleSelector, &QComboBox::currentIndexChanged, m, &DashboardPage::setCurrentMapStyle);
+
+    connect(WeatherToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(BathymeterToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(PortsToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(OceanRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(ECAToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(PiracyZoneToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(PlannedRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(ActualRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(FrameAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(RefreshMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(ReturnToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(ThreeDimensionMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(TwoDimensionMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+
+    toolbar->setIconSize(QSize(16, 16)); // NOTE: Seems to not working
+    DockWidget->setToolBar(toolbar);
+
     return DockWidget;
 }
 
@@ -369,7 +583,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
         }
 
         QComboBox::down-arrow {
-            image: url(:/icons/general/ic-down_arrow.png); /* Replace with your arrow icon */
+            image: url(:/icons/general/ic-down_arrow.png);
             width: 10px;
             height: 10px;
         }

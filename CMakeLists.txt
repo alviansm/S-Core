@@ -73,6 +73,9 @@ add_executable(SCore WIN32
     src/service/MockApiService.h src/service/MockApiService.cpp
     src/ui/Pages/Components/DialogBrowsePort.h src/ui/Pages/Components/DialogBrowsePort.cpp src/ui/Pages/Components/DialogBrowsePort.ui
     src/service/PortSearch.h src/service/PortSearch.cpp
+    src/ui/KPIOverviewFrame.h src/ui/KPIOverviewFrame.cpp src/ui/KPIOverviewFrame.ui
+    src/ui/WeatherFrame.h src/ui/WeatherFrame.cpp src/ui/WeatherFrame.ui
+    src/ui/AlertAndRecomendationFrame.h src/ui/AlertAndRecomendationFrame.cpp src/ui/AlertAndRecomendationFrame.ui
 
 
 )
