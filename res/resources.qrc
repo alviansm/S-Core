@@ -34,5 +34,6 @@
         <file>images/GA.png</file>
         <file>images/create_configuration_illustration.jpg</file>
         <file>images/import_configuration_illustration.jpg</file>
+        <file>app.css</file>
     </qresource>
 </RCC>

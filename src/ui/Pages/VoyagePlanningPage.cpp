@@ -36,6 +36,7 @@ VoyagePlanningPage::VoyagePlanningPage(QWidget *parent)
     // === Graphic View dengan PNG ===
     m_scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(m_scene);
+    ui->graphicsView->setStyleSheet("background-color: #212121; color:white;");
 
     QPixmap pixmap(":/images/GA.png");
     if (!pixmap.isNull()) {
@@ -236,6 +237,7 @@ void VoyagePlanningPage::refreshPortRotationTable(const QVector<PortRotation>& r
     ui->tableWidgetPortRotation->setSelectionMode(QAbstractItemView::SingleSelection);
     // Disable editing
     ui->tableWidgetPortRotation->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidgetPortRotation->setStyleSheet("background-color: #212121; color:white;");
 
     for (const auto &r : rotations) {
         int rowIndex = ui->tableWidgetPortRotation->rowCount();
@@ -260,6 +262,8 @@ void VoyagePlanningPage::refreshCargoTable(const QVector<Cargo>& cargos)
     // Disable editing
     ui->tableWidgetCargo->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    ui->tableWidgetCargo->setStyleSheet("background-color: #212121; color:white;");
+
     for (const auto &c : cargos) {
         int rowIndex = ui->tableWidgetCargo->rowCount();
         ui->tableWidgetCargo->insertRow(rowIndex);
@@ -283,6 +287,8 @@ void VoyagePlanningPage::refreshFuelPlanTable(const QVector<FuelPlan>& fuels)
     ui->tableWidgetFuelPlan->setSelectionMode(QAbstractItemView::SingleSelection);
     // Disable editing
     ui->tableWidgetFuelPlan->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    ui->tableWidgetFuelPlan->setStyleSheet("background-color: #212121; color:white;");
 
     for (const auto &f : fuels) {
         int rowIndex = ui->tableWidgetFuelPlan->rowCount();

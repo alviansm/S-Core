@@ -23,11 +23,11 @@ DialogAddFuelPlan::DialogAddFuelPlan(QWidget *parent)
 
         emit onFuelPlanAdded(type, quantity, speed, units);
 
-        qDebug() << "Fuel Plan Added:"
-                 << "Type:" << type
-                 << "Quantity:" << quantity
-                 << "Speed:" << speed
-                 << "Units:" << units;
+        // qDebug() << "Fuel Plan Added:"
+        //          << "Type:" << type
+        //          << "Quantity:" << quantity
+        //          << "Speed:" << speed
+        //          << "Units:" << units;
 
         accept();
     });

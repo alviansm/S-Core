@@ -1,0 +1,230 @@
+/* Removed: ads--CTitleBarButton::menu-indicator (invalid selector for Qt) */
+
+/* QTabWidget appearance */
+QTabWidget {
+    background: transparent;
+    border: none;
+}
+
+/* Input fields styling */
+QLineEdit,
+QTextEdit,
+QPlainTextEdit,
+QDateEdit,
+QTimeEdit,
+QDateTimeEdit,
+QSpinBox,
+QDoubleSpinBox {
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+QLineEdit:focus,
+QTextEdit:focus,
+QPlainTextEdit:focus,
+QDateEdit:focus,
+QTimeEdit:focus,
+QDateTimeEdit:focus,
+QSpinBox:focus,
+QDoubleSpinBox:focus {
+    border: 1px solid #5ab4f8;
+}
+
+/* Highlighted primary button */
+QPushButton[highlighted="true"] {
+    background-color: #0078d4;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+/* Secondary button */
+QPushButton[secondary="true"] {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #0078d4;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+/* Gray button */
+QPushButton[gray="true"] {
+    background-color: #9E9E9E;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+/* Hover state */
+QPushButton[secondary="true"]:hover {
+    background-color: rgba(0, 120, 212, 0.05);
+}
+
+/* Pressed state */
+QPushButton[secondary="true"]:pressed {
+    background-color: rgba(0, 120, 212, 0.1);
+}
+
+/* Checked state */
+QPushButton[secondary="true"]:checked {
+    background-color: #0078d4;
+    color: white;
+    border-color: #0078d4;
+}
+
+/* Checked + hover (optional, for extra feedback) */
+QPushButton[secondary="true"]:checked:hover {
+    background-color: #005a9e;
+}
+
+/* Dialog buttons */
+QDialogButtonBox QPushButton {
+    background-color: #0078d4;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+/* Default QPushButton fallback */
+QPushButton {
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Danger button */
+QPushButton[danger="true"] {
+    background-color: #d93025;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+    border: none;
+}
+
+QPushButton[danger="true"]:hover {
+    background-color: #c5221f;
+}
+
+/* Warning button */
+QPushButton[warning="true"] {
+    background-color: #f9ab00;
+    color: black;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+    border: none;
+}
+
+QPushButton[warning="true"]:hover {
+    background-color: #e88e00;
+}
+
+/* Button hover effect */
+QPushButton:hover {
+    background-color: #005fa3;
+    color: white;
+}
+
+/* Combo box styling */
+QComboBox {
+    border-radius: 6px;
+    padding: 6px 8px;
+    font: 10pt "Segoe UI";
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 28px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background: transparent;
+}
+
+QComboBox::down-arrow {
+    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-svgrepo-com.svg);
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox QAbstractItemView {
+    font: 10pt "Segoe UI";
+}
+
+/* Spin box arrows */
+QAbstractSpinBox::up-button,
+QAbstractSpinBox::down-button {
+    background: transparent;
+    border: none;
+    subcontrol-origin: border;
+    width: 16px;
+}
+
+QAbstractSpinBox::up-arrow {
+    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-up-svgrepo-com.svg);
+    width: 8px;
+    height: 8px;
+}
+
+QAbstractSpinBox::down-arrow {
+    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-svgrepo-com.svg);
+    width: 8px;
+    height: 8px;
+}
+
+/* ListView appearance */
+QListView {
+    outline: none;
+}
+
+QListView::item {
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+QListView::item:hover {
+    background-color: #0f97ff;
+    color: black;
+}
+
+QListView::item:selected {
+    background-color: #0078d4;
+    color: white;
+}
+
+/* Tab styling */
+QTabBar::tab {
+    padding: 8px;
+    border: 1px solid #555555;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+QTabBar::tab:hover {
+    background-color: #555555;
+}
+
+QTabBar::tab:selected {
+    color: white;
+    background-color: #0078D7;
+    border: 1px solid #0078D7;
+    border-bottom: none;
+}
+
+QProgressBar {
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: palette(base);
+            height: 12px;
+            text-align: center;
+        }
+QProgressBar::chunk {
+            background-color: #0078D4; /* Fluent UI primary (blue) */
+            border-radius: 4px;
+}

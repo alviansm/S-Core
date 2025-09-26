@@ -47,11 +47,11 @@ DialogAddPortRotation::DialogAddPortRotation(QWidget *parent)
 
         emit onPortRotationAdded(fromPort, fromPortId, destPort, destPortId, eta, etd);
 
-        qDebug() << "Port Rotation Added:"
-                 << "From:" << fromPort << "(" << fromPortId << ")"
-                 << "To:" << destPort << "(" << destPortId << ")"
-                 << "ETA:" << eta
-                 << "ETD:" << etd;
+        // qDebug() << "Port Rotation Added:"
+        //          << "From:" << fromPort << "(" << fromPortId << ")"
+        //          << "To:" << destPort << "(" << destPortId << ")"
+        //          << "ETA:" << eta
+        //          << "ETD:" << etd;
 
         accept();
     });

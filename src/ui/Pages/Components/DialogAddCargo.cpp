@@ -42,12 +42,12 @@ DialogAddCargo::DialogAddCargo(QWidget *parent)
 
         emit onCargoAdded(name, loadingPort, dischargingPort, quantity, units);
 
-        qDebug() << "Cargo Added:"
-                 << "Name:" << name
-                 << "Loading Port:" << loadingPort
-                 << "Discharging Port:" << dischargingPort
-                 << "Quantity:" << quantity
-                 << "Units:" << units;
+        // qDebug() << "Cargo Added:"
+        //          << "Name:" << name
+        //          << "Loading Port:" << loadingPort
+        //          << "Discharging Port:" << dischargingPort
+        //          << "Quantity:" << quantity
+        //          << "Units:" << units;
 
         accept();
     });
