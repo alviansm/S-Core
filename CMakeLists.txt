@@ -71,6 +71,8 @@ add_executable(SCore WIN32
     src/ui/EngineStatusWidget.h src/ui/EngineStatusWidget.cpp
     src/ui/PropulsionPIDWidget.h src/ui/PropulsionPIDWidget.cpp
     src/service/MockApiService.h src/service/MockApiService.cpp
+    src/ui/Pages/Components/DialogBrowsePort.h src/ui/Pages/Components/DialogBrowsePort.cpp src/ui/Pages/Components/DialogBrowsePort.ui
+    src/service/PortSearch.h src/service/PortSearch.cpp
 
 
 )

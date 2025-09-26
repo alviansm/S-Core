@@ -159,7 +159,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="portRotationDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */
@@ -319,7 +319,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="cargoDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */
@@ -415,7 +415,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="fuelPlanDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */

@@ -12,3 +12,9 @@ DialogAddNewVoyage::~DialogAddNewVoyage()
 {
     delete ui;
 }
+
+void DialogAddNewVoyage::on_buttonBox_accepted()
+{
+    emit voyageAdded(ui->lineEdit->text());
+}
+

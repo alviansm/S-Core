@@ -15,6 +15,9 @@ public:
     explicit DialogAddFuelPlan(QWidget *parent = nullptr);
     ~DialogAddFuelPlan();
 
+signals:
+    void onFuelPlanAdded(QString type, QString quantity, QString speed, QString units);
+
 private:
     Ui::DialogAddFuelPlan *ui;
 };

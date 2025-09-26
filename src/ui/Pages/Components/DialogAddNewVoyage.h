@@ -15,6 +15,12 @@ public:
     explicit DialogAddNewVoyage(QWidget *parent = nullptr);
     ~DialogAddNewVoyage();
 
+signals:
+    void voyageAdded(QString name);
+
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::DialogAddNewVoyage *ui;
 };
