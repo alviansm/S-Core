@@ -37,7 +37,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="lineEditType"/>
      </item>
     </layout>
    </item>
@@ -64,7 +64,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="QLineEdit" name="lineEditQuantity"/>
      </item>
     </layout>
    </item>
@@ -91,7 +91,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_3"/>
+      <widget class="QLineEdit" name="lineEditSpeed"/>
      </item>
     </layout>
    </item>
@@ -118,7 +118,13 @@
       </spacer>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxFrom_3"/>
+      <widget class="QComboBox" name="comboBoxUnits">
+       <item>
+        <property name="text">
+         <string>Ton</string>
+        </property>
+       </item>
+      </widget>
      </item>
     </layout>
    </item>

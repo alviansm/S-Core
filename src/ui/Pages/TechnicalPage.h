@@ -5,6 +5,9 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include "../../service/MockApiService.h"
+#include "../EngineStatusWidget.h"
+#include "../PropulsionPIDWidget.h"
 
 namespace Ui {
 class TechnicalPage;
@@ -31,6 +34,9 @@ public slots:
     void IODevice_toggled(bool checked = true);
     void PageSelector_currentIndex_changed(int index);
     void setCurrentPage(int pageIndex);
+
+private slots:
+    void onDataUpdated(const VoyageLogs& data);
 
 private:
     void setupWidget();
@@ -86,6 +92,12 @@ private:
     QVBoxLayout* m_contentContainer;
     QStackedWidget* m_topContent;
     QStackedWidget* m_mainContent;
+
+    EngineStatusWidget* m_me1;
+    EngineStatusWidget* m_me2;
+    EngineStatusWidget* m_me3;
+
+    PropulsionPIDWidget* m_pidWidget;
 
     int m_currentPage;
 };

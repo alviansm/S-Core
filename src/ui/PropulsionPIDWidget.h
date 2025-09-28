@@ -12,6 +12,38 @@
 #include <QHBoxLayout>
 #include <QFrame>
 
+struct EngineData {
+    QString name;
+    double powerMW;
+    double rpm;
+    double fuelRateKgH;
+    double efficiency;
+    bool highExhaustTemp;
+};
+
+struct PropellerData {
+    double rpm;
+    double pitchPercent;
+    double thrustKN;
+    double efficiency;
+};
+
+struct GearboxData {
+    double inputRPM;
+    double outputRPM;
+    double oilPressureBar;
+    double temperatureC;
+};
+
+struct FuelTankData {
+    QString tank1P;
+    QString tank1S;
+    QString tank2P;
+    QString tank2S;
+};
+
+
+
 class PropulsionPIDWidget : public QWidget
 {
     Q_OBJECT
@@ -56,6 +88,28 @@ public:
         int animationOffset;
     };
 
+    void setEngineData(int index, const EngineData& data) {
+        if (index >= 0 && index < 3) {
+            m_engineData[index] = data;
+            update();
+        }
+    }
+
+    void setPropellerData(const PropellerData& data) {
+        m_propellerData = data;
+        update();
+    }
+
+    void setGearboxData(const GearboxData& data) {
+        m_gearboxData = data;
+        update();
+    }
+
+    void setFuelTankData(const FuelTankData& data) {
+        m_fuelTankData = data;
+        update();
+    }
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -93,6 +147,11 @@ private:
     // Detail popup
     QWidget* m_detailPopup;
     QPropertyAnimation* m_popupAnimation;
+
+    EngineData m_engineData[3];
+    PropellerData m_propellerData;
+    GearboxData m_gearboxData;
+    FuelTankData m_fuelTankData;
 };
 
 #endif // PROPULSIONPIDWIDGET_H

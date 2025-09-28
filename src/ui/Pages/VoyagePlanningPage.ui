@@ -16,6 +16,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_8">
    <item>
     <widget class="QSplitter" name="splitter">
+     <property name="styleSheet">
+      <string notr="true">background-color:#333333;</string>
+     </property>
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
      </property>
@@ -23,6 +26,9 @@
       <layout class="QVBoxLayout" name="verticalLayout_6" stretch="5,10">
        <item>
         <widget class="QFrame" name="frame">
+         <property name="styleSheet">
+          <string notr="true">background-color:#212121;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
@@ -38,6 +44,9 @@
        </item>
        <item>
         <widget class="QFrame" name="frame_2">
+         <property name="styleSheet">
+          <string notr="true">background-color : #212121;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
@@ -51,6 +60,9 @@
              <font>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:white;</string>
             </property>
             <property name="text">
              <string>VOYAGE LIST</string>
@@ -98,6 +110,9 @@ QPushButton:pressed {
        </item>
        <item>
         <widget class="QFrame" name="frame_3">
+         <property name="styleSheet">
+          <string notr="true">background-color : #212121;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
@@ -113,6 +128,9 @@ QPushButton:pressed {
                <font>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:white;</string>
               </property>
               <property name="text">
                <string>Port Rotation</string>
@@ -159,7 +177,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="portRotationDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */
@@ -206,6 +224,9 @@ QPushButton:pressed {
             </item>
             <item>
              <widget class="QLabel" name="label_3">
+              <property name="styleSheet">
+               <string notr="true">color:white;</string>
+              </property>
               <property name="text">
                <string>Distance :</string>
               </property>
@@ -218,8 +239,11 @@ QPushButton:pressed {
                 <bold>true</bold>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">color:white;</string>
+              </property>
               <property name="text">
-               <string>465 Km</string>
+               <string>3400 Nm</string>
               </property>
              </widget>
             </item>
@@ -258,6 +282,9 @@ QPushButton:pressed {
        </item>
        <item>
         <widget class="QFrame" name="frame_4">
+         <property name="styleSheet">
+          <string notr="true">background-color : #212121;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
@@ -273,6 +300,9 @@ QPushButton:pressed {
                <font>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:white;</string>
               </property>
               <property name="text">
                <string>Cargo</string>
@@ -319,7 +349,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="cargoDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */
@@ -354,6 +384,9 @@ QPushButton:pressed {
        </item>
        <item>
         <widget class="QFrame" name="frame_5">
+         <property name="styleSheet">
+          <string notr="true">background-color : #212121;</string>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::StyledPanel</enum>
          </property>
@@ -369,6 +402,9 @@ QPushButton:pressed {
                <font>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:white;</string>
               </property>
               <property name="text">
                <string>Fuel</string>
@@ -415,7 +451,7 @@ QPushButton:pressed {
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
+             <widget class="QPushButton" name="fuelPlanDelete">
               <property name="styleSheet">
                <string notr="true">QPushButton {
     background-color: #e74c3c; /* Warna merah utama */

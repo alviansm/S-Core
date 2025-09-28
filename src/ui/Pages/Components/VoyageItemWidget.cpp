@@ -10,7 +10,7 @@ VoyageItemWidget::VoyageItemWidget(const QString &voyageName,
 {
     // Title
     m_voyageName = new QLabel(voyageName);
-    m_voyageName->setStyleSheet("font-weight: bold; font-size: 14px; background-color: transparent;");
+    m_voyageName->setStyleSheet("font-weight: bold; font-size: 14px; background-color: transparent; color: white;");
     m_voyageName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     // Route

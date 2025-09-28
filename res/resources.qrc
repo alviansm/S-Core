@@ -38,5 +38,6 @@
         <file>icons/general/ic-next.png</file>
         <file>icons/general/ic-previous.png</file>
         <file>hintboxes/weather.jpg</file>
+        <file>app.css</file>
     </qresource>
 </RCC>
