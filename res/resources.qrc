@@ -39,5 +39,30 @@
         <file>icons/general/ic-previous.png</file>
         <file>hintboxes/weather.jpg</file>
         <file>app.css</file>
+        <file>icons/ribbon/load.png</file>
+        <file>icons/ribbon/paper-plane.png</file>
+        <file>icons/ribbon/save.png</file>
+        <file>icons/ribbon/actual-route.png</file>
+        <file>icons/ribbon/earth.png</file>
+        <file>icons/ribbon/emission.png</file>
+        <file>icons/ribbon/load-perspective.png</file>
+        <file>icons/ribbon/maps.png</file>
+        <file>icons/ribbon/notification.png</file>
+        <file>icons/ribbon/planned-route.png</file>
+        <file>icons/ribbon/port.png</file>
+        <file>icons/ribbon/return.png</file>
+        <file>icons/ribbon/route.png</file>
+        <file>icons/ribbon/security.png</file>
+        <file>icons/ribbon/sonar.png</file>
+        <file>icons/ribbon/weather.png</file>
+        <file>icons/ribbon/weather-weather.png</file>
+        <file>icons/ribbon/ballast.png</file>
+        <file>icons/ribbon/fuel-management.png</file>
+        <file>icons/ribbon/hotel-load.png</file>
+        <file>icons/ribbon/load-electrical.png</file>
+        <file>icons/ribbon/load-propulsion.png</file>
+        <file>icons/ribbon/main-top.png</file>
+        <file>icons/ribbon/sidebar.png</file>
+        <file>icons/ribbon/topbar.png</file>
     </qresource>
 </RCC>

@@ -394,7 +394,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Weather --
     QAction* WeatherToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/weather-weather.png",
         "Toggle Show/Hide Weather on Map"
     );
     // WeatherToggleAction->setCheckable(true);
@@ -402,7 +402,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Bathymeter --
     QAction* BathymeterToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/sonar.png",
         "Toggle Show/Hide Bathymeter on Map"
     );
     // BathymeterToggleAction->setCheckable(true);
@@ -410,7 +410,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Ports --
     QAction* PortsToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/port.png",
         "Toggle Show/Hide Ports on Map"
     );
     // PortsToggleAction->setCheckable(true);
@@ -418,7 +418,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Ocean Route --
     QAction* OceanRouteToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/route.png",
         "Toggle Show/Hide Ocean Route on Map"
     );
     // OceanRouteToggleAction->setCheckable(true);
@@ -426,7 +426,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Emission Control Area Zone --
     QAction* ECAToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/emission.png",
         "Toggle Show/Hide Emission Control Area (ECA) on Map"
     );
     // ECAToggleAction->setCheckable(true);
@@ -434,7 +434,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Piracy Area --
     QAction* PiracyZoneToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/security.png",
         "Toggle Show/Hide Piracy Zone on Map"
     );
     // PiracyZoneToggleAction->setCheckable(true);
@@ -442,7 +442,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Planned Route --
     QAction* PlannedRouteToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/planned-route.png",
         "Toggle Show/Hide Planned Route on Map"
     );
     // PlannedRouteToggleAction->setCheckable(true);
@@ -450,7 +450,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Actual Route --
     QAction* ActualRouteToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/actual-route.png",
         "Toggle Show/Hide Actual Route on Map"
     );
     // ActualRouteToggleAction->setCheckable(true);
@@ -460,21 +460,21 @@ ads::CDockWidget *MainWindow::createDashboardPage()
 
     QAction* AlertAndRecomendationFrameAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/notification.png",
         "Notification"
     );
     AlertAndRecomendationFrameAction->setCheckable(true);
 
     QAction* KPIOverviewFrameAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/kpi.png",
         "KPI Overview"
     );
     KPIOverviewFrameAction->setCheckable(true);
 
     QAction* WeatherFrameAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/weather.png",
         "Weather Info"
     );
     WeatherFrameAction->setCheckable(true);
@@ -485,14 +485,14 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- Refresh Map --
     QAction* RefreshMapToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/load.png",
         "Refresh Map"
     );
 
     // -- Return to Original View --
     QAction* ReturnToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/return.png",
         "Return to Original Position on Map"
     );
 
@@ -502,7 +502,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- 3D Map --
     QAction* ThreeDimensionMapToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/earth.png",
         "Change to 3D View Map"
     );
     ThreeDimensionMapToggleAction->setCheckable(true);
@@ -510,7 +510,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
     // -- 2D Map --
     QAction* TwoDimensionMapToggleAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/maps.png",
         "Change to 2D View Map"
     );
     TwoDimensionMapToggleAction->setCheckable(true);
@@ -672,35 +672,35 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     // Load Propulsion System Configuration
     QAction* LoadPropulsionSysConfigAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/load-propulsion.png",
         "Load Propulsion System Configuration"
     );
 
     // Load Electrical System Configuration
     QAction* LoadElectricalSysConfigAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/load-electrical.png",
         "Load Electrical System Configuration"
     );
 
     // Load Fuel Management System Configuration
     QAction* LoadFuelManagementSysConfigAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/fuel-management.png",
         "Load Fuel Management System Configuration"
     );
 
     // Load Ballast System Configuration
     QAction* LoadBallastSysConfigAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/ballast.png",
         "Load Ballast System Configuration"
     );
 
     // Load Hotel Load Configuration
     QAction* LoadHotelLoadConfigAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/hotel-load.png",
         "Load Hotel Load Configuration"
     );
 
@@ -710,7 +710,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     // Toggle Hide/Show Top Sidebar
     QAction* ToggleTopSidebarAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/topbar.png",
         "Toggle Show/Hide Top Sidebar"
     );
     ToggleTopSidebarAction->setCheckable(true);
@@ -718,7 +718,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     // Toggle Hide/Show Main Sidebar
     QAction* ToggleMainSidebarAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/sidebar.png",
         "Toggle Show/Hide Main Sidebar"
     );
     ToggleMainSidebarAction->setCheckable(true);
@@ -726,7 +726,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     // Toggle Hide/Show Top Content
     QAction* ToggleTopContentAction = createToolbarAction(
         toolbar,
-        ":/icons/ic-placeholder.png",
+        ":/icons/ribbon/main-top.png",
         "Toggle Show/Hide Top Content"
     );
     ToggleTopContentAction->setCheckable(true);
@@ -810,19 +810,19 @@ void MainWindow::createActions()
     ui->toolBar->setIconSize(QSize(24, 24));
 
     QAction* toggleWelcomePage = new QAction();
-    toggleWelcomePage->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    toggleWelcomePage->setIcon(QIcon(":/icons/ribbon/paper-plane.png"));
     toggleWelcomePage->setText("Welcome Page");
     ui->toolBar->addAction(toggleWelcomePage);
 
     ui->toolBar->addSeparator();
 
     QAction* savePerspective = new QAction();
-    savePerspective->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    savePerspective->setIcon(QIcon(":/icons/ribbon/save.png"));
     savePerspective->setText("Save Perspective");
     ui->toolBar->addAction(savePerspective);
 
     QAction* loadPerspective = new QAction();
-    loadPerspective->setIcon(QIcon(":/icons/ic-placeholder.png"));
+    loadPerspective->setIcon(QIcon(":/icons/ribbon/load-perspective.png"));
     loadPerspective->setText("Load Perspective");
     ui->toolBar->addAction(loadPerspective);
 }
