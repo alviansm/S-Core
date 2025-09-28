@@ -26,19 +26,6 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>REPORTING</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QListWidget" name="listWidget"/>
         </item>
        </layout>

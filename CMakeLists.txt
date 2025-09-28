@@ -43,7 +43,7 @@ set(UI_FILES
     src/ui/MainWindow.ui
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts Pdf PdfWidgets)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
@@ -99,11 +99,7 @@ target_link_libraries(SCore PRIVATE qtadvanceddocking-qt${QT_VERSION_MAJOR} Qt${
 target_link_libraries(SCore PUBLIC Qt${QT_VERSION_MAJOR}::Core 
                                    Qt${QT_VERSION_MAJOR}::Gui 
                                    Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets Qt6::Charts)
-target_link_libraries(SCore PRIVATE Qt6::Widgets)
-target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets)
-target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets)
-target_link_libraries(SCore PRIVATE Qt6::Widgets)
+target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets Qt6::Charts Qt6::Pdf Qt6::PdfWidgets)
 
 set_target_properties(SCore PROPERTIES 
     AUTOMOC ON
