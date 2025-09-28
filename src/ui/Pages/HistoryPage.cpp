@@ -238,8 +238,8 @@ QWidget* HistoryPage::createDCSPage()
     m_dcsComponentCombo->addItem("Main Engine (ME) - Exhaust Temperature");
     m_dcsComponentCombo->addItem("Main Engine (ME) - Cylinder Temperature");
     m_dcsComponentCombo->addItem("Auxiliary Engine (AE) - Exhaust Temperature");
-    m_dcsComponentCombo->addItem("Boiler - Steam Temperature");
-    m_dcsComponentCombo->addItem("Turbocharger - Inlet Temperature");
+    // m_dcsComponentCombo->addItem("Boiler - Steam Temperature");
+    // m_dcsComponentCombo->addItem("Turbocharger - Inlet Temperature");
 
     selectionLayout->addWidget(componentLabel);
     selectionLayout->addWidget(m_dcsComponentCombo);
@@ -492,7 +492,7 @@ void HistoryPage::onDCSComponentChanged()
 void HistoryPage::onReportSelectionChanged()
 {
     // For now, load a dummy PDF - you'll need to add actual PDFs to your resources
-    QString reportPath = ":/reports/dummy_report.pdf";
+    QString reportPath = ":/reports/trial_cii_report.pdf";
     m_pdfDocument->load(reportPath);
 }
 

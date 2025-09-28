@@ -70,5 +70,6 @@
         <file>hintboxes/searoute.png</file>
         <file>hintboxes/emission.png</file>
         <file>hintboxes/port.png</file>
+        <file>reports/trial_cii_report.pdf</file>
     </qresource>
 </RCC>
