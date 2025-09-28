@@ -64,5 +64,11 @@
         <file>icons/ribbon/main-top.png</file>
         <file>icons/ribbon/sidebar.png</file>
         <file>icons/ribbon/topbar.png</file>
+        <file>hintboxes/bathymeter.jpeg</file>
+        <file>hintboxes/emission.jpg</file>
+        <file>hintboxes/piracy-zone.jpg</file>
+        <file>hintboxes/searoute.png</file>
+        <file>hintboxes/emission.png</file>
+        <file>hintboxes/port.png</file>
     </qresource>
 </RCC>

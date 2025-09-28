@@ -535,40 +535,272 @@ void DashboardPage::WeatherToggleAction_toggled()
     m_weatherHintBox->exec();
 }
 
+// ======================= BATHYMETER =======================
 void DashboardPage::BathymeterTiggkeAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_bathymeterHintBox) {
+        m_bathymeterHintBox->deleteLater();
+        m_bathymeterHintBox = nullptr;
+    }
+
+    m_bathymeterHintBox = new HintboxDialog(this);
+    m_bathymeterHintBox->setTitle("Bathymeter Feature");
+    m_bathymeterHintBox->setModal(true);
+    m_bathymeterHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "Bathymetry is the study of underwater depth of ocean floors, lakes, and rivers. "
+        "It provides essential data for safe navigation, identifying hazards, and planning routes.";
+    m_bathymeterHintBox->addNewPage(":/hintboxes/bathymeter.jpeg", page1Description);
+
+    QString page2Description =
+        "Bathymetric maps use contour lines, colors, and soundings to represent depth. "
+        "Darker shades = deeper areas, lighter = shallower. "
+        "Contour lines show seafloor shape, while soundings mark exact depth values.";
+    m_bathymeterHintBox->addNewPage(":/hintboxes/bathymeter.jpeg", page2Description);
+
+    m_bathymeterHintBox->applyStylesheet_dark();
+
+    connect(m_bathymeterHintBox, &QDialog::accepted, this, [this]() {
+        m_bathymeterHintBox->deleteLater(); m_bathymeterHintBox = nullptr;
+    });
+    connect(m_bathymeterHintBox, &QDialog::rejected, this, [this]() {
+        m_bathymeterHintBox->deleteLater(); m_bathymeterHintBox = nullptr;
+    });
+
+    m_bathymeterHintBox->exec();
 }
 
+
+// ======================= PORTS =======================
 void DashboardPage::PortsToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_portsHintBox) {
+        m_portsHintBox->deleteLater();
+        m_portsHintBox = nullptr;
+    }
+
+    m_portsHintBox = new HintboxDialog(this);
+    m_portsHintBox->setTitle("Ports Feature");
+    m_portsHintBox->setModal(true);
+    m_portsHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "Port information layers highlight key harbors, terminals, and docking facilities. "
+        "They provide navigators with details about available services, capacity, and restrictions.";
+    m_portsHintBox->addNewPage(":/hintboxes/port.png", page1Description);
+
+    QString page2Description =
+        "Ports are marked with symbols and identifiers. "
+        "Zooming in reveals detailed layouts, entry channels, anchorage points, and pilot boarding areas.";
+    m_portsHintBox->addNewPage(":/hintboxes/port.png", page2Description);
+
+    m_portsHintBox->applyStylesheet_dark();
+
+    connect(m_portsHintBox, &QDialog::accepted, this, [this]() {
+        m_portsHintBox->deleteLater(); m_portsHintBox = nullptr;
+    });
+    connect(m_portsHintBox, &QDialog::rejected, this, [this]() {
+        m_portsHintBox->deleteLater(); m_portsHintBox = nullptr;
+    });
+
+    m_portsHintBox->exec();
 }
 
+
+// ======================= OCEAN ROUTE =======================
 void DashboardPage::OceanRouteToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_oceanRouteHintBox) {
+        m_oceanRouteHintBox->deleteLater();
+        m_oceanRouteHintBox = nullptr;
+    }
+
+    m_oceanRouteHintBox = new HintboxDialog(this);
+    m_oceanRouteHintBox->setTitle("Ocean Route Feature");
+    m_oceanRouteHintBox->setModal(true);
+    m_oceanRouteHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "Ocean Routes are recommended navigation paths across seas and oceans. "
+        "They are designed to optimize safety, distance, and fuel efficiency.";
+    m_oceanRouteHintBox->addNewPage(":/hintboxes/searoute.png", page1Description);
+
+    QString page2Description =
+        "These routes consider currents, prevailing winds, restricted zones, and seasonal conditions. "
+        "They help vessels avoid unnecessary risks and improve voyage planning.";
+    m_oceanRouteHintBox->addNewPage(":/hintboxes/searoute.png", page2Description);
+
+    m_oceanRouteHintBox->applyStylesheet_dark();
+
+    connect(m_oceanRouteHintBox, &QDialog::accepted, this, [this]() {
+        m_oceanRouteHintBox->deleteLater(); m_oceanRouteHintBox = nullptr;
+    });
+    connect(m_oceanRouteHintBox, &QDialog::rejected, this, [this]() {
+        m_oceanRouteHintBox->deleteLater(); m_oceanRouteHintBox = nullptr;
+    });
+
+    m_oceanRouteHintBox->exec();
 }
 
+
+// ======================= ECA =======================
 void DashboardPage::ECAToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_ecaHintBox) {
+        m_ecaHintBox->deleteLater();
+        m_ecaHintBox = nullptr;
+    }
+
+    m_ecaHintBox = new HintboxDialog(this);
+    m_ecaHintBox->setTitle("Emission Control Area (ECA)");
+    m_ecaHintBox->setModal(true);
+    m_ecaHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "ECA zones are maritime regions where stricter controls on emissions apply. "
+        "They are established to reduce air pollution from ships, particularly SOx and NOx.";
+    m_ecaHintBox->addNewPage(":/hintboxes/emission.png", page1Description);
+
+    QString page2Description =
+        "When entering ECAs, vessels must switch to compliant fuel or apply emission reduction technology. "
+        "Planning routes around ECAs helps manage costs and ensures regulatory compliance.";
+    m_ecaHintBox->addNewPage(":/hintboxes/emission.png", page2Description);
+
+    m_ecaHintBox->applyStylesheet_dark();
+
+    connect(m_ecaHintBox, &QDialog::accepted, this, [this]() {
+        m_ecaHintBox->deleteLater(); m_ecaHintBox = nullptr;
+    });
+    connect(m_ecaHintBox, &QDialog::rejected, this, [this]() {
+        m_ecaHintBox->deleteLater(); m_ecaHintBox = nullptr;
+    });
+
+    m_ecaHintBox->exec();
 }
 
+
+// ======================= PIRACY ZONE =======================
 void DashboardPage::PiracyZoneToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_piracyZoneHintBox) {
+        m_piracyZoneHintBox->deleteLater();
+        m_piracyZoneHintBox = nullptr;
+    }
+
+    m_piracyZoneHintBox = new HintboxDialog(this);
+    m_piracyZoneHintBox->setTitle("Piracy Zone Feature");
+    m_piracyZoneHintBox->setModal(true);
+    m_piracyZoneHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "Piracy Zones highlight regions where piracy incidents are more frequent. "
+        "Awareness of these areas is critical for vessel security and crew safety.";
+    m_piracyZoneHintBox->addNewPage(":/hintboxes/piracy-zone.jpg", page1Description);
+
+    QString page2Description =
+        "Ships transiting piracy-prone waters often adopt security measures, such as higher speed, "
+        "armed guards, or rerouting. Navigation systems mark these zones for risk assessment.";
+    m_piracyZoneHintBox->addNewPage(":/hintboxes/piracy-zone.jpg", page2Description);
+
+    m_piracyZoneHintBox->applyStylesheet_dark();
+
+    connect(m_piracyZoneHintBox, &QDialog::accepted, this, [this]() {
+        m_piracyZoneHintBox->deleteLater(); m_piracyZoneHintBox = nullptr;
+    });
+    connect(m_piracyZoneHintBox, &QDialog::rejected, this, [this]() {
+        m_piracyZoneHintBox->deleteLater(); m_piracyZoneHintBox = nullptr;
+    });
+
+    m_piracyZoneHintBox->exec();
 }
 
+
+// ======================= PLANNED ROUTE =======================
 void DashboardPage::PlannedRouteToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_plannedRouteHintBox) {
+        m_plannedRouteHintBox->deleteLater();
+        m_plannedRouteHintBox = nullptr;
+    }
+
+    m_plannedRouteHintBox = new HintboxDialog(this);
+    m_plannedRouteHintBox->setTitle("Planned Route Feature");
+    m_plannedRouteHintBox->setModal(true);
+    m_plannedRouteHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "Planned Route shows the intended voyage path prepared before departure. "
+        "It considers ports of call, safety zones, weather, and regulations.";
+    m_plannedRouteHintBox->addNewPage(":/hintboxes/searoute.png", page1Description);
+
+    QString page2Description =
+        "The planned route serves as a reference for navigators and is compared against the actual route. "
+        "It helps ensure compliance with voyage planning standards (IMO/ISM).";
+    m_plannedRouteHintBox->addNewPage(":/hintboxes/searoute.png", page2Description);
+
+    m_plannedRouteHintBox->applyStylesheet_dark();
+
+    connect(m_plannedRouteHintBox, &QDialog::accepted, this, [this]() {
+        m_plannedRouteHintBox->deleteLater(); m_plannedRouteHintBox = nullptr;
+    });
+    connect(m_plannedRouteHintBox, &QDialog::rejected, this, [this]() {
+        m_plannedRouteHintBox->deleteLater(); m_plannedRouteHintBox = nullptr;
+    });
+
+    m_plannedRouteHintBox->exec();
 }
 
+
+// ======================= ACTUAL ROUTE =======================
 void DashboardPage::ActualRouteToggleAction_toggled()
 {
+    qInfo() << __FUNCSIG__ << __LINE__;
 
+    if (m_actualRouteHintBox) {
+        m_actualRouteHintBox->deleteLater();
+        m_actualRouteHintBox = nullptr;
+    }
+
+    m_actualRouteHintBox = new HintboxDialog(this);
+    m_actualRouteHintBox->setTitle("Actual Route Feature");
+    m_actualRouteHintBox->setModal(true);
+    m_actualRouteHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    QString page1Description =
+        "The Actual Route represents the real track of the vessel recorded during the voyage. "
+        "It often differs from the planned route due to weather, traffic, or operational decisions.";
+    m_actualRouteHintBox->addNewPage(":/hintboxes/searoute.png", page1Description);
+
+    QString page2Description =
+        "Comparing the actual route with the planned route helps identify deviations, "
+        "optimize future voyages, and ensure safety compliance.";
+    m_actualRouteHintBox->addNewPage(":/hintboxes/searoute.png", page2Description);
+
+    m_actualRouteHintBox->applyStylesheet_dark();
+
+    connect(m_actualRouteHintBox, &QDialog::accepted, this, [this]() {
+        m_actualRouteHintBox->deleteLater(); m_actualRouteHintBox = nullptr;
+    });
+    connect(m_actualRouteHintBox, &QDialog::rejected, this, [this]() {
+        m_actualRouteHintBox->deleteLater(); m_actualRouteHintBox = nullptr;
+    });
+
+    m_actualRouteHintBox->exec();
 }
+
 
 void DashboardPage::AlretAndRecomendationFrame_toggled(bool checked)
 {
