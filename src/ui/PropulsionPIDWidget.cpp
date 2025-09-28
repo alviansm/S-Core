@@ -580,56 +580,62 @@ void PropulsionPIDWidget::createDetailPopup(ComponentType component)
         case MainEngine1:
         case MainEngine2:
         case MainEngine3: {
-            QString engineNum = QString::number(component - MainEngine1 + 1);
-            QLabel* title = new QLabel("Main Engine " + engineNum);
+            int idx = component - MainEngine1;
+            const EngineData& e = m_engineData[idx];
+
+            QLabel* title = new QLabel(e.name);
             title->setStyleSheet("font-weight: bold; font-size: 12px; color: #0078d4;");
             layout->addWidget(title);
 
-            layout->addWidget(new QLabel("Power: 12.5 MW"));
-            layout->addWidget(new QLabel("RPM: 127"));
-            layout->addWidget(new QLabel("Fuel Rate: 285 kg/h"));
-            layout->addWidget(new QLabel("Efficiency: 42.8%"));
+            layout->addWidget(new QLabel(QString("Power: %1 MW").arg(e.powerMW)));
+            layout->addWidget(new QLabel(QString("RPM: %1").arg(e.rpm)));
+            layout->addWidget(new QLabel(QString("Fuel Rate: %1 kg/h").arg(e.fuelRateKgH)));
+            layout->addWidget(new QLabel(QString("Efficiency: %1%").arg(e.efficiency)));
 
-            if (component == MainEngine2) {
+            if (e.highExhaustTemp) {
                 QLabel* warning = new QLabel("⚠ High exhaust temperature");
                 warning->setStyleSheet("color: #ffc107;");
                 layout->addWidget(warning);
             }
             break;
         }
+
         case Propeller: {
             QLabel* title = new QLabel("Controllable Pitch Propeller");
             title->setStyleSheet("font-weight: bold; font-size: 12px; color: #0078d4;");
             layout->addWidget(title);
 
-            layout->addWidget(new QLabel("RPM: 89.2"));
-            layout->addWidget(new QLabel("Pitch: 75%"));
-            layout->addWidget(new QLabel("Thrust: 145 kN"));
-            layout->addWidget(new QLabel("Efficiency: 68.5%"));
+            layout->addWidget(new QLabel(QString("RPM: %1").arg(m_propellerData.rpm)));
+            layout->addWidget(new QLabel(QString("Pitch: %1%").arg(m_propellerData.pitchPercent)));
+            layout->addWidget(new QLabel(QString("Thrust: %1 kN").arg(m_propellerData.thrustKN)));
+            layout->addWidget(new QLabel(QString("Efficiency: %1%").arg(m_propellerData.efficiency)));
             break;
         }
+
         case Gearbox: {
             QLabel* title = new QLabel("Main Gearbox");
             title->setStyleSheet("font-weight: bold; font-size: 12px; color: #0078d4;");
             layout->addWidget(title);
 
-            layout->addWidget(new QLabel("Input RPM: 127"));
-            layout->addWidget(new QLabel("Output RPM: 89"));
-            layout->addWidget(new QLabel("Oil Pressure: 3.8 bar"));
-            layout->addWidget(new QLabel("Temperature: 58°C"));
+            layout->addWidget(new QLabel(QString("Input RPM: %1").arg(m_gearboxData.inputRPM)));
+            layout->addWidget(new QLabel(QString("Output RPM: %1").arg(m_gearboxData.outputRPM)));
+            layout->addWidget(new QLabel(QString("Oil Pressure: %1 bar").arg(m_gearboxData.oilPressureBar)));
+            layout->addWidget(new QLabel(QString("Temperature: %1°C").arg(m_gearboxData.temperatureC)));
             break;
         }
+
         case FuelTank: {
             QLabel* title = new QLabel("Fuel Oil Tanks");
             title->setStyleSheet("font-weight: bold; font-size: 12px; color: #0078d4;");
             layout->addWidget(title);
 
-            layout->addWidget(new QLabel("FO Tank 1 (P): 26 Ton (75%)"));
-            layout->addWidget(new QLabel("FO Tank 1 (S): 14 Ton (35%)"));
-            layout->addWidget(new QLabel("FO Tank 2 (P): 16 Ton (35%)"));
-            layout->addWidget(new QLabel("FO Tank 2 (S): 26 Ton (75%)"));
+            layout->addWidget(new QLabel(QString("FO Tank 1 (P): %1").arg(m_fuelTankData.tank1P)));
+            layout->addWidget(new QLabel(QString("FO Tank 1 (S): %1").arg(m_fuelTankData.tank1S)));
+            layout->addWidget(new QLabel(QString("FO Tank 2 (P): %1").arg(m_fuelTankData.tank2P)));
+            layout->addWidget(new QLabel(QString("FO Tank 2 (S): %1").arg(m_fuelTankData.tank2S)));
             break;
         }
+
         default:
             break;
     }

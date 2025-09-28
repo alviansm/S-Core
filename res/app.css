@@ -130,6 +130,10 @@ QPushButton:hover {
     color: white;
 }
 
+QFrame {
+    background: transparent;
+}
+
 /* Combo box styling */
 QComboBox {
     border-radius: 6px;
@@ -185,16 +189,17 @@ QListView {
 QListView::item {
     padding: 6px 10px;
     border-radius: 4px;
+    color: white;   /* default putih */
 }
 
 QListView::item:hover {
     background-color: #0f97ff;
-    color: black;
+    color: white;   /* tetap putih */
 }
 
 QListView::item:selected {
     background-color: #0078d4;
-    color: white;
+    color: white;   /* tetap putih */
 }
 
 /* Tab styling */

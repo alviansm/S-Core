@@ -33,8 +33,17 @@ TechnicalPage::TechnicalPage(QWidget *parent)
     , m_topContent(nullptr)
     , m_mainContent(nullptr)
     , m_currentPage(PropulsionSystemPage)
+    , m_me1(new EngineStatusWidget("ME 1"))
+    , m_me2(new EngineStatusWidget("ME 2"))
+    , m_me3(new EngineStatusWidget("ME 3"))
+    , m_pidWidget(new PropulsionPIDWidget())
 {
     ui->setupUi(this);
+
+    connect(MockApiService::instance(), &MockApiService::dataUpdated,
+            this, &TechnicalPage::onDataUpdated);
+
+    MockApiService::instance()->startPolling(1, 5000);
 
     setupWidget();
     createPageContent();
@@ -74,6 +83,72 @@ void TechnicalPage::setCurrentPage(int pageIndex)
 
         qInfo() << "Current page changed to:" << pageIndex;
     }
+}
+
+void TechnicalPage::onDataUpdated(const VoyageLogs &data)
+{
+    // ======================
+    // Extract ME1 data
+    // ======================
+    int ME1Load = data.propulsion_logs[0].engine_load;
+    int ME1Rpm = data.propulsion_logs[0].rpm;
+    int ME1SFOC = data.propulsion_logs[0].fuel_consumption_rate;
+    int ME1Power = data.propulsion_logs[0].power_output;
+
+    m_me1->setEfficiency(ME1Load);
+    m_me1->setRunningHours(ME1Rpm);
+    m_me1->setSFOC(ME1SFOC);
+
+    EngineData e1;
+    e1.name = "Main Engine 1";
+    e1.powerMW = static_cast<double>(ME1Power) / 1000.0;   // contoh konversi ke MW
+    e1.rpm = ME1Rpm;
+    e1.fuelRateKgH = ME1SFOC;
+    e1.efficiency = ME1Load;
+    e1.highExhaustTemp = false; // nanti bisa diganti kalau ada warning
+    if (m_pidWidget) m_pidWidget->setEngineData(0, e1);
+
+    // ======================
+    // Extract ME2 data
+    // ======================
+    int ME2Load = data.propulsion_logs[1].engine_load;
+    int ME2Rpm = data.propulsion_logs[1].rpm;
+    int ME2SFOC = data.propulsion_logs[1].fuel_consumption_rate;
+    int ME2Power = data.propulsion_logs[1].power_output;
+
+    m_me2->setEfficiency(ME2Load);
+    m_me2->setRunningHours(ME2Rpm);
+    m_me2->setSFOC(ME2SFOC);
+
+    EngineData e2;
+    e2.name = "Main Engine 2";
+    e2.powerMW = static_cast<double>(ME2Power) / 1000.0;
+    e2.rpm = ME2Rpm;
+    e2.fuelRateKgH = ME2SFOC;
+    e2.efficiency = ME2Load;
+    e2.highExhaustTemp = false;
+    if (m_pidWidget) m_pidWidget->setEngineData(1, e2);
+
+    // ======================
+    // Extract ME3 data
+    // ======================
+    int ME3Load = data.propulsion_logs[2].engine_load;
+    int ME3Rpm = data.propulsion_logs[2].rpm;
+    int ME3SFOC = data.propulsion_logs[2].fuel_consumption_rate;
+    int ME3Power = data.propulsion_logs[2].power_output;
+
+    m_me3->setEfficiency(ME3Load);
+    m_me3->setRunningHours(ME3Rpm);
+    m_me3->setSFOC(ME3SFOC);
+
+    EngineData e3;
+    e3.name = "Main Engine 3";
+    e3.powerMW = static_cast<double>(ME3Power) / 1000.0;
+    e3.rpm = ME3Rpm;
+    e3.fuelRateKgH = ME3SFOC;
+    e3.efficiency = ME3Load;
+    e3.highExhaustTemp = false;
+    if (m_pidWidget) m_pidWidget->setEngineData(2, e3);
 }
 
 void TechnicalPage::setupWidget()
@@ -645,17 +720,17 @@ void TechnicalPage::createPropulsionSystemPageContent_topContent()
     enginesLayout->setSpacing(4);
 
     // Add engine status widgets
-    EngineStatusWidget* me1 = new EngineStatusWidget("ME 1");
-    me1->setEfficiency(42.8);
+    EngineStatusWidget* me1 = m_me1;
+    me1->setEfficiency(51.3);
     me1->setRunningHours(18.5);
-    me1->setSFOC(186);
+    me1->setSFOC(190);
 
-    EngineStatusWidget* me2 = new EngineStatusWidget("ME 2");
+    EngineStatusWidget* me2 = m_me2;
     me2->setEfficiency(38.2);
     me2->setRunningHours(19.2);
     me2->setSFOC(195);
 
-    EngineStatusWidget* me3 = new EngineStatusWidget("ME 3");
+    EngineStatusWidget* me3 = m_me3;
     me3->setEfficiency(45.1);
     me3->setRunningHours(17.8);
     me3->setSFOC(178);
@@ -839,8 +914,28 @@ void TechnicalPage::createPropulsionSystemPageContent_mainContent()
     layout->addWidget(titleLabel);
 
     // Create the P&ID diagram widget
-    PropulsionPIDWidget* pidWidget = new PropulsionPIDWidget();
+    PropulsionPIDWidget* pidWidget = m_pidWidget;
     layout->addWidget(pidWidget, 1);
+
+    // Set data engine
+    EngineData e1 = {"Main Engine 1", 12.5, 127, 285, 42.8, false};
+    EngineData e2 = {"Main Engine 2", 13.0, 130, 300, 41.5, true};
+    EngineData e3 = {"Main Engine 3", 11.8, 120, 270, 43.2, false};
+    pidWidget->setEngineData(0, e1);
+    pidWidget->setEngineData(1, e2);
+    pidWidget->setEngineData(2, e3);
+
+    // Set data propeller
+    PropellerData prop = {89.2, 75, 145, 68.5};
+    pidWidget->setPropellerData(prop);
+
+    // Set data gearbox
+    GearboxData gb = {127, 89, 3.8, 58};
+    pidWidget->setGearboxData(gb);
+
+    // Set data fuel tank
+    FuelTankData ft = {"26 Ton (75%)", "14 Ton (35%)", "16 Ton (35%)", "26 Ton (75%)"};
+    pidWidget->setFuelTankData(ft);
 
     m_mainContent->addWidget(page);
 }
