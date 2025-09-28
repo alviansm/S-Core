@@ -71,5 +71,6 @@
         <file>hintboxes/emission.png</file>
         <file>hintboxes/port.png</file>
         <file>reports/trial_cii_report.pdf</file>
+        <file>icons/general/ic-up_arrow.png</file>
     </qresource>
 </RCC>

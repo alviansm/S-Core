@@ -74,12 +74,9 @@ HistoryPage::HistoryPage(QWidget *parent)
             background-color: #616161;
         }
         QComboBox::down-arrow {
-            image: none;
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid white;
+            image: url(:/icons/general/ic-down_arrow.png);
+            width: 10px;
+            height: 10px;
         }
         QComboBox QAbstractItemView {
             background-color: #4F4F4F;

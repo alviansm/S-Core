@@ -151,7 +151,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-svgrepo-com.svg);
+    image: url(:/icons/general/ic-down_arrow.png);
     width: 12px;
     height: 12px;
 }
@@ -170,13 +170,13 @@ QAbstractSpinBox::down-button {
 }
 
 QAbstractSpinBox::up-arrow {
-    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-up-svgrepo-com.svg);
+    image: url(:/icons/general/ic-up_arrow.png);
     width: 8px;
     height: 8px;
 }
 
 QAbstractSpinBox::down-arrow {
-    image: url(:/connect-maintena-icons/images/utilities/dropdown-arrow-svgrepo-com.svg);
+    image: url(:/icons/general/ic-down_arrow.png);
     width: 8px;
     height: 8px;
 }
