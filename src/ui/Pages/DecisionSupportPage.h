@@ -22,7 +22,7 @@ public:
     ~DecisionSupportPage();
 
     enum MainContentPage {
-        CIIPerformanceComparisonGraph,
+        CIIPerformanceComparisonGraph = 0,
         ThreeYearImplementationSummary,
         SelfEvaluationFeedbackLoop,
         CorrectiveActionPlan
@@ -38,7 +38,7 @@ private:
 
     void createPageContent_topSidebar();
     void createPageContent_mainSidebar();
-    void createPageContent_topContent();
+    void createPageContent_topContent(); // NOTE: Skipped
 
     void createMainContent_CIIPerformanceComparisonGraph();
     void createMainContent_ThreeYearImplementationSummary();
