@@ -760,6 +760,103 @@ ads::CDockWidget *MainWindow::createDecisionSupportPage()
     DockWidget->setWidget(w, ads::CDockWidget::ForceNoScrollArea);
     DockWidget->setFeature(ads::CDockWidget::DockWidgetPinnable, false);
     DockWidget->setStyleSheet("ads--CDockWidget::pane { background-color: #2b2b2b; }");
+
+    // --- Set Toolbar ---
+    QToolBar *toolbar = new QToolBar();
+    toolbar->setMovable(false);
+
+    // Dark theme stylesheet for toolbar
+    toolbar->setStyleSheet(R"(
+        QToolBar {
+            background-color: #2b2b2b;
+            border: 1px solid #3c3c3c;
+            spacing: 6px;
+            padding: 4px;
+        }
+
+        QToolBar::separator {
+            background-color: #555555;
+            width: 1px;
+            margin: 2px;
+        }
+
+        QLabel {
+            color: #ffffff;
+            font-size: 12px;
+            padding: 4px 8px;
+            background: transparent;
+        }
+    )");
+
+    QComboBox *pageSelector = new QComboBox(toolbar);
+    pageSelector->addItem("CII Performance");
+    pageSelector->addItem("3-Year Implementation Plan Summary");
+    pageSelector->addItem("Self-Evaluation Feedback Loop");
+    pageSelector->addItem("Corrective Action Plan");
+
+    // Dark theme stylesheet for combobox
+    pageSelector->setStyleSheet(R"(
+        QComboBox {
+            background-color: #404040;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #ffffff;
+            font-size: 12px;
+            min-width: 80px;
+        }
+
+        QComboBox:hover {
+            background-color: #4a4a4a;
+            border-color: #777777;
+        }
+
+        QComboBox:pressed {
+            background-color: #363636;
+        }
+
+        QComboBox::drop-down {
+            border: none;
+            width: 20px;
+        }
+
+        QComboBox::down-arrow {
+            image: url(:/icons/general/ic-down_arrow.png);
+            width: 10px;
+            height: 10px;
+        }
+
+        QComboBox QAbstractItemView {
+            background-color: #404040;
+            border: 1px solid #555555;
+            selection-background-color: #5a5a5a;
+            color: #ffffff;
+        }
+
+        QComboBox QAbstractItemView::item {
+            padding: 6px 12px;
+            border: none;
+        }
+
+        QComboBox QAbstractItemView::item:selected {
+            background-color: #5a5a5a;
+        }
+
+        QComboBox QAbstractItemView::item:hover {
+            background-color: #4a4a4a;
+        }
+    )");
+
+    QLabel *label = new QLabel("Page:");
+    toolbar->addWidget(label);
+    toolbar->addWidget(pageSelector);
+
+    // --- Toolbars: Signal-Slot Connections ---
+    connect(pageSelector, &QComboBox::currentIndexChanged, w, &DecisionSupportPage::setCurrentPage);
+
+    toolbar->setIconSize(QSize(16, 16)); // NOTE: Seems to not working
+    DockWidget->setToolBar(toolbar);
+
     return DockWidget;
 }
 
