@@ -46,6 +46,8 @@ set(UI_FILES
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(SCore WIN32
     ${SOURCES}
@@ -75,6 +77,8 @@ add_executable(SCore WIN32
     src/ui/WeatherFrame.h src/ui/WeatherFrame.cpp src/ui/WeatherFrame.ui
     src/ui/AlertAndRecomendationFrame.h src/ui/AlertAndRecomendationFrame.cpp src/ui/AlertAndRecomendationFrame.ui
     src/ui/HintboxDialog.h src/ui/HintboxDialog.cpp src/ui/HintboxDialog.ui
+    src/ui/RecommendationCard.h src/ui/RecommendationCard.cpp
+    src/ui/CarbonIntensityGauge.h src/ui/CarbonIntensityGauge.cpp
 
 
 )
@@ -96,6 +100,8 @@ target_link_libraries(SCore PUBLIC Qt${QT_VERSION_MAJOR}::Core
 target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets Qt6::Charts)
 target_link_libraries(SCore PRIVATE Qt6::Widgets)
 target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets)
+target_link_libraries(SCore PRIVATE Qt6::Core Qt6::Widgets)
+target_link_libraries(SCore PRIVATE Qt6::Widgets)
 
 set_target_properties(SCore PROPERTIES 
     AUTOMOC ON

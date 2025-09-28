@@ -6,6 +6,9 @@
 #include <QSplitter>
 #include <QStackedWidget>
 
+#include "RecommendationCard.h"
+#include "CarbonIntensityGauge.h"
+
 namespace Ui {
 class DecisionSupportPage;
 }
@@ -32,7 +35,17 @@ private:
     void setupWidget();
     void setupStylesheet();
     void createPageContent();
-    void createPageWidgets(int pageIndex, const QString& pageName);
+
+    void createPageContent_topSidebar();
+    void createPageContent_mainSidebar();
+    void createPageContent_topContent();
+
+    void createMainContent_CIIPerformanceComparisonGraph();
+    void createMainContent_ThreeYearImplementationSummary();
+    void createMainContent_SelfEvaluationFeedbackLoop();
+    void createMainContent_CorrectiveActionPlan();
+
+    void onRecommendationClicked(const RecommendationItem& item);
 
 private:
     Ui::DecisionSupportPage *ui;
@@ -49,6 +62,8 @@ private:
     QStackedWidget* m_mainContent;
 
     int m_currentPage;
+
+    CarbonIntensityGauge* m_carbonIntensityGauge;
 };
 
 
