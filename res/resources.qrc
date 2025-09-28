@@ -34,5 +34,9 @@
         <file>images/GA.png</file>
         <file>images/create_configuration_illustration.jpg</file>
         <file>images/import_configuration_illustration.jpg</file>
+        <file>images/plcaeholder_image.jpg</file>
+        <file>icons/general/ic-next.png</file>
+        <file>icons/general/ic-previous.png</file>
+        <file>hintboxes/weather.jpg</file>
     </qresource>
 </RCC>

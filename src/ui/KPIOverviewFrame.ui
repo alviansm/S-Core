@@ -6,572 +6,277 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>419</height>
+    <width>220</width>
+    <height>168</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>220</width>
+    <height>168</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>220</width>
+    <height>300</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Frame</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <property name="leftMargin">
+    <number>6</number>
+   </property>
+   <property name="topMargin">
+    <number>6</number>
+   </property>
+   <property name="rightMargin">
+    <number>6</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
    <item>
-    <widget class="QLabel" name="labelTitle">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <bold>true</bold>
-      </font>
+    <widget class="QFrame" name="frameFOConsumption">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>48</height>
+      </size>
      </property>
-     <property name="text">
-      <string>Real-time KPI Overview Panel</string>
+     <property name="maximumSize">
+      <size>
+       <width>220</width>
+       <height>48</height>
+      </size>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
+      <property name="spacing">
+       <number>3</number>
+      </property>
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="labelFOConsumption">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>FO Consumption</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBarFOConsumption">
+          <property name="value">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGraphicsView" name="graphicsViewFOConsumption">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QFrame" name="frame">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_11">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="7,3">
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout">
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="font">
-                 <font>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Fuel Consumption Rate</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
-                 <widget class="QLabel" name="fuelConsumption">
-                  <property name="font">
-                   <font>
-                    <pointsize>26</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>12.4</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="font">
-                   <font>
-                    <pointsize>12</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>ton/hour</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsViewFuel"/>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <item>
-             <widget class="QSlider" name="horizontalSlider">
-              <property name="styleSheet">
-               <string notr="true">
-QSlider:horizontal {
-    height: 18px;
-    background: transparent;
-}
-
-QSlider::groove:horizontal {
-    height: 18px;
-    border-radius: 9px;
-    border: none;
-}
-
-QSlider::sub-page:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                               stop:0 #4CAF50, stop:1 #45a049);
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::add-page:horizontal {
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::handle:horizontal {
-    width: 0px;
-    height: 0px;
-    background: transparent;
-    border: none;
-    margin: 0px 0px;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::sub-page {
-    background: transparent;
-    border: none;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::add-page {
-    border-radius: 9px;
-    border: none;
-}</string>
-              </property>
-              <property name="value">
-               <number>99</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_11">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_15">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_16">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="7,3">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_17">
-                <item>
-                 <widget class="QLabel" name="label_22">
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Carbon Intensity Index (CII)</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11">
-                  <item>
-                   <widget class="QLabel" name="cii">
-                    <property name="font">
-                     <font>
-                      <pointsize>26</pointsize>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>21</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_24">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Good</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="graphicsViewCII"/>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QSlider" name="horizontalSlider_7">
-              <property name="styleSheet">
-               <string notr="true">
-QSlider:horizontal {
-    height: 18px;
-    background: transparent;
-}
-
-QSlider::groove:horizontal {
-    height: 18px;
-    border-radius: 9px;
-    border: none;
-}
-
-QSlider::sub-page:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                               stop:0 #4CAF50, stop:1 #45a049);
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::add-page:horizontal {
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::handle:horizontal {
-    width: 0px;
-    height: 0px;
-    background: transparent;
-    border: none;
-    margin: 0px 0px;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::sub-page {
-    background: transparent;
-    border: none;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::add-page {
-    border-radius: 9px;
-    border: none;
-}</string>
-              </property>
-              <property name="value">
-               <number>99</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_12">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_18">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_19">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="7,0">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_20">
-                <item>
-                 <widget class="QLabel" name="label_25">
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>CII Projection</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_13">
-                  <item>
-                   <widget class="QLabel" name="label_27">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>EEXI Compliance</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QLabel" name="ciiProjection">
-                <property name="font">
-                 <font>
-                  <pointsize>36</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>B</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QSlider" name="horizontalSlider_8">
-              <property name="styleSheet">
-               <string notr="true">
-QSlider:horizontal {
-    height: 18px;
-    background: transparent;
-}
-
-QSlider::groove:horizontal {
-    height: 18px;
-    border-radius: 9px;
-    border: none;
-}
-
-QSlider::sub-page:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                               stop:0 #4CAF50, stop:1 #45a049);
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::add-page:horizontal {
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::handle:horizontal {
-    width: 0px;
-    height: 0px;
-    background: transparent;
-    border: none;
-    margin: 0px 0px;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::sub-page {
-    background: transparent;
-    border: none;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::add-page {
-    border-radius: 9px;
-    border: none;
-}</string>
-              </property>
-              <property name="value">
-               <number>99</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="3,7">
-       <item>
-        <widget class="QFrame" name="frame_10">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_12">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_13">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="7,3">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_14">
-                <item>
-                 <widget class="QLabel" name="label_19">
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Engine Efficiency</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                  <item>
-                   <widget class="QLabel" name="engineEfficiencyPercentage">
-                    <property name="font">
-                     <font>
-                      <pointsize>26</pointsize>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>87</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_21">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QGraphicsView" name="graphicsViewEngine"/>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QSlider" name="horizontalSlider_6">
-              <property name="styleSheet">
-               <string notr="true">
-QSlider:horizontal {
-    height: 18px;
-    background: transparent;
-}
-
-QSlider::groove:horizontal {
-    height: 18px;
-    border-radius: 9px;
-    border: none;
-}
-
-QSlider::sub-page:horizontal {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                               stop:0 #4CAF50, stop:1 #45a049);
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::add-page:horizontal {
-    border-radius: 9px;
-    height: 18px;
-    border: none;
-}
-
-QSlider::handle:horizontal {
-    width: 0px;
-    height: 0px;
-    background: transparent;
-    border: none;
-    margin: 0px 0px;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::sub-page {
-    background: transparent;
-    border: none;
-}
-
-QSlider:horizontal[value=&quot;0&quot;]::add-page {
-    border-radius: 9px;
-    border: none;
-}</string>
-              </property>
-              <property name="value">
-               <number>99</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Orientation::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_3">
-         <property name="frameShape">
-          <enum>QFrame::Shape::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Shadow::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,12">
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Auxiliary Load Distribution</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget_2" native="true"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+    <widget class="QFrame" name="frameVoyageCII">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>48</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>220</width>
+       <height>48</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,1">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="labelVoyageCII">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Voyage CII</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBarVoyageCII">
+          <property name="value">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGraphicsView" name="graphicsViewVoyageCII">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frameEnergyEfficiency">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>48</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>220</width>
+       <height>48</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>3</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>3</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="labelEnergyEfficiency">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Energy Efficiency</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progressBarEnergyEfficiency">
+          <property name="value">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QGraphicsView" name="graphicsViewEnergyEfficiency">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -397,6 +397,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Weather on Map"
     );
+    // WeatherToggleAction->setCheckable(true);
 
     // -- Bathymeter --
     QAction* BathymeterToggleAction = createToolbarAction(
@@ -404,6 +405,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Bathymeter on Map"
     );
+    // BathymeterToggleAction->setCheckable(true);
 
     // -- Ports --
     QAction* PortsToggleAction = createToolbarAction(
@@ -411,6 +413,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Ports on Map"
     );
+    // PortsToggleAction->setCheckable(true);
 
     // -- Ocean Route --
     QAction* OceanRouteToggleAction = createToolbarAction(
@@ -418,6 +421,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Ocean Route on Map"
     );
+    // OceanRouteToggleAction->setCheckable(true);
 
     // -- Emission Control Area Zone --
     QAction* ECAToggleAction = createToolbarAction(
@@ -425,6 +429,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Emission Control Area (ECA) on Map"
     );
+    // ECAToggleAction->setCheckable(true);
 
     // -- Piracy Area --
     QAction* PiracyZoneToggleAction = createToolbarAction(
@@ -432,6 +437,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Piracy Zone on Map"
     );
+    // PiracyZoneToggleAction->setCheckable(true);
 
     // -- Planned Route --
     QAction* PlannedRouteToggleAction = createToolbarAction(
@@ -439,6 +445,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Planned Route on Map"
     );
+    // PlannedRouteToggleAction->setCheckable(true);
 
     // -- Actual Route --
     QAction* ActualRouteToggleAction = createToolbarAction(
@@ -446,15 +453,31 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Toggle Show/Hide Actual Route on Map"
     );
+    // ActualRouteToggleAction->setCheckable(true);
 
     // --- Toolbar Actions: Frame + Summary Dashboards ---
     toolbar->addSeparator();
 
-    QAction* FrameAction = createToolbarAction(
+    QAction* AlertAndRecomendationFrameAction = createToolbarAction(
         toolbar,
         ":/icons/ic-placeholder.png",
-        "Frames"
+        "Notification"
     );
+    AlertAndRecomendationFrameAction->setCheckable(true);
+
+    QAction* KPIOverviewFrameAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "KPI Overview"
+    );
+    KPIOverviewFrameAction->setCheckable(true);
+
+    QAction* WeatherFrameAction = createToolbarAction(
+        toolbar,
+        ":/icons/ic-placeholder.png",
+        "Weather Info"
+    );
+    WeatherFrameAction->setCheckable(true);
 
     // --- Toolbar Actions: Map View ---
     toolbar->addSeparator();
@@ -482,6 +505,7 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Change to 3D View Map"
     );
+    ThreeDimensionMapToggleAction->setCheckable(true);
 
     // -- 2D Map --
     QAction* TwoDimensionMapToggleAction = createToolbarAction(
@@ -489,23 +513,26 @@ ads::CDockWidget *MainWindow::createDashboardPage()
         ":/icons/ic-placeholder.png",
         "Change to 2D View Map"
     );
+    TwoDimensionMapToggleAction->setCheckable(true);
 
     // --- Toolbars: Signal-Slot Connections ---
     connect(styleSelector, &QComboBox::currentIndexChanged, m, &DashboardPage::setCurrentMapStyle);
 
-    connect(WeatherToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(BathymeterToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(PortsToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(OceanRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(ECAToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(PiracyZoneToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(PlannedRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(ActualRouteToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(FrameAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(RefreshMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(ReturnToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(ThreeDimensionMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
-    connect(TwoDimensionMapToggleAction, &QAction::toggled, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(WeatherToggleAction, &QAction::triggered, m, &DashboardPage::WeatherToggleAction_toggled);
+    connect(BathymeterToggleAction, &QAction::triggered, m, &DashboardPage::BathymeterTiggkeAction_toggled);
+    connect(PortsToggleAction, &QAction::triggered, m, &DashboardPage::PortsToggleAction_toggled);
+    connect(OceanRouteToggleAction, &QAction::triggered, m, &DashboardPage::OceanRouteToggleAction_toggled);
+    connect(ECAToggleAction, &QAction::triggered, m, &DashboardPage::ECAToggleAction_toggled);
+    connect(PiracyZoneToggleAction, &QAction::triggered, m, &DashboardPage::PiracyZoneToggleAction_toggled);
+    connect(PlannedRouteToggleAction, &QAction::triggered, m, &DashboardPage::PlannedRouteToggleAction_toggled);
+    connect(ActualRouteToggleAction, &QAction::triggered, m, &DashboardPage::ActualRouteToggleAction_toggled);
+    connect(AlertAndRecomendationFrameAction, &QAction::triggered, m, &DashboardPage::AlretAndRecomendationFrame_toggled);
+    connect(KPIOverviewFrameAction, &QAction::triggered, m, &DashboardPage::KPIOverviewFrame_toggled);
+    connect(WeatherFrameAction, &QAction::triggered, m, &DashboardPage::WeatherFrame_toggled);
+    connect(RefreshMapToggleAction, &QAction::triggered, m, &DashboardPage::RefreshMapToggleAction_toggled);
+    connect(ReturnToggleAction, &QAction::triggered, m, &DashboardPage::ReturnToggleAction_toggled);
+    connect(ThreeDimensionMapToggleAction, &QAction::triggered, m, &DashboardPage::ThreeDimensionMapToggleAction);
+    connect(TwoDimensionMapToggleAction, &QAction::triggered, m, &DashboardPage::TwoDimensionMapToggleAction);
 
     toolbar->setIconSize(QSize(16, 16)); // NOTE: Seems to not working
     DockWidget->setToolBar(toolbar);

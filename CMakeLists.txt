@@ -74,6 +74,7 @@ add_executable(SCore WIN32
     src/ui/KPIOverviewFrame.h src/ui/KPIOverviewFrame.cpp src/ui/KPIOverviewFrame.ui
     src/ui/WeatherFrame.h src/ui/WeatherFrame.cpp src/ui/WeatherFrame.ui
     src/ui/AlertAndRecomendationFrame.h src/ui/AlertAndRecomendationFrame.cpp src/ui/AlertAndRecomendationFrame.ui
+    src/ui/HintboxDialog.h src/ui/HintboxDialog.cpp src/ui/HintboxDialog.ui
 
 
 )

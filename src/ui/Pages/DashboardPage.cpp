@@ -8,6 +8,10 @@
 #include "CircleProgressBar.h"
 #include "../../service/MockApiService.h"
 
+#include "AlertAndRecomendationFrame.h"
+#include "KPIOverviewFrame.h"
+#include "WeatherFrame.h"
+
 DashboardPage::DashboardPage(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::DashboardPage)
@@ -121,6 +125,9 @@ DashboardPage::DashboardPage(QWidget *parent)
                        << QPointF(108.5, -3.0)     // Waypoint 2
                        << QPointF(105.5, 0.0)      // Waypoint 3
                        << QPointF(103.82, 1.26);   // Singapore
+
+    createWidgetFrameOverlay();
+    positionOverlay();
 }
 
 void DashboardPage::setupInitialMapRoute()
@@ -345,6 +352,17 @@ void DashboardPage::onDataUpdated(const VoyageLogs &data)
     // ui->windSpeed->setText(QString::number(data.wind_speed));
 }
 
+void DashboardPage::createWidgetFrameOverlay()
+{
+    m_AlertAndRecomendationFrame = new AlertAndRecomendationFrame(this);
+    m_KPIOverviewFrame = new KPIOverviewFrame(this);
+    m_WeatherFrame = new WeatherFrame(this);
+
+    m_AlertAndRecomendationFrame->hide();
+    m_KPIOverviewFrame->hide();
+    m_WeatherFrame->hide();
+}
+
 double DashboardPage::calculateBearing(const QPointF &from, const QPointF &to)
 {
     // Convert to radians
@@ -364,6 +382,32 @@ double DashboardPage::calculateBearing(const QPointF &from, const QPointF &to)
     }
 
     return bearing;
+}
+
+void DashboardPage::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    m_mapboxWidget->setGeometry(0, 0, width(), height()); // resize map too
+    positionOverlay();
+}
+
+void DashboardPage::positionOverlay()
+{
+    // m_AlertAndRecomendationFrame widget overlay (top-left)
+    int margin = 6; // distance from edge
+    int x = margin;
+    int y = margin;
+    m_AlertAndRecomendationFrame->move(x, y);
+
+    // m_WeatherFrame widget overlay (bottom-center)
+    x = (width() - m_WeatherFrame->width()) / 2;
+    y = height() - m_WeatherFrame->height() - margin;
+    m_WeatherFrame->move(x, y);
+
+    // m_KPIOverviewFrame widget overlay (top left under m_AlertAndRecommendationFrame)
+    x = margin;
+    y = m_AlertAndRecomendationFrame->y() + m_AlertAndRecomendationFrame->height() + margin;
+    m_KPIOverviewFrame->move(x, y);
 }
 
 // Function untuk start/stop simulation (bisa dipanggil dari UI)
@@ -418,6 +462,163 @@ void DashboardPage::setCurrentMapStyle(int index)
 }
 
 void DashboardPage::WeatherToggleAction_toggled()
+{
+    qInfo() << __FUNCSIG__ << __LINE__;
+
+    // Clean up existing dialog if it exists
+    if (m_weatherHintBox) {
+        m_weatherHintBox->deleteLater();
+        m_weatherHintBox = nullptr;
+    }
+
+    // Always create a new instance
+    m_weatherHintBox = new HintboxDialog(this);
+    m_weatherHintBox->setTitle("Weather Feature");
+
+    // Make dialog modal and uninterruptable
+    m_weatherHintBox->setModal(true);
+    m_weatherHintBox->setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+    // Set dialog title (if you have a method to set title)
+    // m_weatherHintBox->setWindowTitle("Weather Map Guide");
+
+    // Page 1: Understanding Wind Direction Basics
+    QString page1Description =
+        "Wind direction on weather maps indicates where the wind is coming FROM, not where it's going. "
+        "For example, a 'north wind' means the wind is blowing FROM the north TO the south. "
+        "\n\n"
+        "Wind direction is typically shown using arrows or barbs on weather maps. The arrow points "
+        "in the direction the wind is blowing TO, while the wind name describes where it comes FROM. "
+        "\n\n"
+        "Understanding wind direction helps predict weather changes, as winds often bring the weather "
+        "conditions from their source region.";
+
+    m_weatherHintBox->addNewPage(":/hintboxes/weather.jpg", page1Description);
+
+    // Page 2: Reading Wind Patterns and Symbols
+    QString page2Description =
+        "Weather maps use various symbols to show wind information: "
+        "\n\n"
+        "• Wind Barbs: Show both direction and speed. The barb points into the wind direction, "
+        "with flags and lines indicating speed (each full barb = 10 knots, half barb = 5 knots). "
+        "\n\n"
+        "• Arrows: Simple directional indicators showing wind flow patterns across regions. "
+        "\n\n"
+        "• Isobars: Lines of equal pressure that help identify wind patterns - wind flows parallel "
+        "to isobars, with low pressure to the left in the Northern Hemisphere. "
+        "\n\n"
+        "Pay attention to wind convergence and divergence zones, as these often indicate areas "
+        "of weather activity and potential storm development.";
+
+    m_weatherHintBox->addNewPage(":/hintboxes/weather.jpg", page2Description);
+
+    // Apply dark theme styling
+    m_weatherHintBox->applyStylesheet_dark();
+
+    // Connect to accepted signal (OK button clicked) for cleanup
+    connect(m_weatherHintBox, &QDialog::accepted, this, [this]() {
+        if (m_weatherHintBox) {
+            m_weatherHintBox->deleteLater();
+            m_weatherHintBox = nullptr;
+        }
+    });
+
+    // Also connect to rejected signal (in case ESC is pressed, though it shouldn't work with modal)
+    connect(m_weatherHintBox, &QDialog::rejected, this, [this]() {
+        if (m_weatherHintBox) {
+            m_weatherHintBox->deleteLater();
+            m_weatherHintBox = nullptr;
+        }
+    });
+
+    // Show the modal dialog
+    m_weatherHintBox->exec();
+}
+
+void DashboardPage::BathymeterTiggkeAction_toggled()
+{
+
+}
+
+void DashboardPage::PortsToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::OceanRouteToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::ECAToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::PiracyZoneToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::PlannedRouteToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::ActualRouteToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::AlretAndRecomendationFrame_toggled(bool checked)
+{
+    if (!m_AlertAndRecomendationFrame) return;
+
+    if (checked) {
+        m_AlertAndRecomendationFrame->show();
+    } else {
+        m_AlertAndRecomendationFrame->hide();
+    }
+}
+
+void DashboardPage::KPIOverviewFrame_toggled(bool checked)
+{
+    if (!m_KPIOverviewFrame) return;
+
+    if (checked) {
+        m_KPIOverviewFrame->show();
+    } else {
+        m_KPIOverviewFrame->hide();
+    }
+}
+
+void DashboardPage::WeatherFrame_toggled(bool checked)
+{
+    if (!m_WeatherFrame) return;
+
+    if (checked) {
+        m_WeatherFrame->show();
+    } else {
+        m_WeatherFrame->hide();
+    }
+}
+
+void DashboardPage::RefreshMapToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::ReturnToggleAction_toggled()
+{
+
+}
+
+void DashboardPage::ThreeDimensionMapToggleAction(bool checked)
+{
+
+}
+
+void DashboardPage::TwoDimensionMapToggleAction(bool checked)
 {
 
 }
