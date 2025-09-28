@@ -119,6 +119,17 @@ private:
 // Hintboxes for demo purpose
 private:
     QPointer<HintboxDialog> m_weatherHintBox;
+    QPointer<HintboxDialog> m_bathymeterHintBox;
+    QPointer<HintboxDialog> m_portsHintBox;
+    QPointer<HintboxDialog> m_oceanRouteHintBox;
+    QPointer<HintboxDialog> m_ecaHintBox;
+    QPointer<HintboxDialog> m_piracyZoneHintBox;
+    QPointer<HintboxDialog> m_plannedRouteHintBox;
+    QPointer<HintboxDialog> m_actualRouteHintBox;
+    QPointer<HintboxDialog> m_refreshMapHintBox;
+    QPointer<HintboxDialog> m_returnHintBox;
+    QPointer<HintboxDialog> m_3dMapHintBox;
+    QPointer<HintboxDialog> m_2dMapHintBox;
 
 };
 
