@@ -43,8 +43,8 @@ void KPIOverviewFrame::setupWidget_sliderLabel()
     // Setup Energy Efficiency progress bar
     if (m_progressBarEnergyEfficiency) {
         m_progressBarEnergyEfficiency->setMinimum(0);
-        m_progressBarEnergyEfficiency->setMaximum(100);
-        m_progressBarEnergyEfficiency->setValue(75); // Example value
+        m_progressBarEnergyEfficiency->setMaximum(72);
+        m_progressBarEnergyEfficiency->setValue(54); // Example value
         m_progressBarEnergyEfficiency->setTextVisible(true);
         m_progressBarEnergyEfficiency->setFormat("%v%");
     }
@@ -52,19 +52,20 @@ void KPIOverviewFrame::setupWidget_sliderLabel()
     // Setup FO Consumption progress bar
     if (m_progressBarFOConsumption) {
         m_progressBarFOConsumption->setMinimum(0);
-        m_progressBarFOConsumption->setMaximum(100);
-        m_progressBarFOConsumption->setValue(60); // Example value
+        m_progressBarFOConsumption->setMaximum(313);
+        m_progressBarFOConsumption->setValue(296); // Example value
         m_progressBarFOConsumption->setTextVisible(true);
-        m_progressBarFOConsumption->setFormat("%v%");
+        m_progressBarFOConsumption->setFormat("%vg/kWh");
     }
 
-    // Setup Voyage CII progress bar
+    // Setup Voyage Carbon Emitted progress bar
     if (m_progressBarVoyageCII) {
         m_progressBarVoyageCII->setMinimum(0);
-        m_progressBarVoyageCII->setMaximum(100);
-        m_progressBarVoyageCII->setValue(85); // Example value
+        m_progressBarVoyageCII->setMaximum(150);
+        m_progressBarVoyageCII->setValue(64); // Example value
         m_progressBarVoyageCII->setTextVisible(true);
-        m_progressBarVoyageCII->setFormat("%v%");
+        // Carbon emitted per hour
+        m_progressBarVoyageCII->setFormat("%v gCO2/kWh");
     }
 }
 
@@ -142,6 +143,36 @@ void KPIOverviewFrame::applyStylesheet_dark()
         }
     )";
     this->setStyleSheet(stylesheetMainFrame);
+}
+
+QPointer<QProgressBar> KPIOverviewFrame::progressBarVoyageCII() const
+{
+    return m_progressBarVoyageCII;
+}
+
+QPointer<QProgressBar> KPIOverviewFrame::progressBarFOConsumption() const
+{
+    return m_progressBarFOConsumption;
+}
+
+QPointer<QProgressBar> KPIOverviewFrame::progressBarEnergyEfficiency() const
+{
+    return m_progressBarEnergyEfficiency;
+}
+
+QPointer<QLabel> KPIOverviewFrame::labelVoyageCII() const
+{
+    return m_labelVoyageCII;
+}
+
+QPointer<QLabel> KPIOverviewFrame::labelFOConsumption() const
+{
+    return m_labelFOConsumption;
+}
+
+QPointer<QLabel> KPIOverviewFrame::labelEnergyEfficiency() const
+{
+    return m_labelEnergyEfficiency;
 }
 
 

@@ -72,5 +72,29 @@
         <file>hintboxes/port.png</file>
         <file>reports/trial_cii_report.pdf</file>
         <file>icons/general/ic-up_arrow.png</file>
+        <file>icons/ribbon/welcome.png</file>
+        <file>icons/ribbon/manual.png</file>
+        <file>icons/sdgs/E-WEB-Goal-01.png</file>
+        <file>icons/sdgs/E-WEB-Goal-02.png</file>
+        <file>icons/sdgs/E-WEB-Goal-03.png</file>
+        <file>icons/sdgs/E-WEB-Goal-04.png</file>
+        <file>icons/sdgs/E-WEB-Goal-05.png</file>
+        <file>icons/sdgs/E-WEB-Goal-06.png</file>
+        <file>icons/sdgs/E-WEB-Goal-07.png</file>
+        <file>icons/sdgs/E-WEB-Goal-08.png</file>
+        <file>icons/sdgs/E-WEB-Goal-09.png</file>
+        <file>icons/sdgs/E-WEB-Goal-10.png</file>
+        <file>icons/sdgs/E-WEB-Goal-11.png</file>
+        <file>icons/sdgs/E-WEB-Goal-12.png</file>
+        <file>icons/sdgs/E-WEB-Goal-13.png</file>
+        <file>icons/sdgs/E-WEB-Goal-14.png</file>
+        <file>icons/sdgs/E-WEB-Goal-15.png</file>
+        <file>icons/sdgs/E-WEB-Goal-16.png</file>
+        <file>icons/sdgs/E-WEB-Goal-17.png</file>
+        <file>reports/1.pdf</file>
+        <file>reports/2.pdf</file>
+        <file>reports/3.pdf</file>
+        <file>reports/4.pdf</file>
+        <file>reports/manual.pdf</file>
     </qresource>
 </RCC>

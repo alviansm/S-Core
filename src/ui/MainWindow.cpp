@@ -27,6 +27,34 @@ MainWindow::MainWindow(QWidget *parent)
     setupDockManager();
     createContents();
     createActions();
+
+    // signal-slots
+
+    // --- File ---
+    connect(ui->actionOpen_Configuration, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionSave_Configuration, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionExport_Data, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionExit, &QAction::triggered, this, &MainWindow::applicationExit);
+
+    // --- Edit ---
+    connect(ui->actionPreferences, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionUser_Management, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+
+    // --- View ---
+    connect(ui->actionSave_Layout, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionSwitch_Vessel, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionSwitch_Fleet, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+
+    // --- Tools ---
+    connect(ui->actionIO_Device, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionCalibrate_Sensor, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionSystem_Health_Check, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+    connect(ui->actionSecurity_Settings, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+
+    // --- Help ---
+    connect(ui->actionUser_Manual, &QAction::triggered, this, &MainWindow::applicationUserManual);
+    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::applicationAbout);
 }
 
 MainWindow::~MainWindow()
@@ -714,14 +742,15 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
         "Toggle Show/Hide Top Sidebar"
     );
     ToggleTopSidebarAction->setCheckable(true);
+    ToggleTopSidebarAction->setChecked(true);
 
     // Toggle Hide/Show Main Sidebar
-    QAction* ToggleMainSidebarAction = createToolbarAction(
-        toolbar,
-        ":/icons/ribbon/sidebar.png",
-        "Toggle Show/Hide Main Sidebar"
-    );
-    ToggleMainSidebarAction->setCheckable(true);
+    // QAction* ToggleMainSidebarAction = createToolbarAction(
+    //     toolbar,
+    //     ":/icons/ribbon/sidebar.png",
+    //     "Toggle Show/Hide Main Sidebar"
+    // );
+    // ToggleMainSidebarAction->setCheckable(true);
 
     // Toggle Hide/Show Top Content
     QAction* ToggleTopContentAction = createToolbarAction(
@@ -730,6 +759,7 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
         "Toggle Show/Hide Top Content"
     );
     ToggleTopContentAction->setCheckable(true);
+    ToggleTopContentAction->setChecked(true);
 
     // --- Toolbars: Signal-Slot Connections ---
     connect(pageSelector, &QComboBox::currentIndexChanged, w, &TechnicalPage::setCurrentPage);
@@ -742,9 +772,9 @@ ads::CDockWidget *MainWindow::createTechnicalPage()
     connect(LoadFuelManagementSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
     connect(LoadBallastSysConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
     connect(LoadHotelLoadConfigAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
-    connect(ToggleTopSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
-    connect(ToggleMainSidebarAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
-    connect(ToggleTopContentAction, &QAction::toggled, w, &TechnicalPage::IODevice_toggled);
+    connect(ToggleTopSidebarAction, &QAction::toggled, w, &TechnicalPage::toggleHideShow_topSidebar);
+    // connect(ToggleMainSidebarAction, &QAction::toggled, w, &TechnicalPage::toggleHideShow_mainSidebar);
+    connect(ToggleTopContentAction, &QAction::toggled, w, &TechnicalPage::toggleHideShow_topContent);
 
     toolbar->setIconSize(QSize(16, 16)); // NOTE: Seems to not working
     DockWidget->setToolBar(toolbar);
@@ -906,10 +936,16 @@ void MainWindow::createActions()
 {
     ui->toolBar->setIconSize(QSize(24, 24));
 
-    QAction* toggleWelcomePage = new QAction();
-    toggleWelcomePage->setIcon(QIcon(":/icons/ribbon/paper-plane.png"));
-    toggleWelcomePage->setText("Welcome Page");
-    ui->toolBar->addAction(toggleWelcomePage);
+    m_pushButtonWelcomePage = new QPushButton();
+    m_pushButtonWelcomePage->setIcon(QIcon(":/icons/ribbon/manual.png"));
+    m_pushButtonWelcomePage->setIconSize(QSize(24, 24));
+    m_pushButtonWelcomePage->setToolTip("Welcome Page");
+    m_pushButtonWelcomePage->setFlat(true);
+    m_pushButtonWelcomePage->setStyleSheet("QPushButton { padding: 0px; border: none; }");
+    m_pushButtonWelcomePage->setCheckable(true);
+    m_pushButtonWelcomePage->setChecked(true);
+    ui->toolBar->addWidget(m_pushButtonWelcomePage);
+    connect(m_pushButtonWelcomePage, &QPushButton::toggled, this, &MainWindow::pushButton_WelcomePage_clicked);
 
     ui->toolBar->addSeparator();
 
@@ -918,10 +954,134 @@ void MainWindow::createActions()
     savePerspective->setText("Save Perspective");
     ui->toolBar->addAction(savePerspective);
 
+    connect(savePerspective, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+
     QAction* loadPerspective = new QAction();
     loadPerspective->setIcon(QIcon(":/icons/ribbon/load-perspective.png"));
     loadPerspective->setText("Load Perspective");
     ui->toolBar->addAction(loadPerspective);
+
+    connect(loadPerspective, &QAction::triggered, this, &MainWindow::previewFeature_clicked);
+
+    // Add spacer to push SDG buttons to the right
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    ui->toolBar->addWidget(spacer);
+
+    // SDG 13 - Climate Action
+    QToolButton* sdg13Btn = new QToolButton();
+    sdg13Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-13.png"));
+    sdg13Btn->setToolTip("SDG 13 - Climate Action");
+    sdg13Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg13Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 13 - Climate Action",
+            "Take urgent action to combat climate change and its impacts\n\n"
+            "Directly addressed: reducing CO₂ and other GHG emissions from shipping. "
+            "Aligns with IMO Initial and Revised GHG Strategies.");
+    });
+    ui->toolBar->addWidget(sdg13Btn);
+
+    // SDG 14 - Life Below Water
+    QToolButton* sdg14Btn = new QToolButton();
+    sdg14Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-14.png"));
+    sdg14Btn->setToolTip("SDG 14 - Life Below Water");
+    sdg14Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg14Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 14 - Life Below Water",
+            "Conserve and sustainably use the oceans, seas and marine resources\n\n"
+            "Less air pollution reduces acidification, deposition of harmful pollutants, "
+            "and supports healthier marine ecosystems.");
+    });
+    ui->toolBar->addWidget(sdg14Btn);
+
+    // SDG 3 - Good Health and Well-being
+    QToolButton* sdg3Btn = new QToolButton();
+    sdg3Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-03.png"));
+    sdg3Btn->setToolTip("SDG 3 - Good Health and Well-being");
+    sdg3Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg3Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 3 - Good Health and Well-being",
+            "Ensure healthy lives and promote well-being for all\n\n"
+            "Cutting SOx, NOx, and particulate matter improves coastal air quality, "
+            "reducing respiratory and cardiovascular disease.");
+    });
+    ui->toolBar->addWidget(sdg3Btn);
+
+    // SDG 7 - Affordable and Clean Energy
+    QToolButton* sdg7Btn = new QToolButton();
+    sdg7Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-07.png"));
+    sdg7Btn->setToolTip("SDG 7 - Affordable and Clean Energy");
+    sdg7Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg7Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 7 - Affordable and Clean Energy",
+            "Ensure access to affordable, reliable, sustainable and modern energy\n\n"
+            "Drives uptake of cleaner fuels (LNG, methanol, ammonia, biofuels) "
+            "and energy efficiency tech in shipping.");
+    });
+    ui->toolBar->addWidget(sdg7Btn);
+
+    // SDG 9 - Industry, Innovation, and Infrastructure
+    QToolButton* sdg9Btn = new QToolButton();
+    sdg9Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-09.png"));
+    sdg9Btn->setToolTip("SDG 9 - Industry, Innovation, and Infrastructure");
+    sdg9Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg9Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 9 - Industry, Innovation, and Infrastructure",
+            "Build resilient infrastructure, promote sustainable industrialization and foster innovation\n\n"
+            "Encourages innovation in ship design, propulsion systems, and port infrastructure "
+            "to support low-carbon fuels.");
+    });
+    ui->toolBar->addWidget(sdg9Btn);
+
+    // SDG 12 - Responsible Consumption and Production
+    QToolButton* sdg12Btn = new QToolButton();
+    sdg12Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-12.png"));
+    sdg12Btn->setToolTip("SDG 12 - Responsible Consumption and Production");
+    sdg12Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg12Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 12 - Responsible Consumption and Production",
+            "Ensure sustainable consumption and production patterns\n\n"
+            "Promotes resource-efficient operations and life-cycle thinking in shipping, "
+            "including recycling of ships and equipment.");
+    });
+    ui->toolBar->addWidget(sdg12Btn);
+
+    // SDG 17 - Partnerships for the Goals
+    QToolButton* sdg17Btn = new QToolButton();
+    sdg17Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-17.png"));
+    sdg17Btn->setToolTip("SDG 17 - Partnerships for the Goals");
+    sdg17Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg17Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 17 - Partnerships for the Goals",
+            "Strengthen the means of implementation and revitalize the global partnership for sustainable development\n\n"
+            "Global regulatory frameworks (IMO, MEPC, industry coalitions) are international partnerships "
+            "to reduce shipping emissions.");
+    });
+    ui->toolBar->addWidget(sdg17Btn);
+
+    // SDG 8 - Decent Work and Economic Growth
+    QToolButton* sdg8Btn = new QToolButton();
+    sdg8Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-08.png"));
+    sdg8Btn->setToolTip("SDG 8 - Decent Work and Economic Growth");
+    sdg8Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg8Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 8 - Decent Work and Economic Growth",
+            "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all\n\n"
+            "Transition to green shipping can create green jobs and sustainable maritime industries.");
+    });
+    ui->toolBar->addWidget(sdg8Btn);
+
+    // SDG 11 - Sustainable Cities and Communities
+    QToolButton* sdg11Btn = new QToolButton();
+    sdg11Btn->setIcon(QIcon(":/icons/sdgs/E-WEB-Goal-11.png"));
+    sdg11Btn->setToolTip("SDG 11 - Sustainable Cities and Communities");
+    sdg11Btn->setStyleSheet("QToolButton { border: none; }");
+    connect(sdg11Btn, &QToolButton::clicked, this, [this]() {
+        QMessageBox::information(this, "SDG 11 - Sustainable Cities and Communities",
+            "Make cities and human settlements inclusive, safe, resilient and sustainable\n\n"
+            "Better air quality in port cities from reduced SOx/NOx and particulates.");
+    });
+    ui->toolBar->addWidget(sdg11Btn);
 }
 
 void MainWindow::on_pushButton_DashboardPage_clicked(bool checked)
@@ -958,6 +1118,72 @@ void MainWindow::on_pushButton_SettingPage_clicked(bool checked)
     addDockWidgetWithDockManager(ui->pushButton_SettingPage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::Setting);
 }
 
+void MainWindow::pushButton_WelcomePage_clicked(bool checked)
+{
+    qInfo() << "Welcome Page button clicked, checked:" << checked;
+    addDockWidgetWithDockManager(m_pushButtonWelcomePage, checked, ads::DockWidgetArea::CenterDockWidgetArea, MainWindow::Page::Welcome);
+}
+
+void MainWindow::previewFeature_clicked(bool checked)
+{
+    QMessageBox::information(this, "Preview", "This button is a preview-only");
+}
+
+void MainWindow::applicationExit(bool checked)
+{
+    // Confirm dialog before exit
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Exit Application", "Are you sure you want to exit the application?",
+                                  QMessageBox::Yes | QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        QApplication::quit();
+    } else {
+        // Do nothing if No is selected
+    }
+}
+
+void MainWindow::applicationUserManual(bool checked)
+{
+    // Path inside qrc
+    QString resourcePath = ":/reports/manual.pdf";
+
+    // Open resource as QFile
+    QFile file(resourcePath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to open embedded PDF:" << resourcePath;
+        return;
+    }
+
+    // Create temporary file on disk with proper template
+    QTemporaryFile tmpFile(QDir::tempPath() + "/userManual_XXXXXX.pdf");
+    tmpFile.setAutoRemove(false); // keep file after program exits
+    if (!tmpFile.open()) {
+        qDebug() << "Failed to create temporary PDF file";
+        return;
+    }
+
+    // Write the PDF data to the temporary file
+    tmpFile.write(file.readAll());
+    tmpFile.flush();
+
+    QString tempPath = tmpFile.fileName();
+    tmpFile.close(); // Close before opening with external viewer
+
+    // Open using the default system PDF viewer
+    QDesktopServices::openUrl(QUrl::fromLocalFile(tempPath));
+}
+
+void MainWindow::applicationAbout(bool checked)
+{
+    // About dialog via QMessageBox
+    QMessageBox::about(this, "About EnergyEfficientShip",
+                       "<b>Vessel Performance Monitoring and Decision Support System</b><br>"
+                       "Version Prototype (0.0.1)<br><br>"
+                       "Developed by:<br>"
+                       "Tim A<br><br>"
+                       "© 2025 Nautipro Connect Solutions. All rights reserved.");
+}
+
 void MainWindow::addDockWidgetWithDockManager(QPushButton *pushButtonSource, bool checked, ads::DockWidgetArea area, MainWindow::Page page)
 {
     if (pushButtonSource == nullptr) return;
@@ -989,6 +1215,10 @@ void MainWindow::addDockWidgetWithDockManager(QPushButton *pushButtonSource, boo
             case MainWindow::Page::Setting:
                 DockWidget = createSettingPage();
                 DockWidget->setObjectName("SettingPage");
+                break;
+            case MainWindow::Page::Welcome:
+                DockWidget = createWelcomePage();
+                DockWidget->setObjectName("WelcomePage");
                 break;
             default:
                 break;
@@ -1034,6 +1264,9 @@ void MainWindow::addDockWidgetWithDockManager(QPushButton *pushButtonSource, boo
                 break;
             case MainWindow::Page::Setting:
                 dockToRemoveObjectName = "SettingPage";
+                break;
+            case MainWindow::Page::Welcome:
+                dockToRemoveObjectName = "WelcomePage";
                 break;
             default:
                 break;

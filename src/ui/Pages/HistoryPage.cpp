@@ -488,8 +488,20 @@ void HistoryPage::onDCSComponentChanged()
 
 void HistoryPage::onReportSelectionChanged()
 {
-    // For now, load a dummy PDF - you'll need to add actual PDFs to your resources
     QString reportPath = ":/reports/trial_cii_report.pdf";
+
+    if (m_reportCombo->currentIndex()==0) {
+        reportPath = ":/reports/1.pdf";
+    } else if (m_reportCombo->currentIndex()==1) {
+        reportPath = ":/reports/2.pdf";
+    } else if (m_reportCombo->currentIndex()==2) {
+        reportPath = ":/reports/3.pdf";
+    } else if (m_reportCombo->currentIndex()==3) {
+        reportPath = ":/reports/4.pdf";
+    } else if (m_reportCombo->currentIndex()==4) {
+        reportPath = ":/reports/trial_cii_report.pdf";
+    }
+
     m_pdfDocument->load(reportPath);
 }
 

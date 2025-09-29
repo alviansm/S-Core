@@ -32,7 +32,8 @@ public:
         DecisionSupport,
         VoyagePlanning,
         History,
-        Setting
+        Setting,
+        Welcome
     };
 
 public:
@@ -49,6 +50,14 @@ private slots:
     void on_pushButton_RoutePlanningPage_clicked(bool checked);
     void on_pushButton_HistoryPage_clicked(bool checked);
     void on_pushButton_SettingPage_clicked(bool checked);
+
+    void pushButton_WelcomePage_clicked(bool checked);
+
+    void previewFeature_clicked(bool checked);
+
+    void applicationExit(bool checked);
+    void applicationUserManual(bool checked);
+    void applicationAbout(bool checked);
 
 private:
     void addDockWidgetWithDockManager(QPushButton *actionSource, bool checked, ads::DockWidgetArea area, MainWindow::Page page);
@@ -72,6 +81,8 @@ private:
     ads::CDockManager* m_DockManager;
 
     ads::CDockAreaWidget* m_availableDockArea;
+
+    QPushButton* m_pushButtonWelcomePage;
 
 // Utilities
 private:

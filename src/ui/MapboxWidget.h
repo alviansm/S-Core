@@ -30,6 +30,9 @@ public:
     explicit MapboxWidget(QWidget *parent = nullptr);
     ~MapboxWidget();
 
+    void reloadMap();
+    void returnToInitialView();
+
 public slots:
     void setSeaRoute(const QVariantList &routeCoordinates, const QVariantList &markerData);
     void setShipPosition(double longitude, double latitude, double bearing = 0.0);

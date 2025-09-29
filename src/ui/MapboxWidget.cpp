@@ -208,3 +208,33 @@ void MapboxWidget::loadIconFromResource(const QString& iconNameInJs, const QStri
 MapboxWidget::~MapboxWidget()
 {
 }
+
+void MapboxWidget::reloadMap()
+{
+    if (!m_isPageLoaded) return;
+
+    m_isMapReady = false;
+    m_view->reload();
+
+    // Setelah reload, tunggu hingga map ready lagi
+    connect(this, &MapboxWidget::mapReady, this, [this]() {
+        // Proses data yang tertunda jika ada
+        if (!m_pendingRouteData.routeCoordinates.isEmpty() || !m_pendingRouteData.markerData.isEmpty()) {
+            setSeaRoute(m_pendingRouteData.routeCoordinates, m_pendingRouteData.markerData);
+            m_pendingRouteData = {}; // Clear pending data
+        }
+        if (m_hasPendingIconData) {
+            loadIconFromResource(m_pendingIconData.iconName, m_pendingIconData.resourcePath);
+            m_pendingIconData = {};
+            m_hasPendingIconData = false;
+        }
+    });
+}
+
+void MapboxWidget::returnToInitialView()
+{
+    if (!m_isPageLoaded) return;
+
+    QString script = "resetMapView();";
+    m_view->page()->runJavaScript(script);
+}

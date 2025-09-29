@@ -35,6 +35,10 @@ public slots:
     void PageSelector_currentIndex_changed(int index);
     void setCurrentPage(int pageIndex);
 
+    void toggleHideShow_topSidebar(bool checked);
+    void toggleHideShow_mainSidebar(bool checked);
+    void toggleHideShow_topContent(bool checked);
+
 private slots:
     void onDataUpdated(const VoyageLogs& data);
 

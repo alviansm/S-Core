@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QMessageBox>
+
 #include "CircleProgressBar.h"
 #include "../../service/MockApiService.h"
 
@@ -22,39 +24,6 @@ DashboardPage::DashboardPage(QWidget *parent)
     , m_currentRouteIndex(0)
 {
     ui->setupUi(this);
-
-    setupIcon();
-
-
-    // Style for alert list
-    // QString styleSheet = R"(
-    //     QListWidget {
-    //         background-color: #333333;
-    //         border: none;
-    //         outline: 0;
-    //     }
-    //     QListWidget::item {
-    //         background-color: #4F4F4F;
-    //         color: white;
-    //         padding: 10px;
-    //         margin: 6px 10px;
-    //         border-radius: 8px;
-    //         font-size: 12pt;
-    //     }
-    //     QListWidget::item:hover {
-    //         background-color: #616161;
-    //     }
-    //     QListWidget::item:selected {
-    //         background-color: #4F4F4F;
-    //         color: white;
-    //         border: 2px solid #34A853;
-    //     }
-    // )";
-
-    // ui->listWidget->setStyleSheet(styleSheet);
-    // ui->listWidget->setSelectionMode(QAbstractItemView::NoSelection);
-
-    addAlertRecomendation();
 
     // Setup layouts
     QVBoxLayout *mapLayout = new QVBoxLayout(ui->widgetMap);
@@ -287,55 +256,69 @@ void DashboardPage::updateShipPosition()
 
 void DashboardPage::setupIcon()
 {
-    // QString iconFuel = ":/icons/ribbon/gas-station.png";
-    // QString iconEngine = ":/icons/ribbon/engine.png";
-    // QString iconCII = ":/icons/ribbon/co2.png";
-    // QString iconWind = ":/icons/ribbon/wind.png";
-    // QString iconHumidity = ":/icons/ribbon/humidity.png";
-    // QString iconTemp = ":/icons/ribbon/thermometer.png";
-    // QString iconPressure = ":/icons/ribbon/barometer.png";
+    QString iconFuel = ":/icons/ribbon/gas-station.png";
+    QString iconEngine = ":/icons/ribbon/engine.png";
+    QString iconCII = ":/icons/ribbon/co2.png";
+    QString iconWind = ":/icons/ribbon/wind.png";
+    QString iconHumidity = ":/icons/ribbon/humidity.png";
+    QString iconTemp = ":/icons/ribbon/thermometer.png";
+    QString iconPressure = ":/icons/ribbon/barometer.png";
 
 
     // // Setup to Graphics View
     // // Fuel
-    // QGraphicsScene *sceneFuel = new QGraphicsScene(this);
-    // sceneFuel->addPixmap(QPixmap(iconFuel).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneFuel = new QGraphicsScene(this);
+    sceneFuel->addPixmap(QPixmap(iconFuel).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_KPIOverviewFrame->graphicsViewFOConsumption()->setScene(sceneFuel);
+    m_KPIOverviewFrame->graphicsViewFOConsumption()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewFuel->setScene(sceneFuel);
     // ui->graphicsViewFuel->setStyleSheet("background: transparent; border: none;");
 
     // // Engine
-    // QGraphicsScene *sceneEngine = new QGraphicsScene(this);
-    // sceneEngine->addPixmap(QPixmap(iconEngine).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneEngine = new QGraphicsScene(this);
+    sceneEngine->addPixmap(QPixmap(iconEngine).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_KPIOverviewFrame->graphicsViewEnergyEfficiency()->setScene(sceneEngine);
+    m_KPIOverviewFrame->graphicsViewEnergyEfficiency()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewEngine->setScene(sceneEngine);
     // ui->graphicsViewEngine->setStyleSheet("background: transparent; border: none;");
 
     // // CII
-    // QGraphicsScene *sceneCII = new QGraphicsScene(this);
-    // sceneCII->addPixmap(QPixmap(iconCII).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneCII = new QGraphicsScene(this);
+    sceneCII->addPixmap(QPixmap(iconCII).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_KPIOverviewFrame->graphicsViewVoyageCII()->setScene(sceneCII);
+    m_KPIOverviewFrame->graphicsViewVoyageCII()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewCII->setScene(sceneCII);
     // ui->graphicsViewCII->setStyleSheet("background: transparent; border: none;");
 
     // // Wind
-    // QGraphicsScene *sceneWind = new QGraphicsScene(this);
-    // sceneWind->addPixmap(QPixmap(iconWind).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneWind = new QGraphicsScene(this);
+    sceneWind->addPixmap(QPixmap(iconWind).scaled(16, 16, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_WeatherFrame->graphicsViewWindSpeed()->setScene(sceneWind);
+    m_WeatherFrame->graphicsViewWindSpeed()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewWind->setScene(sceneWind);
     // ui->graphicsViewWind->setStyleSheet("background: transparent; border: none;");
 
     // // Humidity
-    // QGraphicsScene *sceneHumidity = new QGraphicsScene(this);
-    // sceneHumidity->addPixmap(QPixmap(iconHumidity).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneHumidity = new QGraphicsScene(this);
+    sceneHumidity->addPixmap(QPixmap(iconHumidity).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_WeatherFrame->graphicsViewHumidity()->setScene(sceneHumidity);
+    m_WeatherFrame->graphicsViewHumidity()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewHumidity->setScene(sceneHumidity);
     // ui->graphicsViewHumidity->setStyleSheet("background: transparent; border: none;");
 
     // // Temp
-    // QGraphicsScene *sceneTemp = new QGraphicsScene(this);
-    // sceneTemp->addPixmap(QPixmap(iconTemp).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *sceneTemp = new QGraphicsScene(this);
+    sceneTemp->addPixmap(QPixmap(iconTemp).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_WeatherFrame->graphicsViewTemperature()->setScene(sceneTemp);
+    m_WeatherFrame->graphicsViewTemperature()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewTemperature->setScene(sceneTemp);
     // ui->graphicsViewTemperature->setStyleSheet("background: transparent; border: none;");
 
     // // Pressure
-    // QGraphicsScene *scenePressure = new QGraphicsScene(this);
-    // scenePressure->addPixmap(QPixmap(iconPressure).scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QGraphicsScene *scenePressure = new QGraphicsScene(this);
+    scenePressure->addPixmap(QPixmap(iconPressure).scaled(24, 24, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    m_WeatherFrame->graphicsViewPressure()->setScene(scenePressure);
+    m_WeatherFrame->graphicsViewPressure()->setStyleSheet("background: transparent; border: none;");
     // ui->graphicsViewPressure->setScene(scenePressure);
     // ui->graphicsViewPressure->setStyleSheet("background: transparent; border: none;");
 }
@@ -343,9 +326,12 @@ void DashboardPage::setupIcon()
 void DashboardPage::onDataUpdated(const VoyageLogs &data)
 {
     // Print received data for debugging
-    // qDebug() << "Voyage Log ID:" << data.log_id;
-    // qDebug() << "Voyage ID:" << data.voyage_id;
-    // qDebug() << "Timestamp:" << data.timestamp;
+
+    // m_KPIOverviewFrame->labelFOConsumption()->setText(QString::number(data.propulsion_logs[0].fuel_consumption_rate, 'f', 2));
+    // m_KPIOverviewFrame->labelEnergyEfficiency()->setText(QString::number(data.propulsion_logs[0].engine_load, 'f', 2));
+    m_KPIOverviewFrame->progressBarFOConsumption()->setValue(static_cast<int>(data.propulsion_logs[0].fuel_consumption_rate));
+    m_KPIOverviewFrame->progressBarEnergyEfficiency()->setValue(static_cast<int>(data.propulsion_logs[0].engine_load));
+    m_WeatherFrame->labelWindSpeedValue()->setText(QString::number(data.wind_speed, 'i', 0));
 
     // ui->fuelConsumption->setText(QString::number(data.propulsion_logs[0].fuel_consumption_rate));
     // ui->engineEfficiencyPercentage->setText(QString::number(data.propulsion_logs[0].engine_load));
@@ -361,6 +347,38 @@ void DashboardPage::createWidgetFrameOverlay()
     m_AlertAndRecomendationFrame->hide();
     m_KPIOverviewFrame->hide();
     m_WeatherFrame->hide();
+
+    // Style for alert list
+    QString styleSheet = R"(
+        QListWidget {
+            background-color: #333333;
+            border: none;
+            outline: 0;
+        }
+        QListWidget::item {
+            background-color: #4F4F4F;
+            color: white;
+            padding: 10px;
+            margin: 6px 10px;
+            border-radius: 8px;
+            font-size: 12pt;
+        }
+        QListWidget::item:hover {
+            background-color: #616161;
+        }
+        QListWidget::item:selected {
+            background-color: #4F4F4F;
+            color: white;
+            border: 2px solid #34A853;
+        }
+    )";
+
+    m_AlertAndRecomendationFrame->listWidget()->setStyleSheet(styleSheet);
+    m_AlertAndRecomendationFrame->listWidget()->setSelectionMode(QAbstractItemView::NoSelection);
+
+    addAlertRecomendation();
+
+    setupIcon();
 }
 
 double DashboardPage::calculateBearing(const QPointF &from, const QPointF &to)
@@ -394,7 +412,7 @@ void DashboardPage::resizeEvent(QResizeEvent *event)
 void DashboardPage::positionOverlay()
 {
     // m_AlertAndRecomendationFrame widget overlay (top-left)
-    int margin = 6; // distance from edge
+    int margin = 9; // distance from edge
     int x = margin;
     int y = margin;
     m_AlertAndRecomendationFrame->move(x, y);
@@ -453,7 +471,7 @@ DashboardPage::~DashboardPage()
 
 void DashboardPage::addAlertRecomendation()
 {
-    // ui->listWidget->addItem(new QListWidgetItem(QIcon(":/icons/ribbon/alert.png"), "Alert: Main Engine Power Low"));
+    m_AlertAndRecomendationFrame->listWidget()->addItem(new QListWidgetItem(QIcon(":/icons/ribbon/alert.png"), "Alert: Low-speed"));
 }
 
 void DashboardPage::setCurrentMapStyle(int index)
@@ -835,22 +853,26 @@ void DashboardPage::WeatherFrame_toggled(bool checked)
     }
 }
 
-void DashboardPage::RefreshMapToggleAction_toggled()
+void DashboardPage::RefreshMapToggleAction_toggled(bool checked)
 {
-
+    if (m_mapboxWidget) {
+        m_mapboxWidget->reloadMap();
+    }
 }
 
-void DashboardPage::ReturnToggleAction_toggled()
+void DashboardPage::ReturnToggleAction_toggled(bool checked)
 {
-
+    if (m_mapboxWidget) {
+        m_mapboxWidget->returnToInitialView();
+    }
 }
 
 void DashboardPage::ThreeDimensionMapToggleAction(bool checked)
 {
-
+    QMessageBox::information(this, "Preview", "This button is a preview-only");
 }
 
 void DashboardPage::TwoDimensionMapToggleAction(bool checked)
 {
-
+    QMessageBox::information(this, "Preview", "This button is a preview-only");
 }

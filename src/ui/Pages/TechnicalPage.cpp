@@ -16,6 +16,7 @@
 #include <QDateTime>
 #include <QBrush>
 #include <QRandomGenerator>
+#include <QMessageBox>
 
 #include "CircleProgressBar.h"
 #include "SpeedometerWidget.h"
@@ -66,11 +67,16 @@ void TechnicalPage::PageSelector_currentIndex_changed(int index)
 
 void TechnicalPage::IODevice_toggled(bool checked)
 {
-    qInfo() << "IODevice toggled:" << checked;
+    QMessageBox::information(this, "Preview", "This button is a preview-only");
 }
 
 void TechnicalPage::setCurrentPage(int pageIndex)
 {
+    if (pageIndex > 1 && pageIndex < 5) {
+        QMessageBox::information(this, "Preview", "This button is a preview-only");
+        return;
+    }
+
     if (pageIndex >= 0 && pageIndex < 5) // We have 5 pages
     {
         m_currentPage = pageIndex;
@@ -82,6 +88,33 @@ void TechnicalPage::setCurrentPage(int pageIndex)
         m_mainContent->setCurrentIndex(pageIndex);
 
         qInfo() << "Current page changed to:" << pageIndex;
+    }
+}
+
+void TechnicalPage::toggleHideShow_topSidebar(bool checked)
+{
+    if (checked) {
+        m_topSidebar->show();
+    } else {
+        m_topSidebar->hide();
+    }
+}
+
+void TechnicalPage::toggleHideShow_mainSidebar(bool checked)
+{
+    if (checked) {
+        m_mainSidebar->show();
+    } else {
+        m_mainSidebar->hide();
+    }
+}
+
+void TechnicalPage::toggleHideShow_topContent(bool checked)
+{
+    if (checked) {
+        m_topContent->show();
+    } else {
+        m_topContent->hide();
     }
 }
 
@@ -906,7 +939,7 @@ void TechnicalPage::createPropulsionSystemPageContent_mainContent()
     layout->setSpacing(8);
 
     // Title
-    QLabel* titleLabel = new QLabel("P&ID Diagram");
+    QLabel* titleLabel = new QLabel("Propulsion System Diagram");
     titleLabel->setStyleSheet("color: white; font-weight: bold; font-size: 14px;");
     titleLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     layout->addWidget(titleLabel);

@@ -63,8 +63,8 @@ public slots:
     void KPIOverviewFrame_toggled(bool checked);
     void WeatherFrame_toggled(bool checked);
 
-    void RefreshMapToggleAction_toggled();
-    void ReturnToggleAction_toggled();
+    void RefreshMapToggleAction_toggled(bool checked);
+    void ReturnToggleAction_toggled(bool checked);
 
     void ThreeDimensionMapToggleAction(bool checked);
     void TwoDimensionMapToggleAction(bool checked);

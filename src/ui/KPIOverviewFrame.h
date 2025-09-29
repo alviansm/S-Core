@@ -25,6 +25,14 @@ public:
     QPointer<QGraphicsView> graphicsViewFOConsumption() const;
     QPointer<QGraphicsView> graphicsViewVoyageCII() const;
 
+    QPointer<QLabel> labelEnergyEfficiency() const;
+    QPointer<QLabel> labelFOConsumption() const;
+    QPointer<QLabel> labelVoyageCII() const;
+
+    QPointer<QProgressBar> progressBarEnergyEfficiency() const;
+    QPointer<QProgressBar> progressBarFOConsumption() const;
+    QPointer<QProgressBar> progressBarVoyageCII() const;
+
 private:
     void setupWidget();
 
