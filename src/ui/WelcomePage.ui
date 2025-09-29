@@ -65,7 +65,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>131</width>
+        <width>151</width>
         <height>16</height>
        </rect>
       </property>
@@ -81,7 +81,7 @@
 }</string>
       </property>
       <property name="text">
-       <string>Welcome to SCore</string>
+       <string>Welcome to EEShip</string>
       </property>
      </widget>
     </widget>
@@ -101,7 +101,7 @@
 }</string>
      </property>
      <property name="text">
-      <string>You have started the software with the default configuration. SCore loads the default configuration when it runs for the first time or no configuration is set up. To work with your devices, you need a valid device configuration.</string>
+      <string>You have started the software with the default configuration. EEShip loads the default configuration when it runs for the first time or no configuration is set up. To work with your devices, you need a valid device configuration.</string>
      </property>
      <property name="textFormat">
       <enum>Qt::TextFormat::RichText</enum>
@@ -428,7 +428,7 @@
 }</string>
           </property>
           <property name="text">
-           <string>Starts SCore with a demo configuration and explore features without real device.</string>
+           <string>Starts EEShip with a demo configuration and explore features without real device.</string>
           </property>
           <property name="textFormat">
            <enum>Qt::TextFormat::RichText</enum>

@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    setWindowTitle("S-Core");
+    setWindowTitle("EEShip - EnergyEfficientShip");
 
     setupDockManager();
     createContents();
