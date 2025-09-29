@@ -6,7 +6,8 @@
 
 **Project Repository:** 
 1. Desktop App: https://repo.sucofindo.co.id/team.a/eeship-desktop-app
-2. Server App:
+2. Server App: https://repo.sucofindo.co.id/team.a/eeship-api
+3. Web IoT Prototype : https://repo.sucofindo.co.id/team.a/eeship-web
 
 ## 1. Application Overview
 
