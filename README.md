@@ -9,6 +9,9 @@
 2. Server App: https://repo.sucofindo.co.id/team.a/eeship-api
 3. Web IoT Prototype : https://repo.sucofindo.co.id/team.a/eeship-web
 
+**Link Desktop Installer:**
+1. EEShip Desktop Prototype Installer: https://drive.google.com/file/d/1ZZXGeiUvWkhZyChp9guJiNzuXImzc5jo/view?usp=sharing 
+
 ## 1. Application Overview
 
 EEShip is a holistic IoT & AI system for ship voyage planning and monitoring, supporting IMO standards towards net-zero carbon targets on existing vessels.
