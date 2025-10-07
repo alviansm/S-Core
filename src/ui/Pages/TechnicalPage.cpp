@@ -17,7 +17,7 @@
 #include <QBrush>
 #include <QRandomGenerator>
 #include <QMessageBox>
-
+#include <QScrollArea>
 #include "CircleProgressBar.h"
 #include "SpeedometerWidget.h"
 #include "EngineStatusWidget.h"
@@ -934,6 +934,12 @@ void TechnicalPage::createPropulsionSystemPageContent_topContent()
 void TechnicalPage::createPropulsionSystemPageContent_mainContent()
 {
     QWidget* page = new QWidget();
+
+    QScrollArea* scrollArea = new QScrollArea;
+    scrollArea->setBackgroundRole(QPalette::Dark);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(page);
+
     QVBoxLayout* layout = new QVBoxLayout(page);
     layout->setContentsMargins(6, 6, 6, 6);
     layout->setSpacing(8);
@@ -968,9 +974,8 @@ void TechnicalPage::createPropulsionSystemPageContent_mainContent()
     FuelTankData ft = {"26 Ton (75%)", "14 Ton (35%)", "16 Ton (35%)", "26 Ton (75%)"};
     pidWidget->setFuelTankData(ft);
 
-    m_mainContent->addWidget(page);
+    m_mainContent->addWidget(scrollArea);
 }
-
 // --- Electrical System Page Content ---
 void TechnicalPage::createElectricalSystemPageContent()
 {
